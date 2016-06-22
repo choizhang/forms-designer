@@ -1,0 +1,20 @@
+{
+  "name": "drag",
+  "description": "",
+  "authors": [
+    "choizhang <m18680391172_1@163.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.4"
+  }
+}

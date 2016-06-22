@@ -1,0 +1,8 @@
+
+# IntelliJ project files
+.idea
+*.iml
+bower_components
+node_modules
+.tmp
+

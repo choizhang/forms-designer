@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor demo</title>
+    <style>
+        .current{
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="javascript:;" class="add">增加一个视图</a>
+
+    <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
+
+    <ul class="navigation">
+        <li>视图1</li>
+    </ul>
+    <ul class="content">
+        <li>
+            <!-- 加载编辑器的容器 -->
+            <script id="container" name="content" type="text/plain">
+                这里写你的初始化内容
+            </script>
+        </li>
+    </ul>
+
+
+    <!-- 配置文件 -->
+    <script type="text/javascript" src="ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="ueditor.all.js"></script>
+    <script type="text/javascript" src="addCustomizeButton.js"></script>
+    <script type="text/javascript" src="addCustomizeCombox.js"></script>
+    <script type="text/javascript" src="addCustomizeDialog.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ues = [];
+        ues[0] = UE.getEditor('container', {
+//            toolbars: [
+//                ['fullscreen', 'source', 'undo', 'redo', 'bold']
+//            ],
+            allowDivTransToP: false,
+            autoHeightEnabled: true,
+            autoFloatEnabled: true
+        });
+
+        $(function() {
+            var index = 1;
+            var ss = '<li><script id="container$1" name="content$1" type="text/plain"><\/script></li>';
+            var dd = '<li>视图$1</li>';
+            $('.add').on('click', function() {
+                index++;
+                $('.content').append(ss.replace(/\$1/g, index));
+                $('.navigation').append(dd.replace(/\$1/g, index))
+                ues[index-1] = UE.getEditor('container'+index);
+                $('.navigation').find('li').last().trigger('click');
+            })
+
+            $('.navigation').on('click', 'li', function() {
+                $('.navigation').find('.current').removeClass('current')
+                var num = $(this).addClass('current').index();
+                $('.content').find('li').hide().eq(num).show();
+            })
+        });
+    </script>
+
+
+</body>
+
+</html>
