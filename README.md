@@ -1,9 +1,16 @@
-# forms-designer
-Forms Designer(dev)
+# Forms Designer(dev)
+
+## Intro:
 
 主要是基于editor来做二次开发,目前是启用了一个node static server来做,所以对文件图片的上传效果是不支持的,后期是会放到php的server上面去
 
+## Tips:
+
 [Daily Paper](DailyPaper.md)
+
+开发中碰到问题都记录在[Issues](https://github.com/choizhang/forms-designer/issues)
+
+整理总结的文档请参考[Wiki](https://github.com/choizhang/forms-designer/wiki)
 
 下面是前期的一些评估点:
 
@@ -791,3 +798,9 @@ Forms Designer(dev)
         </tr>
     </tbody>
 </table>
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) choizhang
