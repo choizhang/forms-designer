@@ -6912,10 +6912,9 @@
 
                     container.style.width = /%$/.test(options.initialFrameWidth) ?  '100%' : options.initialFrameWidth-
                     getStyleValue("padding-left")- getStyleValue("padding-right") +'px';
-                    container.style.height = /%$/.test(options.initialFrameHeight) ?  '100%' : options.initialFrameHeight -
-                    getStyleValue("padding-top")- getStyleValue("padding-bottom") +'px';
-
-                    container.style.height = '100px'
+                    //my 高度取消了设置,因为后面还有一个autoHeight可以设置
+                    //container.style.height = /%$/.test(options.initialFrameHeight) ?  '100%' : options.initialFrameHeight -
+                    //getStyleValue("padding-top")- getStyleValue("padding-bottom") +'px';
 
                     container.style.zIndex = options.zIndex;
 
@@ -7134,6 +7133,7 @@
                     this.iframe.parentNode.style.height = height + 'px';
                 }
                 !notSetHeight && (this.options.minFrameHeight = this.options.initialFrameHeight = height);
+
                 this.body.style.height = height + 'px';
                 !notSetHeight && this.trigger('setHeight')
             },
@@ -17346,9 +17346,11 @@
                         currentHeight = Math.max(domUtils.getXY(node).y + node.offsetHeight + 25 ,Math.max(options.minFrameHeight, options.initialFrameHeight)) ;
                         if (currentHeight != lastHeight) {
                             if (currentHeight !== parseInt(me.iframe.parentNode.style.height)) {
-                                me.iframe.parentNode.style.height = currentHeight + 'px';
+                                //my 将iframe的外层div高度添加40,因为我设置的margin 20
+                                me.iframe.parentNode.style.height = currentHeight+40 + 'px';
                             }
                             me.body.style.height = currentHeight + 'px';
+                            console.log(currentHeight)
                             lastHeight = currentHeight;
                         }
                         domUtils.removeStyle(node,'clear');
@@ -17831,8 +17833,11 @@
                 caption:caption
             }
         };
+
+        //不知道UETable是做什么的,但是一般情况table就是一个js对象是没有uetable的
         UETable.getUETableBySelected = function (editor) {
             var table = UETable.getTableItemsByRange(editor).table;
+
             if (table && table.ueTable && table.ueTable.selectedTds.length) {
                 return table.ueTable;
             }
@@ -17858,11 +17863,14 @@
                 tmpValue = domUtils.getComputedStyle(td, 'border-left-width');
                 tdBorder = parseInt(borderMap[tmpValue] || tmpValue, 10);
                 domUtils.remove(table);
-                return {
+
+                var dd = {
                     tableBorder:tableBorder,
                     tdPadding:tdPadding,
                     tdBorder:tdBorder
                 };
+                console.log(dd)
+                return dd;
             } else {
                 td = table.getElementsByTagName('td')[0];
                 tmpValue = domUtils.getComputedStyle(table, 'border-left-width');
@@ -17871,11 +17879,14 @@
                 tdPadding = parseInt(borderMap[tmpValue] || tmpValue, 10);
                 tmpValue = domUtils.getComputedStyle(td, 'border-left-width');
                 tdBorder = parseInt(borderMap[tmpValue] || tmpValue, 10);
-                return {
+
+                var dd = {
                     tableBorder:tableBorder,
                     tdPadding:tdPadding,
                     tdBorder:tdBorder
                 };
+                console.log(dd)
+                return dd;
             }
         };
         /**
@@ -19653,6 +19664,7 @@
                     start = me.selection.getStart(),
                     table = start && domUtils.findParentByTagName(start, ["table"], true);
 
+                console.log(table)
                 if (table) {
                     table.setAttribute("align",value);
                 }
@@ -22167,10 +22179,13 @@
                         ]
                     },
                     {
+                        //表格对齐方式
                         group:lang.aligntable,
                         icon:'aligntable',
+                        //二级菜单
                         subMenu:[
                             {
+                                //命令名
                                 cmdName:'tablealignment',
                                 className: 'left',
                                 label:lang.tableleft,
@@ -25679,6 +25694,7 @@
                     utils.cssRule('edui-customize-'+this.name+'-style',this.cssRules);
                 }
             },
+            //这就是工具栏组件默认的html
             getHtmlTpl: function (){
                 return '<div id="##" class="edui-box %%">' +
                     '<div id="##_state" stateful>' +
@@ -27544,6 +27560,7 @@
             'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
             'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
 
+        //下面的代码就是对工具栏中的按钮进行事件绑定了
         for (var i = 0, ci; ci = btnCmds[i++];) {
             ci = ci.toLowerCase();
             editorui[ci] = function (cmd) {

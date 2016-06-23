@@ -20,6 +20,9 @@ UE.registerUI('button', function (editor, uiName) {
             editor.execCommand(uiName);
             console.log('执行自己的命令')
             editor.execCommand( 'inserthtml', '<div><input type="text" value="bbb" /></div>');
+
+            //点击表格前或内部都可以实现表格居中
+            //editor.execCommand( 'tablealignment', 'center');
         }
     });
 

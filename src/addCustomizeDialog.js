@@ -20,8 +20,8 @@ UE.registerUI('dialog',function(editor,uiName){
                 className:'edui-okbutton',
                 label:'确定',
                 onclick:function () {
-                    console.log($('#' + dialog.id).find('input'));
-                    dialog.editor.execCommand( 'inserthtml', '<div>111</div>');
+                    var $input = $('#' + dialog.id).find('iframe').contents().find('input')
+                    dialog.editor.execCommand( 'inserthtml', '<div>' + $input.val() + '</div>');
 
                     dialog.close(true);
                 }
