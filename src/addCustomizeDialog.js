@@ -21,7 +21,21 @@ UE.registerUI('dialog',function(editor,uiName){
                 label:'确定',
                 onclick:function () {
                     var $input = $('#' + dialog.id).find('iframe').contents().find('input')
-                    dialog.editor.execCommand( 'inserthtml', '<div>' + $input.val() + '</div>');
+                    var num = $input.val();
+                    //var html = '<div>';
+                    //for(var i=0; i<num; i++){
+                    //    html += '<img src="" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;">';
+                    //}
+                    //html += '</div>';
+
+                    var html = '<table>';
+                    html += '<tr><th>11</th><th>22</th><th>33</th></tr><tr>'
+                    for(var i=0; i<num; i++){
+                        html += '<td><img src="text.png" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;"></td>';
+                    }
+                    html += '</tr></table>';
+
+                    dialog.editor.execCommand( 'inserthtml', html);
 
                     dialog.close(true);
                 }

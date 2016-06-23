@@ -11,15 +11,21 @@ UE.registerUI('button', function (editor, uiName) {
         //按钮的名字
         name: '自定义',
         //提示
-        title: '这是自定义',
+        title: '文本域',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
         cssRules: 'background-position: -500px 0;',
         //点击时执行的命令
         onclick: function () {
             //这里可以不用执行命令,做你自己的操作也可
             editor.execCommand(uiName);
-            console.log('执行自己的命令')
-            editor.execCommand( 'inserthtml', '<div><input type="text" value="bbb" /></div>');
+            //console.log('执行自己的命令')
+            editor.execCommand( 'inserthtml', '<img src="text.png" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;border:solid 1px #999;">');
+
+            //editor.execCommand('insertimage', {
+            //    src: '',
+            //    width: '100',
+            //    height: '100'
+            //});
 
             //点击表格前或内部都可以实现表格居中
             //editor.execCommand( 'tablealignment', 'center');
