@@ -12,6 +12,7 @@
         sorttable = $G("J_sorttable"),
         autoSizeContent = $G("J_autoSizeContent"),
         autoSizePage = $G("J_autoSizePage"),
+        J_current = $G("J_current"),
         borderWidth = $G("J_borderWidth"),
         borderStyle = $G("J_borderStyle"),
         tone = $G("J_tone"),
@@ -193,6 +194,7 @@
                 });
             }
         },
+        //边框的3个属性函数其实可以简化
         setWidth: function (e) {
             var example = $G("J_example"),
                 arr = domUtils.getElementsByTagName(example, "td").concat(
@@ -256,8 +258,8 @@
         //默认值就是页面宽度自适应
         setAutoSize: function () {
             var me = this;
-            autoSizePage.checked = true;
-            me.autoSizePageHanler();
+            J_current.checked = true;
+            //me.autoSizePageHanler();
         }
     };
 

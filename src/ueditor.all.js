@@ -20123,7 +20123,9 @@
             utils.each(tds, function (td) {
                 td.removeAttribute("width");
             });
-            table.setAttribute('width', getTableWidth(editor, true, getDefaultValue(editor, table)));
+            //my 按照页面宽度自适应,他这是用的计算的方法,我改成百分比了
+            //table.setAttribute('width', getTableWidth(editor, true, getDefaultValue(editor, table)));
+            table.setAttribute('width', '100%');
             var tdsWidths = [];
             setTimeout(function () {
                 utils.each(tds, function (td) {
