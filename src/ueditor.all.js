@@ -5890,6 +5890,7 @@
                     var range = this.cloneRange().adjustmentBoundary().shrinkBoundary();
                     if (selectOneNode(range)) {
                         var child = range.startContainer.childNodes[range.startOffset];
+                        console.log(range)
                         if (child && child.nodeType == 1 && (dtd.$empty[child.tagName] || dtd.$nonChild[child.tagName])) {
                             node = child;
                         }
@@ -14313,7 +14314,6 @@
 
         var me = this;
         me.ready(function () {
-            console.log(this.body)
             domUtils.on(this.body, 'dragend', function () {
                 var rng = me.selection.getRange();
                 var node = rng.getClosedNode() || me.selection.getStart();
@@ -17208,9 +17208,11 @@
                     me.isDraging = false;
                 },
                 _eventHandler: function (e) {
+
                     var me = this;
                     switch (e.type) {
                         case 'mousedown':
+                            console.log('ddd')
                             var hand = e.target || e.srcElement, hand;
                             if (hand.className.indexOf('edui-editor-scale-hand') != -1 && me.dragId == -1) {
                                 me.dragId = hand.className.slice(-1);
@@ -17328,12 +17330,14 @@
                     domUtils.on(this.resizer, 'mousedown', me.proxy(me._eventHandler, me));
                     domUtils.on(me.doc, 'mouseup', me.proxy(me._eventHandler, me));
 
+                    //my 遮罩还不能去除,会影响resize
                     me.showCover();
                     me.editor.fireEvent('afterscaleshow', me);
                     me.editor.fireEvent('saveScene');
                 },
                 hide: function () {
                     var me = this;
+                    console.log('dd')
                     me.hideCover();
                     me.resizer.style.display = 'none';
 
@@ -17353,7 +17357,6 @@
                         imgPos = domUtils.getXY(target),
                         iframePos = domUtils.getXY(me.editor.iframe),
                         editorPos = domUtils.getXY(resizer.parentNode);
-
 
                     domUtils.setStyles(resizer, {
                         'width': target.width + 'px',
@@ -17417,6 +17420,7 @@
                                 domUtils.un(document, 'mousedown', _mouseDownHandler);
                                 var target = imageScale.target;
                                 if (target.parentNode) {
+                                    console.log(target)
                                     me.selection.getRange().selectNode(target).select();
                                 }
                             });
@@ -17438,6 +17442,7 @@
                                 }
                             });
                         }
+                        console.log(imageScale)
                         imageScale.show(img);
                     } else {
                         if (imageScale && imageScale.resizer.style.display != 'none') imageScale.hide();
@@ -18203,7 +18208,6 @@
                     tdPadding: tdPadding,
                     tdBorder: tdBorder
                 };
-                console.log(dd)
                 return dd;
             } else {
                 td = table.getElementsByTagName('td')[0];
@@ -20010,7 +20014,7 @@
             queryCommandState: function () {
                 return getTableItemsByRange(this).table ? 0 : -1
             },
-            execCommand: function (cmd, color) {
+            execCommand: function (cmd, color, width) {
                 var rng = this.selection.getRange(),
                     table = domUtils.findParentByTagName(rng.startContainer, 'table');
                 if (table) {
@@ -20018,8 +20022,10 @@
                         domUtils.getElementsByTagName(table, "th"),
                         domUtils.getElementsByTagName(table, "caption")
                     );
+                    console.log(width)
                     utils.each(arr, function (node) {
                         node.style.borderColor = color;
+                        //node.style.borderWidth = width;
                     });
                 }
             }

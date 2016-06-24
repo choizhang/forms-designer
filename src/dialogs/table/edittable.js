@@ -42,6 +42,7 @@
             sorttable.disabled = !!(enablesortState < 0 && disablesortState < 0);
             sorttable.title = enablesortState < 0 && disablesortState < 0 ? lang.errorMsg:'';
 
+            //重置表格属性
             me.createTable(title.checked, titleCol.checked, caption.checked);
             me.setAutoSize();
             me.setColor(me.getColor());
@@ -59,6 +60,7 @@
             domUtils.on(document, 'mousedown', function () {
                 colorPop.hide();
             });
+            //颜色弹窗选择颜色,然后进行设置
             colorPiker.addListener("pickcolor", function () {
                 me.setColor(arguments[1]);
                 colorPop.hide();
@@ -69,6 +71,7 @@
             });
         },
 
+        //右边的预览效果
         createTable:function (hasTitle, hasTitleCol, hasCaption) {
             var arr = [],
                 sortSpan = '<span>^</span>';
@@ -102,6 +105,7 @@
                 color = domUtils.getComputedStyle(domUtils.getElementsByTagName(example, "td")[0], "border-color"),
                 colCount = example.rows[0].children.length;
 
+            //还是在做预览效果
             if (title.checked) {
                 example.insertRow(0);
                 for (var i = 0, node; i < colCount; i++) {
@@ -148,6 +152,7 @@
             }
         },
         sorttableHanler:function(){
+            //因为他是给第一行加箭头符号,所以逻辑都没写
             me.updateSortSpan();
         },
         autoSizeContentHanler:function () {
@@ -198,6 +203,7 @@
             });
 
         },
+        //默认值就是页面宽度自适应
         setAutoSize:function () {
             var me = this;
             autoSizePage.checked = true;
@@ -227,7 +233,7 @@
             }
         }
 
-        editor.execCommand("edittable", tone.value);
+        editor.execCommand("edittable", tone.value, '2px');
         autoSizeContent.checked ?editor.execCommand('adaptbytext') : "";
         autoSizePage.checked ? editor.execCommand("adaptbywindow") : "";
         editor.fireEvent('saveScene');

@@ -8,6 +8,10 @@
         .current {
             color: #ff0000;
         }
+        .domain .icon{
+            width: 30px;
+            height: 31px;
+        }
     </style>
 </head>
 
@@ -22,20 +26,22 @@
 <ul class="content">
     <li>
         <!-- 加载编辑器的容器 -->
-        <script id="container" name="content" type="text/plain">
-                这里写你的初始化内容
-
-
-
+        <script id="container" name="content" type="text/plain">这里写你的初始化内容
         </script>
     </li>
 </ul>
 
 <div>
     <h2>我是域结构</h2>
-    <ul>
+    <ul class="domain">
         <li>域1</li>
         <li>域2</li>
+        <li>
+            <div style="position: relative;width: 71px;">
+                <img src="text.png" alt="文本" title="文本" class="icon">
+                <span style="position: absolute;right: 5px;top: 7px;">姓名</span>
+            </div>
+        </li>
     </ul>
 </div>
 
