@@ -12,6 +12,8 @@
         sorttable = $G("J_sorttable"),
         autoSizeContent = $G("J_autoSizeContent"),
         autoSizePage = $G("J_autoSizePage"),
+        borderWidth = $G("J_borderWidth"),
+        borderStyle = $G("J_borderStyle"),
         tone = $G("J_tone"),
         me,
         preview = $G("J_preview");
@@ -21,13 +23,13 @@
         me.init();
     };
     editTable.prototype = {
-        init:function () {
+        init: function () {
             var colorPiker = new UE.ui.ColorPicker({
-                    editor:editor
+                    editor: editor
                 }),
                 colorPop = new UE.ui.Popup({
-                    editor:editor,
-                    content:colorPiker
+                    editor: editor,
+                    content: colorPiker
                 });
 
             title.checked = editor.queryCommandState("inserttitle") == -1;
@@ -38,13 +40,15 @@
             var enablesortState = editor.queryCommandState("enablesort"),
                 disablesortState = editor.queryCommandState("disablesort");
 
-            sorttable.checked = !!(enablesortState < 0 && disablesortState >=0);
+            sorttable.checked = !!(enablesortState < 0 && disablesortState >= 0);
             sorttable.disabled = !!(enablesortState < 0 && disablesortState < 0);
-            sorttable.title = enablesortState < 0 && disablesortState < 0 ? lang.errorMsg:'';
+            sorttable.title = enablesortState < 0 && disablesortState < 0 ? lang.errorMsg : '';
 
             //重置表格属性
             me.createTable(title.checked, titleCol.checked, caption.checked);
             me.setAutoSize();
+            me.setWidth(me.getWidth());
+            me.setStyle(me.getStyle());
             me.setColor(me.getColor());
 
             domUtils.on(title, "click", me.titleHanler);
@@ -53,6 +57,8 @@
             domUtils.on(sorttable, "click", me.sorttableHanler);
             domUtils.on(autoSizeContent, "click", me.autoSizeContentHanler);
             domUtils.on(autoSizePage, "click", me.autoSizePageHanler);
+            domUtils.on(borderWidth, "change", me.setWidth);
+            domUtils.on(borderStyle, "change", me.setStyle);
 
             domUtils.on(tone, "click", function () {
                 colorPop.showAnchor(tone);
@@ -72,7 +78,7 @@
         },
 
         //右边的预览效果
-        createTable:function (hasTitle, hasTitleCol, hasCaption) {
+        createTable: function (hasTitle, hasTitleCol, hasCaption) {
             var arr = [],
                 sortSpan = '<span>^</span>';
             arr.push("<table id='J_example'>");
@@ -81,7 +87,9 @@
             }
             if (hasTitle) {
                 arr.push("<tr>");
-                if(hasTitleCol) { arr.push("<th>" + lang.titleName + "</th>"); }
+                if (hasTitleCol) {
+                    arr.push("<th>" + lang.titleName + "</th>");
+                }
                 for (var j = 0; j < 5; j++) {
                     arr.push("<th>" + lang.titleName + "</th>");
                 }
@@ -89,7 +97,9 @@
             }
             for (var i = 0; i < 6; i++) {
                 arr.push("<tr>");
-                if(hasTitleCol) { arr.push("<th>" + lang.titleName + "</th>") }
+                if (hasTitleCol) {
+                    arr.push("<th>" + lang.titleName + "</th>")
+                }
                 for (var k = 0; k < 5; k++) {
                     arr.push("<td>" + lang.cellsName + "</td>")
                 }
@@ -99,9 +109,9 @@
             preview.innerHTML = arr.join("");
             this.updateSortSpan();
         },
-        titleHanler:function () {
+        titleHanler: function () {
             var example = $G("J_example"),
-                frg=document.createDocumentFragment(),
+                frg = document.createDocumentFragment(),
                 color = domUtils.getComputedStyle(domUtils.getElementsByTagName(example, "td")[0], "border-color"),
                 colCount = example.rows[0].children.length;
 
@@ -121,7 +131,7 @@
             me.setColor(color);
             me.updateSortSpan();
         },
-        titleColHanler:function () {
+        titleColHanler: function () {
             var example = $G("J_example"),
                 color = domUtils.getComputedStyle(domUtils.getElementsByTagName(example, "td")[0], "border-color"),
                 colArr = example.rows,
@@ -141,7 +151,7 @@
             me.setColor(color);
             me.updateSortSpan();
         },
-        captionHanler:function () {
+        captionHanler: function () {
             var example = $G("J_example");
             if (caption.checked) {
                 var row = document.createElement('caption');
@@ -151,15 +161,15 @@
                 domUtils.remove(domUtils.getElementsByTagName(example, 'caption')[0]);
             }
         },
-        sorttableHanler:function(){
+        sorttableHanler: function () {
             //因为他是给第一行加箭头符号,所以逻辑都没写
             me.updateSortSpan();
         },
-        autoSizeContentHanler:function () {
+        autoSizeContentHanler: function () {
             var example = $G("J_example");
             example.removeAttribute("width");
         },
-        autoSizePageHanler:function () {
+        autoSizePageHanler: function () {
             var example = $G("J_example");
             var tds = example.getElementsByTagName(example, "td");
             utils.each(tds, function (td) {
@@ -167,30 +177,70 @@
             });
             example.setAttribute('width', '100%');
         },
-        updateSortSpan: function(){
+        updateSortSpan: function () {
             var example = $G("J_example"),
                 row = example.rows[0];
 
-            var spans = domUtils.getElementsByTagName(example,"span");
-            utils.each(spans,function(span){
+            var spans = domUtils.getElementsByTagName(example, "span");
+            utils.each(spans, function (span) {
                 span.parentNode.removeChild(span);
             });
             if (sorttable.checked) {
-                utils.each(row.cells, function(cell, i){
+                utils.each(row.cells, function (cell, i) {
                     var span = document.createElement("span");
                     span.innerHTML = "^";
                     cell.appendChild(span);
                 });
             }
         },
-        getColor:function () {
+        setWidth: function (e) {
+            var example = $G("J_example"),
+                arr = domUtils.getElementsByTagName(example, "td").concat(
+                    domUtils.getElementsByTagName(example, "th"),
+                    domUtils.getElementsByTagName(example, "caption")
+                );
+
+            var value = (e.target && e.target.value) || e;
+            borderWidth.value = value;
+            utils.each(arr, function (node) {
+                node.style.borderWidth = value;
+            });
+        },
+        getWidth: function () {
+            var start = editor.selection.getStart(), color,
+                cell = domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
+            color = cell && domUtils.getComputedStyle(cell, "border-width");
+            if (!color)  color = "1px";
+            return color;
+        },
+        setStyle: function (e) {
+            var example = $G("J_example"),
+                arr = domUtils.getElementsByTagName(example, "td").concat(
+                    domUtils.getElementsByTagName(example, "th"),
+                    domUtils.getElementsByTagName(example, "caption")
+                );
+
+            var value = (e.target && e.target.value) || e;
+            borderStyle.value = value;
+            utils.each(arr, function (node) {
+                node.style.borderStyle = value;
+            });
+        },
+        getStyle: function () {
+            var start = editor.selection.getStart(), color,
+                cell = domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
+            color = cell && domUtils.getComputedStyle(cell, "border-style");
+            if (!color)  color = "solid";
+            return color;
+        },
+        getColor: function () {
             var start = editor.selection.getStart(), color,
                 cell = domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
             color = cell && domUtils.getComputedStyle(cell, "border-color");
             if (!color)  color = "#DDDDDD";
             return color;
         },
-        setColor:function (color) {
+        setColor: function (color) {
             var example = $G("J_example"),
                 arr = domUtils.getElementsByTagName(example, "td").concat(
                     domUtils.getElementsByTagName(example, "th"),
@@ -204,7 +254,7 @@
 
         },
         //默认值就是页面宽度自适应
-        setAutoSize:function () {
+        setAutoSize: function () {
             var me = this;
             autoSizePage.checked = true;
             me.autoSizePageHanler();
@@ -217,24 +267,27 @@
         editor.__hasEnterExecCommand = true;
 
         var checks = {
-            title:"inserttitle deletetitle",
-            titleCol:"inserttitlecol deletetitlecol",
-            caption:"insertcaption deletecaption",
-            sorttable:"enablesort disablesort"
+            title: "inserttitle deletetitle",
+            titleCol: "inserttitlecol deletetitlecol",
+            caption: "insertcaption deletecaption",
+            sorttable: "enablesort disablesort"
         };
         editor.fireEvent('saveScene');
-        for(var i in checks){
+        for (var i in checks) {
             var cmds = checks[i].split(" "),
                 input = $G("J_" + i);
-            if(input["checked"]){
-                editor.queryCommandState(cmds[0])!=-1 &&editor.execCommand(cmds[0]);
-            }else{
-                editor.queryCommandState(cmds[1])!=-1 &&editor.execCommand(cmds[1]);
+            if (input["checked"]) {
+                editor.queryCommandState(cmds[0]) != -1 && editor.execCommand(cmds[0]);
+            } else {
+                editor.queryCommandState(cmds[1]) != -1 && editor.execCommand(cmds[1]);
             }
         }
 
-        editor.execCommand("edittable", tone.value, '2px');
-        autoSizeContent.checked ?editor.execCommand('adaptbytext') : "";
+        console.log(borderWidth)
+
+        //修改边框的粗细,样式和颜色
+        editor.execCommand("edittable", tone.value, borderWidth.value, borderStyle.value);
+        autoSizeContent.checked ? editor.execCommand('adaptbytext') : "";
         autoSizePage.checked ? editor.execCommand("adaptbywindow") : "";
         editor.fireEvent('saveScene');
 

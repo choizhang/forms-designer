@@ -5890,7 +5890,6 @@
                     var range = this.cloneRange().adjustmentBoundary().shrinkBoundary();
                     if (selectOneNode(range)) {
                         var child = range.startContainer.childNodes[range.startOffset];
-                        console.log(range)
                         if (child && child.nodeType == 1 && (dtd.$empty[child.tagName] || dtd.$nonChild[child.tagName])) {
                             node = child;
                         }
@@ -20014,7 +20013,7 @@
             queryCommandState: function () {
                 return getTableItemsByRange(this).table ? 0 : -1
             },
-            execCommand: function (cmd, color, width) {
+            execCommand: function (cmd, color, width, style) {
                 var rng = this.selection.getRange(),
                     table = domUtils.findParentByTagName(rng.startContainer, 'table');
                 if (table) {
@@ -20022,10 +20021,10 @@
                         domUtils.getElementsByTagName(table, "th"),
                         domUtils.getElementsByTagName(table, "caption")
                     );
-                    console.log(width)
                     utils.each(arr, function (node) {
                         node.style.borderColor = color;
-                        //node.style.borderWidth = width;
+                        node.style.borderWidth = width;
+                        node.style.borderStyle = style;
                     });
                 }
             }
