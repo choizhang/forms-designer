@@ -21,21 +21,33 @@ UE.registerUI('dialog',function(editor,uiName){
                 label:'确定',
                 onclick:function () {
                     var $input = $('#' + dialog.id).find('iframe').contents().find('input')
-                    var num = $input.val();
+                    var column = $input.val();
                     //var html = '<div>';
                     //for(var i=0; i<num; i++){
                     //    html += '<img src="" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;">';
                     //}
                     //html += '</div>';
 
+                    var num = $('.current').index();
+                    var nodes = zTreeObj.getNodes();
+                    var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
+                    if (nodes.length>0) {
+                        //$("#treeDemo").trigger('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
+                        $("#treeDemo").trigger(event);
+                    }
+
                     var html = '<table>';
                     html += '<tr><th>11</th><th>22</th><th>33</th></tr><tr>'
-                    for(var i=0; i<num; i++){
-                        html += '<td><img src="text.png" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;"></td>';
+                    for(var i=0; i<column; i++){
+                        html += '<td><img src="text.png" id="editorComp_' + (100 + newCount) + '" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;"></td>';
+
+                        $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }
                     html += '</tr></table>';
 
                     dialog.editor.execCommand( 'inserthtml', html);
+
+
 
                     dialog.close(true);
                 }

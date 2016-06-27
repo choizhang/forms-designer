@@ -18,8 +18,14 @@ UE.registerUI('button', function (editor, uiName) {
         onclick: function () {
             //这里可以不用执行命令,做你自己的操作也可
             editor.execCommand(uiName);
-            //console.log('执行自己的命令')
-            editor.execCommand( 'inserthtml', '<img src="text.png" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;border:solid 1px #999;">');
+            editor.execCommand( 'inserthtml', '<img src="text.png" id="editorComp_' + (100 + newCount) + '" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;border:solid 1px #999;">');
+
+            var num = $('.current').index();
+            var nodes = zTreeObj.getNodes();
+            if (nodes.length>0) {
+                $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[num]});
+            }
+
 
             //editor.execCommand('insertimage', {
             //    src: '',

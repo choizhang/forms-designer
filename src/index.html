@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>ueditor demo</title>
+    <link rel="stylesheet" href="third-party/zTreeStyle.css">
     <style>
         .current {
             color: #ff0000;
         }
-        .domain .icon{
+
+        .domain .icon {
             width: 30px;
             height: 31px;
         }
@@ -19,14 +21,18 @@
 <a href="javascript:;" class="add">增加一个视图</a>
 
 <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="third-party/jquery.ztree.core.js"></script>
 
 <ul class="navigation">
-    <li>视图1</li>
+    <li class="current">视图1</li>
 </ul>
 <ul class="content">
     <li>
         <!-- 加载编辑器的容器 -->
         <script id="container" name="content" type="text/plain">这里写你的初始化内容
+
+
+
         </script>
     </li>
 </ul>
@@ -36,7 +42,7 @@
     <ul class="domain">
         <li>域1</li>
         <li>域2</li>
-        <li>
+        <li class="li">
             <div style="position: relative;width: 71px;">
                 <img src="text.png" alt="文本" title="文本" class="icon">
                 <span style="position: absolute;right: 5px;top: 7px;">姓名</span>
@@ -44,6 +50,9 @@
         </li>
     </ul>
 </div>
+
+<ul id="treeDemo" class="ztree"></ul>
+
 
 
 <!-- 配置文件 -->
@@ -77,6 +86,11 @@
             $('.content').append(ss.replace(/\$1/g, index));
             $('.navigation').append(dd.replace(/\$1/g, index))
             ues[index - 1] = UE.getEditor('container' + index);
+
+            $("#treeDemo").trigger('addTag', {isParent:true, name: '视图', nodes: undefined});
+
+//            先增加在选中
+
             $('.navigation').find('li').last().trigger('click');
         })
 
@@ -84,10 +98,108 @@
             $('.navigation').find('.current').removeClass('current')
             var num = $(this).addClass('current').index();
             $('.content').find('li').hide().eq(num).show();
+
+            var nodes = zTreeObj.getNodes();
+            if (nodes.length>0) {
+                zTreeObj.selectNode(nodes[num]);
+            }
         })
     });
 </script>
+<script>
+    var zTreeObj;
+    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+    var setting = {
+        callback: {
+            onClick: function(event, treeId, treeNode) {
+                console.log($('#editorComp_'+treeNode.id));
+                console.log(treeNode.id);
+                $('#editorComp_'+treeNode.id).click();
+            }
+        }
+    };
+    // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+    var zNodes = [
+//        {
+//            name: "视图1",
+//            open: true,
+//            children: [
+//                {name: "test1_1"},
+//                {name: "test1_2"}
+//            ]
+//        }
+//        {
+//            name: "test2",
+//            open: true,
+//            children: [
+//                {name: "test2_1"},
+//                {name: "test2_2"}
+//            ]
+//        }
+    ];
+    $(document).ready(function () {
+        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
+
+        //    动态增加一个子节点
+
+        window.newCount = 1;
+//        function add(e) {
+//            var isParent = e.data.isParent,
+//                    nodes = zTreeObj.getSelectedNodes(),
+//                    treeNode = nodes[0];
+//            if (treeNode) {
+//                treeNode = zTreeObj.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
+//            } else {
+//                treeNode = zTreeObj.addNodes(null, {id:(100 + newCount), pId:0, isParent:isParent, name:"new node" + (newCount++)});
+//            }
+//            if (treeNode) {
+////                zTreeObj.editName(treeNode[0]);
+//            } else {
+//                alert("叶子节点被锁定，无法增加子节点");
+//            }
+//        };
+
+        $('#treeDemo').on('addTag', function (e, args) {
+//            var
+////                    nodes = zTreeObj.getSelectedNodes(),
+//                    nodes = args.nodes,
+//                    treeNode = nodes[0];
+
+            if(!args){
+                args = {};
+                args.isParent = e.isParent;
+                args.name = e.name;
+                args.nodes = e.nodes;
+            }
+
+            var treeNode = args.nodes;
+
+            if (treeNode) {
+                treeNode = zTreeObj.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent: args.isParent, name: args.name + (newCount++)});
+            } else {
+                treeNode = zTreeObj.addNodes(null, {id:(100 + newCount), pId:0, isParent:args.isParent, name: args.name + (newCount++)});
+            }
+            if (treeNode) {
+//                zTreeObj.editName(treeNode[0]);
+            } else {
+                alert("叶子节点被锁定，无法增加子节点");
+            }
+
+            return treeNode;
+        })
+
+        $("#treeDemo").trigger('addTag', {isParent:true, name: '视图', nodes: undefined});
+
+//        $("#addParent").on("click", {isParent:true}, add);
+//        $("#addLeaf").on("click", {isParent:false}, add);
+
+//    点击子节点选中相应组件
+
+//    双击弹窗设置
+    });
+
+</script>
 
 </body>
 
