@@ -1,1 +1,15 @@
 /*可以在这里添加你自己的css*/
+.component{
+    position: relative;
+}
+
+.component-handle{
+    /*display: none;*/
+    position: absolute;
+    right: -24px;
+    top: -3px;
+}
+
+.component:hover .component-handle{
+    display: block;
+}

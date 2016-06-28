@@ -14317,7 +14317,6 @@
                 var rng = me.selection.getRange();
                 var node = rng.getClosedNode() || me.selection.getStart();
 
-                console.log(node && node.tagName)
                 if (node && node.tagName == 'IMG') {
 
                     var pre = node.previousSibling, next;
@@ -14696,6 +14695,7 @@
                 client.setText(div.innerText || div.textContent);
                 client.setHtml(div.innerHTML);
                 rng.select();
+
             });
             // hover事件传递到target
             client.on('mouseover mouseout', function (e) {
@@ -17333,10 +17333,13 @@
                     me.showCover();
                     me.editor.fireEvent('afterscaleshow', me);
                     me.editor.fireEvent('saveScene');
+
+                    var id = targetObj.id.split('_')[1];
+
+                    var node = zTreeObj.getNodeByTId("treeDemo_"+id);
                 },
                 hide: function () {
                     var me = this;
-                    console.log('dd')
                     me.hideCover();
                     me.resizer.style.display = 'none';
 
@@ -17419,7 +17422,6 @@
                                 domUtils.un(document, 'mousedown', _mouseDownHandler);
                                 var target = imageScale.target;
                                 if (target.parentNode) {
-                                    console.log(target)
                                     me.selection.getRange().selectNode(target).select();
                                 }
                             });
@@ -17441,7 +17443,6 @@
                                 }
                             });
                         }
-                        console.log(imageScale)
                         imageScale.show(img);
                     } else {
                         if (imageScale && imageScale.resizer.style.display != 'none') imageScale.hide();
@@ -18266,6 +18267,8 @@
         UETable.prototype = {
             getMaxRows: function () {
                 var rows = this.table.rows, maxLen = 1;
+                if(!rows) return;
+
                 for (var i = 0, row; row = rows[i]; i++) {
                     var currentMax = 1;
                     for (var j = 0, cj; cj = row.cells[j++];) {
@@ -18430,6 +18433,11 @@
                 this.selectedTds = [];
                 this.cellsRange = {};
                 this.indexTable = [];
+
+                //my 如果在全选句柄就不执行更新
+                if(this.table.className === 'component-handle'){
+                    return;
+                }
                 var rows = this.table.rows,
                     rowsNum = this.getMaxRows(),
                     dNum = rowsNum - rows.length,
@@ -24175,6 +24183,7 @@
                         //取消拖放图片时出现的文字光标位置提示
                         domUtils.on(me.body, 'dragover', function (e) {
                             if (e.dataTransfer.types[0] == 'Files') {
+                                console.log('aa')
                                 e.preventDefault();
                             }
                         });

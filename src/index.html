@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ueditor demo</title>
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="third-party/zTreeStyle.css">
     <style>
         .current {
@@ -18,6 +19,7 @@
 </head>
 
 <body>
+
 <a href="javascript:;" class="add">增加一个视图</a>
 
 <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
@@ -39,6 +41,9 @@
 
 <div>
     <h2>我是域结构</h2>
+
+    <a href="javascript:;">我是链接</a>
+
     <ul class="domain">
         <li>域1</li>
         <li>域2</li>
@@ -49,9 +54,11 @@
             </div>
         </li>
     </ul>
+
+    <ul id="treeDemo" class="ztree"></ul>
 </div>
 
-<ul id="treeDemo" class="ztree"></ul>
+
 
 
 
@@ -78,6 +85,7 @@
     });
 
     $(function () {
+//        $('#test').draggable();
         var index = 1;
         var ss = '<li><script id="container$1" name="content$1" type="text/plain"><\/script></li>';
         var dd = '<li>视图$1</li>';
@@ -112,9 +120,7 @@
     var setting = {
         callback: {
             onClick: function(event, treeId, treeNode) {
-                console.log($('#editorComp_'+treeNode.id));
-                console.log(treeNode.id);
-                $('#editorComp_'+treeNode.id).click();
+                $('iframe').contents().find('#editorComp_'+treeNode.id).click();
             }
         }
     };
@@ -138,6 +144,26 @@
 //        }
     ];
     $(document).ready(function () {
+        setTimeout(function() {
+            $($('iframe')[0].contentWindow.document.body).on('click', '.component-handle', function(e) {
+                var el = $(this).closest('.component');
+
+                el.prop('draggable', !el.prop('draggable'))
+
+                var range = document.createRange();
+                range.selectNodeContents(el[0]);
+
+                var window = $('iframe')[0].contentWindow;
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+
+
+            })
+        }, 1000)
+
+
+
         zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 
 
