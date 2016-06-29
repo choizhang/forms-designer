@@ -37,7 +37,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     }
 
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
-                    var html = '<table class="component" draggable="true">' ;
+                    var html = '<table class="component" draggable="false">' ;
                     html += '<tr><th>11<button class="component-handle">v</button></th><th>22</th><th>33</th></tr><tr>'
                     for(var i=0; i<column; i++){
                         html += '<td><img src="text.png" id="editorComp_' + (100 + newCount) + '" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;"></td>';

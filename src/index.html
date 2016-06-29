@@ -35,6 +35,7 @@
 
 
 
+
         </script>
     </li>
 </ul>
@@ -57,9 +58,6 @@
 
     <ul id="treeDemo" class="ztree"></ul>
 </div>
-
-
-
 
 
 <!-- 配置文件 -->
@@ -95,7 +93,7 @@
             $('.navigation').append(dd.replace(/\$1/g, index))
             ues[index - 1] = UE.getEditor('container' + index);
 
-            $("#treeDemo").trigger('addTag', {isParent:true, name: '视图', nodes: undefined});
+            $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
 
 //            先增加在选中
 
@@ -108,7 +106,7 @@
             $('.content').find('li').hide().eq(num).show();
 
             var nodes = zTreeObj.getNodes();
-            if (nodes.length>0) {
+            if (nodes.length > 0) {
                 zTreeObj.selectNode(nodes[num]);
             }
         })
@@ -119,8 +117,8 @@
     // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
     var setting = {
         callback: {
-            onClick: function(event, treeId, treeNode) {
-                $('iframe').contents().find('#editorComp_'+treeNode.id).click();
+            onClick: function (event, treeId, treeNode) {
+                $('iframe').contents().find('#editorComp_' + treeNode.id).click();
             }
         }
     };
@@ -144,11 +142,14 @@
 //        }
     ];
     $(document).ready(function () {
-        setTimeout(function() {
-            $($('iframe')[0].contentWindow.document.body).on('click', '.component-handle', function(e) {
+//        因为iframe的初始化需要时间,所以要做一个延迟
+        setTimeout(function () {
+            var iframeBody = $($('iframe')[0].contentWindow.document.body);
+            iframeBody.on('click', '.component-handle', function (e) {
                 var el = $(this).closest('.component');
 
-                el.prop('draggable', !el.prop('draggable'))
+                el.prop('draggable', true)
+//                el.prop('draggable', !el.prop('draggable'))
 
                 var range = document.createRange();
                 range.selectNodeContents(el[0]);
@@ -158,10 +159,42 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
 
-
+                e.stopPropagation();
             })
-        }, 1000)
 
+            iframeBody.on('click', function (e) {
+                var $comp = iframeBody.find('.component');
+                $comp.prop('draggable', false);
+            })
+
+//            iframeBody.on('dragstart', '.component', function (e) {
+//                console.log('dragstart', e)
+//                e.originalEvent.dataTransfer.dropEffect = 'move';
+//            });
+
+            iframeBody.on('dragover', '.component', function (e) {
+//                console.log('drop', e)
+
+//                这样设置了就让组件不能拖到组件内部,还是不行
+//                e.preventDefault();
+//
+//                e.originalEvent.dataTransfer.dropEffect = 'move';
+            });
+
+            iframeBody.on('dragend', '.component', function (e) {
+                console.log('dragend', e.originalEvent.dataTransfer)
+
+                var dataTransfer = e.originalEvent.dataTransfer;
+
+                if (dataTransfer.dropEffect === 'none') {
+//                    此次拖拽是失败的
+
+                } else {
+//                    拖拽成功,不知道在哪里设置,只能手动删除原来的
+                    $(e.currentTarget).remove();
+                }
+            });
+        }, 1000)
 
 
         zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
@@ -192,7 +225,7 @@
 //                    nodes = args.nodes,
 //                    treeNode = nodes[0];
 
-            if(!args){
+            if (!args) {
                 args = {};
                 args.isParent = e.isParent;
                 args.name = e.name;
@@ -202,9 +235,19 @@
             var treeNode = args.nodes;
 
             if (treeNode) {
-                treeNode = zTreeObj.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent: args.isParent, name: args.name + (newCount++)});
+                treeNode = zTreeObj.addNodes(treeNode, {
+                    id: (100 + newCount),
+                    pId: treeNode.id,
+                    isParent: args.isParent,
+                    name: args.name + (newCount++)
+                });
             } else {
-                treeNode = zTreeObj.addNodes(null, {id:(100 + newCount), pId:0, isParent:args.isParent, name: args.name + (newCount++)});
+                treeNode = zTreeObj.addNodes(null, {
+                    id: (100 + newCount),
+                    pId: 0,
+                    isParent: args.isParent,
+                    name: args.name + (newCount++)
+                });
             }
             if (treeNode) {
 //                zTreeObj.editName(treeNode[0]);
@@ -215,7 +258,7 @@
             return treeNode;
         })
 
-        $("#treeDemo").trigger('addTag', {isParent:true, name: '视图', nodes: undefined});
+        $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
 
 //        $("#addParent").on("click", {isParent:true}, add);
 //        $("#addLeaf").on("click", {isParent:false}, add);
