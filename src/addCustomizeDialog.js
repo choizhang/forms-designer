@@ -30,17 +30,30 @@ UE.registerUI('dialog',function(editor,uiName){
 
                     var num = $('.current').index();
                     var nodes = zTreeObj.getNodes();
+
+                    //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
                     var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
                     if (nodes.length>0) {
                         //$("#treeDemo").trigger('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
                         $("#treeDemo").trigger(event);
                     }
 
+                    window.newCount--;
+
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
-                    var html = '<table class="component" draggable="false" id="editorComp_' + (100 + newCount) + '"><tbody>' ;
-                    html += '<tr><th>11<button class="component-handle">v</button></th><th>22</th><th>33</th></tr><tr>'
-                    for(var i=0; i<column; i++){
-                        html += '<td><span class="test">*</span><table class="component com-text" draggable="false" id="editorComp_' + (100 + newCount) + '"><tbody><tr><td><button class="component-handle">v</button>文本域</td></tr></tbody></table></td>';
+                    var html = '<table class="component" draggable="false" id="editorComp_' + newCount + '"><tbody>' ;
+
+                    html += '<tr><th>标题1<button class="component-handle">v</button></th>'
+                    for(var i=1; i<column; i++){
+                        html += '<th>标题' + (i+1) + '</th>'
+                    }
+
+                    html += '</tr><tr>';
+
+                    window.newCount++;
+
+                    for(i=0; i<column; i++){
+                        html += '<td><br><table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tbody><tr><td><button class="component-handle">v</button>文本域</td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }

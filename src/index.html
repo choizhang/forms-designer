@@ -36,6 +36,7 @@
 
 
 
+
         </script>
     </li>
 </ul>
@@ -118,7 +119,8 @@
     var setting = {
         callback: {
             onClick: function (event, treeId, treeNode) {
-                $('iframe').contents().find('#editorComp_' + treeNode.id).click();
+                $('iframe').contents().find('.focus').removeClass('focus');
+                $('iframe').contents().find('#editorComp_' + (treeNode.id-100)).addClass('focus');
             }
         }
     };
@@ -160,8 +162,15 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
 
+
+//                让树形结构中相应的高亮
+//                zTreeObj.selectNode(nodes[0]);
+                var id = el.attr('id').split('_')[1];
+                $('#treeDemo_'+id+'_a').trigger('click');
+
                 e.stopPropagation();
             })
+
 
             iframeBody.on('click', function (e) {
                 var $comp = iframeBody.find('.component');
@@ -183,7 +192,6 @@
             });
 
             iframeBody.on('dragend', '.component', function (e) {
-                console.log('dragend', e)
 
                 var dataTransfer = e.originalEvent.dataTransfer;
 
@@ -192,7 +200,6 @@
 
                 } else {
 //                    拖拽成功,不知道在哪里设置,只能手动删除原来的
-                    console.log(e.currentTarget)
                     $(e.currentTarget).remove();
                 }
 

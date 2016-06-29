@@ -3,6 +3,10 @@
     position: relative;
 }
 
+.component.focus {
+    outline: 2px solid #f00;
+}
+
 .component-handle {
     /*display: none;*/
     position: absolute;
@@ -17,11 +21,19 @@
 
 .com-text td {
     display: block;
-    min-width: 40px;
+    min-width: 50px;
 }
 
 .test{
     text-indent: -999em;
+    display: block;
+    height: 1px;
+}
+
+table{
+    margin-bottom: 0;
+}
+table br{
     display: block;
     height: 1px;
 }
