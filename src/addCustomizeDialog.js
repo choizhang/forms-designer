@@ -37,18 +37,16 @@ UE.registerUI('dialog',function(editor,uiName){
                     }
 
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
-                    var html = '<table class="component" draggable="false">' ;
+                    var html = '<table class="component" draggable="false" id="editorComp_' + (100 + newCount) + '"><tbody>' ;
                     html += '<tr><th>11<button class="component-handle">v</button></th><th>22</th><th>33</th></tr><tr>'
                     for(var i=0; i<column; i++){
-                        html += '<td><img src="text.png" id="editorComp_' + (100 + newCount) + '" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;"></td>';
+                        html += '<td><span class="test">*</span><table class="component com-text" draggable="false" id="editorComp_' + (100 + newCount) + '"><tbody><tr><td><button class="component-handle">v</button>文本域</td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }
-                    html += '</tr></table>';
+                    html += '</tr></tbody></table>';
 
                     dialog.editor.execCommand( 'inserthtml', html);
-
-
 
                     dialog.close(true);
                 }

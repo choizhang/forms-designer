@@ -18,7 +18,7 @@ UE.registerUI('button', function (editor, uiName) {
         onclick: function () {
             //这里可以不用执行命令,做你自己的操作也可
             editor.execCommand(uiName);
-            editor.execCommand( 'inserthtml', '<img src="text.png" id="editorComp_' + (100 + newCount) + '" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;border:solid 1px #999;">');
+            editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + (100 + newCount) + '"><tr><td><button class="component-handle">v</button>文本域</td></tr></table>');
 
             var num = $('.current').index();
             var nodes = zTreeObj.getNodes();

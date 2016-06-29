@@ -1,15 +1,27 @@
 /*可以在这里添加你自己的css*/
-.component{
+.component {
     position: relative;
 }
 
-.component-handle{
+.component-handle {
     /*display: none;*/
     position: absolute;
     right: -24px;
     top: -3px;
 }
 
-.component:hover .component-handle{
+.component:hover .component-handle {
     display: block;
+}
+
+
+.com-text td {
+    display: block;
+    min-width: 40px;
+}
+
+.test{
+    text-indent: -999em;
+    display: block;
+    height: 1px;
 }

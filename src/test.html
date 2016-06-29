@@ -40,7 +40,10 @@
     <img draggable="true" id="car2" src="http://ires.qiniudn.com/my/img/avatar-80-80.jpg" alt="car2" />
     <img draggable="true" id="car3" src="http://ires.qiniudn.com/my/img/avatar-80-80.jpg" alt="car3" />
 
-        <table id="main" draggable="true"><tbody><tr class="firstRow"><th class="selectTdClass">​11<button id="abc">click</button></th><th class="selectTdClass">22</th><th class="selectTdClass">33</th></tr><tr><td><img src="text.png" id="editorComp_104" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_105" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_106" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td></tr></tbody></table>
+        <!--<table id="main" draggable="true"><tbody><tr class="firstRow"><th class="selectTdClass">​11<button id="abc">click</button></th><th class="selectTdClass">22</th><th class="selectTdClass">33</th></tr><tr><td><img src="text.png" id="editorComp_104" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_105" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_106" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td></tr></tbody></table>-->
+
+
+    <div id="main" class="component" draggable="true" id="editorComp_102"><button id="abc">click</button>文本域</div>
 
 
     发士大夫撒
@@ -78,6 +81,7 @@
 
     $('body').on('click', '#abc', function(e) {
         var el = $(this).closest('#main');
+
         requestAnimationFrame(function() {
             selectElementContents(el[0]);
         });
@@ -85,11 +89,15 @@
 
     function selectElementContents(el) {
         var range = document.createRange();
-        range.selectNodeContents(el);
+//        range.selectNodeContents(el);
+        range.selectNode(el);
 
         var sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
+
+        console.log(range)
+        console.log(sel)
     }
 
 
