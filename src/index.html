@@ -24,6 +24,7 @@
 
 <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="third-party/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="third-party/jquery.ztree.exedit.js"></script>
 
 <ul class="navigation">
     <li class="current">视图1</li>
@@ -117,10 +118,21 @@
     var zTreeObj;
     // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
     var setting = {
+        edit: {
+            enable: true,
+            drag: {
+                isCopy: true,
+                isMove: false
+            }
+        },
         callback: {
             onClick: function (event, treeId, treeNode) {
                 $('iframe').contents().find('.focus').removeClass('focus');
                 $('iframe').contents().find('#editorComp_' + (treeNode.id-100)).addClass('focus');
+            },
+
+            onDragMove: function(event, treeId, treeNode) {
+                console.log(event.target);
             }
         }
     };
@@ -172,9 +184,16 @@
             })
 
 
+            /**
+             * 点击body区域
+             * 1. 将组件置为不可拖动
+             * 2. 取消组件的高亮状态
+             */
             iframeBody.on('click', function (e) {
                 var $comp = iframeBody.find('.component');
+                var $focus = iframeBody.find('.focus');
                 $comp.prop('draggable', false);
+                $focus.removeClass('focus');
             })
 
 //            iframeBody.on('dragstart', '.component', function (e) {
