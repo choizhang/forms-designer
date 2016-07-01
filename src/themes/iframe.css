@@ -8,10 +8,18 @@
 }
 
 .component-handle {
-    /*display: none;*/
+    display: none;
     position: absolute;
-    right: -24px;
-    top: -3px;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background-color: #999999;
+    text-align: center;
+    cursor: pointer;
+}
+.component-handle.active {
+    background-color: #8385BD;
 }
 
 .component:hover .component-handle {

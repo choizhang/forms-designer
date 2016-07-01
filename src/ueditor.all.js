@@ -12121,14 +12121,16 @@
 
         UE.commands['unlink'] = {
             execCommand: function () {
-                var range = this.selection.getRange(),
-                    bookmark;
-                if (range.collapsed && !domUtils.findParentByTagName(range.startContainer, 'a', true)) {
-                    return;
+                if(this.selection){
+                    var range = this.selection.getRange(),
+                        bookmark;
+                    if (range.collapsed && !domUtils.findParentByTagName(range.startContainer, 'a', true)) {
+                        return;
+                    }
+                    bookmark = range.createBookmark();
+                    optimize(range);
+                    range.removeInlineStyle('a').moveToBookmark(bookmark).select();
                 }
-                bookmark = range.createBookmark();
-                optimize(range);
-                range.removeInlineStyle('a').moveToBookmark(bookmark).select();
             },
             queryCommandState: function () {
                 return !this.highlight && this.queryCommandValue('link') ? 0 : -1;
@@ -20588,7 +20590,7 @@
             me.addListener("contentchange", function () {
                 var me = this;
                 //尽可能排除一些不需要更新的状况
-                hideDragLine(me);
+                //hideDragLine(me);
                 if (getUETableBySelected(me))return;
                 var rng = me.selection.getRange();
                 var start = rng.startContainer;
@@ -21286,91 +21288,91 @@
 
         //双击收缩
         function tableDbclickHandler(evt) {
-            singleClickState = 0;
-            evt = evt || me.window.event;
-            var target = getParentTdOrTh(evt.target || evt.srcElement);
-            if (target) {
-                var h;
-                if (h = getRelation(target, mouseCoords(evt))) {
-
-                    hideDragLine(me);
-
-                    if (h == 'h1') {
-                        h = 'h';
-                        if (inTableSide(domUtils.findParentByTagName(target, "table"), target, evt)) {
-                            me.execCommand('adaptbywindow');
-                        } else {
-                            target = getUETable(target).getPreviewCell(target);
-                            if (target) {
-                                var rng = me.selection.getRange();
-                                rng.selectNodeContents(target).setCursor(true, true)
-                            }
-                        }
-                    }
-                    if (h == 'h') {
-                        var ut = getUETable(target),
-                            table = ut.table,
-                            cells = getCellsByMoveBorder(target, table, true);
-
-                        cells = extractArray(cells, 'left');
-
-                        ut.width = ut.offsetWidth;
-
-                        var oldWidth = [],
-                            newWidth = [];
-
-                        utils.each(cells, function (cell) {
-
-                            oldWidth.push(cell.offsetWidth);
-
-                        });
-
-                        utils.each(cells, function (cell) {
-
-                            cell.removeAttribute("width");
-
-                        });
-
-                        window.setTimeout(function () {
-
-                            //是否允许改变
-                            var changeable = true;
-
-                            utils.each(cells, function (cell, index) {
-
-                                var width = cell.offsetWidth;
-
-                                if (width > oldWidth[index]) {
-                                    changeable = false;
-                                    return false;
-                                }
-
-                                newWidth.push(width);
-
-                            });
-
-                            var change = changeable ? newWidth : oldWidth;
-
-                            utils.each(cells, function (cell, index) {
-
-                                cell.width = change[index] - getTabcellSpace();
-
-                            });
-
-
-                        }, 0);
-
-//                    minWidth -= cellMinWidth;
+//            singleClickState = 0;
+//            evt = evt || me.window.event;
+//            var target = getParentTdOrTh(evt.target || evt.srcElement);
+//            if (target) {
+//                var h;
+//                if (h = getRelation(target, mouseCoords(evt))) {
 //
-//                    table.removeAttribute("width");
-//                    utils.each(cells, function (cell) {
-//                        cell.style.width = "";
-//                        cell.width -= minWidth;
-//                    });
-
-                    }
-                }
-            }
+//                    hideDragLine(me);
+//
+//                    if (h == 'h1') {
+//                        h = 'h';
+//                        if (inTableSide(domUtils.findParentByTagName(target, "table"), target, evt)) {
+//                            me.execCommand('adaptbywindow');
+//                        } else {
+//                            target = getUETable(target).getPreviewCell(target);
+//                            if (target) {
+//                                var rng = me.selection.getRange();
+//                                rng.selectNodeContents(target).setCursor(true, true)
+//                            }
+//                        }
+//                    }
+//                    if (h == 'h') {
+//                        var ut = getUETable(target),
+//                            table = ut.table,
+//                            cells = getCellsByMoveBorder(target, table, true);
+//
+//                        cells = extractArray(cells, 'left');
+//
+//                        ut.width = ut.offsetWidth;
+//
+//                        var oldWidth = [],
+//                            newWidth = [];
+//
+//                        utils.each(cells, function (cell) {
+//
+//                            oldWidth.push(cell.offsetWidth);
+//
+//                        });
+//
+//                        utils.each(cells, function (cell) {
+//
+//                            cell.removeAttribute("width");
+//
+//                        });
+//
+//                        window.setTimeout(function () {
+//
+//                            //是否允许改变
+//                            var changeable = true;
+//
+//                            utils.each(cells, function (cell, index) {
+//
+//                                var width = cell.offsetWidth;
+//
+//                                if (width > oldWidth[index]) {
+//                                    changeable = false;
+//                                    return false;
+//                                }
+//
+//                                newWidth.push(width);
+//
+//                            });
+//
+//                            var change = changeable ? newWidth : oldWidth;
+//
+//                            utils.each(cells, function (cell, index) {
+//
+//                                cell.width = change[index] - getTabcellSpace();
+//
+//                            });
+//
+//
+//                        }, 0);
+//
+////                    minWidth -= cellMinWidth;
+////
+////                    table.removeAttribute("width");
+////                    utils.each(cells, function (cell) {
+////                        cell.style.width = "";
+////                        cell.width -= minWidth;
+////                    });
+//
+//                    }
+//                }
+//            }
         }
 
         function tableClickHander(evt) {
@@ -21472,6 +21474,7 @@
                 state = state.replace(/\d/, '');
                 startTd = getUETable(startTd).getPreviewCell(startTd, state == 'v');
             }
+
             hideDragLine(me);
             getDragLine(me, me.document);
             me.fireEvent('saveScene');
@@ -21921,6 +21924,7 @@
 
         }
 
+        //生成拖拽线
         function getDragLine(editor, doc) {
             // if (mousedown)return;
             dragLine = editor.document.createElement("div");
@@ -21939,7 +21943,15 @@
         function hideDragLine(editor) {
             if (mousedown)return;
             var line;
-            while (line = editor.document.getElementById('ue_tableDragLine')) {
+            //while (line = editor.document.getElementById('ue_tableDragLine')) {
+            //    domUtils.remove(line)
+            //}
+
+            line = editor.document.getElementById('ue_tableDragLine')
+
+            //my while太可怕了
+            if(line){
+                console.log(line)
                 domUtils.remove(line)
             }
         }
@@ -21957,6 +21969,7 @@
                 height = table.offsetHeight - (caption.length > 0 ? caption[0].offsetHeight : 0),
                 tablePos = domUtils.getXY(table),
                 cellPos = domUtils.getXY(cell), css;
+
             switch (state) {
                 case "h":
                     css = 'height:' + height + 'px;top:' + (tablePos.y + (caption.length > 0 ? caption[0].offsetHeight : 0)) + 'px;left:' + (cellPos.x + cell.offsetWidth);
@@ -29442,6 +29455,8 @@
 
         UE.ui.Editor = function (options) {
             var editor = new UE.Editor(options);
+            //如果是多视图,要对window.editor进行数组管理
+            //window.editor = new UE.Editor(options);
             editor.options.editor = editor;
             utils.loadFile(document, {
                 href: editor.options.themePath + editor.options.theme + "/css/ueditor.css",
