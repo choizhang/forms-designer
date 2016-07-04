@@ -1,6 +1,7 @@
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
+    display: inline-block;
 }
 
 .component.focus {

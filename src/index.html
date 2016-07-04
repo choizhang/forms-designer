@@ -16,13 +16,22 @@
             height: 31px;
         }
 
-        ul{
+        ul {
             -webkit-margin-before: 0;
             -webkit-margin-after: 0;
             -webkit-padding-start: 0;
         }
-        div#rMenu {position:absolute; visibility:hidden; top:0; background-color: #555;text-align: left;padding: 2px;}
-        div#rMenu ul li{
+
+        div#rMenu {
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+            background-color: #555;
+            text-align: left;
+            padding: 2px;
+        }
+
+        div#rMenu ul li {
             margin: 1px 0;
             padding: 0 5px;
             cursor: pointer;
@@ -50,9 +59,12 @@
 bb<br>
 aa<br>
 cc<br>
+
+<div draggable="true">aaaa</div>
         </script>
     </li>
 </ul>
+
 
 <div>
     <h2>我是域结构</h2>
@@ -64,7 +76,8 @@ cc<br>
         <li>域2</li>
         <li class="li">
             <div style="position: relative;width: 71px;">
-                <img src="text.png" draggable="true" alt="文本" title="文本" class="icon" ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">
+                <img src="text.png" draggable="true" alt="文本" title="文本" class="icon"
+                     ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">
                 <span style="position: absolute;right: 5px;top: 7px;">姓名</span>
             </div>
         </li>
@@ -143,16 +156,18 @@ cc<br>
             }
         },
         callback: {
+//            点击高亮
             onClick: function (event, treeId, treeNode) {
                 $('iframe').contents().find('.focus').removeClass('focus');
-                $('iframe').contents().find('#editorComp_' + (treeNode.id-100)).addClass('focus');
+                $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).addClass('focus');
             },
 
-            onDragMove: function(event, treeId, treeNode) {
+            onDragMove: function (event, treeId, treeNode) {
                 console.log(event.target);
             },
 
-            onRightClick: function(event, treeId, treeNode) {
+//            右键菜单
+            onRightClick: function (event, treeId, treeNode) {
                 if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
                     zTreeObj.cancelSelectedNode();
                     showRMenu("root", event.clientX, event.clientY);
@@ -160,12 +175,17 @@ cc<br>
                     zTreeObj.selectNode(treeNode);
                     showRMenu("node", event.clientX, event.clientY);
                 }
+            },
+
+            onRename: function (event, treeId, treeNode, isCancel) {
+                console.log(treeNode.name)
+                $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).find('.name').val(treeNode.name);
             }
         }
     };
     function showRMenu(type, x, y) {
         $("#rMenu ul").show();
-        if (type=="root") {
+        if (type == "root") {
             $("#m_del").hide();
             $("#m_check").hide();
             $("#m_unCheck").hide();
@@ -174,7 +194,7 @@ cc<br>
             $("#m_check").show();
             $("#m_unCheck").show();
         }
-        $("#rMenu").css({"top":y+"px", "left":x+"px", "visibility":"visible"});
+        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible"});
 
         $("body").on("mousedown", onBodyMouseDown);
     }
@@ -182,9 +202,9 @@ cc<br>
         if ($("#rMenu")) $("#rMenu").css({"visibility": "hidden"});
         $("body").off("mousedown", onBodyMouseDown);
     }
-    function onBodyMouseDown(event){
-        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
-            $("#rMenu").css({"visibility" : "hidden"});
+    function onBodyMouseDown(event) {
+        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
+            $("#rMenu").css({"visibility": "hidden"});
         }
     }
     function addComponent() {
@@ -193,14 +213,15 @@ cc<br>
     }
     // zTreeObj 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
     var zNodes = [
-        {
-            name: "视图1",
-            open: true,
-            children: [
-                {name: "test1_1", ddd: 'ggg'},
-                {name: "test1_2"}
-            ]
-        }
+//        {
+//            name: "视图1",
+//            open: true,
+//            children: [
+////                    可以在这自定义数据
+//                {name: "test1_1", ddd: 'ggg'},
+//                {name: "test1_2"}
+//            ]
+//        }
 //        {
 //            name: "test2",
 //            open: true,
@@ -224,18 +245,22 @@ cc<br>
 //                range.selectNodeContents(el[0]);
                 range.selectNode(el[0]);
 
+
                 var window = $('iframe')[0].contentWindow;
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
+
+                console.log(sel.getRangeAt(0))
+
 
                 $(this).addClass('active');
 
 
 //                让树形结构中相应的高亮
 //                zTreeObj.selectNode(nodes[0]);
-                var id = el.attr('id').split('_')[1];
-                $('#treeDemo_'+id+'_a').trigger('click');
+                var id = el.attr('class').split('_')[1];
+                $('#treeDemo_' + id + '_a').trigger('click');
 
                 e.stopPropagation();
             });
@@ -244,6 +269,19 @@ cc<br>
             iframeBody.on('mousemove', '.component-handle', function (e) {
                 e.stopPropagation();
             });
+
+            iframeBody.on('change', '.name', function (e) {
+
+//                var id = $(this).attr('class').split('_')[1];
+//                $('#treeDemo_' + id + '_a').trigger('click');
+
+                var nodes = zTreeObj.getSelectedNodes();
+
+                nodes[0].name = $(this).val();
+                zTreeObj.updateNode(nodes[0]);
+
+                e.stopPropagation();
+            })
 
 
             /**
@@ -257,9 +295,10 @@ cc<br>
                 $comp.prop('draggable', false);
                 $focus.removeClass('focus');
 
-                iframeBody.find('.component-handle').removeClass('active');
+//                高亮状态取消,并将样式去掉(拖拽的时候将hover的style变成了行内样式)
+                iframeBody.find('.component-handle').removeClass('active').removeAttr('style');
 
-                console.log(window.editor)
+//                console.log(window.editor)
 
 //                我可以在外面往编辑器里插入内容
 //                window.editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');

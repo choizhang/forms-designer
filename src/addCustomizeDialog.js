@@ -41,9 +41,9 @@ UE.registerUI('dialog',function(editor,uiName){
                     window.newCount--;
 
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
-                    var html = '<table class="component" draggable="false" id="editorComp_' + newCount + '"><tbody>' ;
+                    var html = '<table draggable="false" class="component editorComp_' + newCount + '"><tbody>' ;
 
-                    html += '<tr class="firstRow"><th>标题1<button class="component-handle">v</button></th>'
+                    html += '<tr class="firstRow"><th>标题1<div class="component-handle">v</div></th>'
                     for(var i=1; i<column; i++){
                         html += '<th>标题' + (i+1) + '</th>'
                     }
@@ -53,7 +53,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     window.newCount++;
 
                     for(i=0; i<column; i++){
-                        html += '<td><br><table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tbody><tr><td><div class="component-handle">v</div>文本域</td></tr></tbody></table></td>';
+                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><div class="component-handle">v</div>文本域</td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }

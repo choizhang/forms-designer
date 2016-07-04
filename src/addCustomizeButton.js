@@ -18,7 +18,10 @@ UE.registerUI('button', function (editor, uiName) {
         onclick: function () {
             //这里可以不用执行命令,做你自己的操作也可
             editor.execCommand(uiName);
-            editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></td></tr></table>');
+
+            //这种html结构死活不能整个模块拖动
+            //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
 
             var num = $('.current').index();
             var nodes = zTreeObj.getNodes();
