@@ -29454,6 +29454,7 @@
 
 
         UE.ui.Editor = function (options) {
+            console.log('eee')
             var editor = new UE.Editor(options);
             //如果是多视图,要对window.editor进行数组管理
             //window.editor = new UE.Editor(options);
@@ -29546,6 +29547,9 @@
                     }
                 })
             };
+
+            //my 多视图
+            window.editor.push(editor);
             return editor;
         };
 

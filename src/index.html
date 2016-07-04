@@ -60,7 +60,6 @@ bb<br>
 aa<br>
 cc<br>
 
-<div draggable="true">aaaa</div>
         </script>
     </li>
 </ul>
@@ -69,19 +68,19 @@ cc<br>
 <div>
     <h2>我是域结构</h2>
 
-    <a href="javascript:;">我是链接</a>
+    <!--<a href="javascript:;">我是链接</a>-->
 
-    <ul class="domain">
-        <li>域1</li>
-        <li>域2</li>
-        <li class="li">
-            <div style="position: relative;width: 71px;">
-                <img src="text.png" draggable="true" alt="文本" title="文本" class="icon"
-                     ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">
-                <span style="position: absolute;right: 5px;top: 7px;">姓名</span>
-            </div>
-        </li>
-    </ul>
+    <!--<ul class="domain">-->
+        <!--<li>域1</li>-->
+        <!--<li>域2</li>-->
+        <!--<li class="li">-->
+            <!--<div style="position: relative;width: 71px;">-->
+                <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
+                     <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
+                <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
 
     <ul id="treeDemo" class="ztree"></ul>
     <div id="rMenu">
@@ -102,6 +101,8 @@ cc<br>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
     var ues = [];
+//    控制多个编辑器对象
+    window.editor = [];
     ues[0] = UE.getEditor('container', {
 //            toolbars: [
 //                ['fullscreen', 'source', 'undo', 'redo', 'bold']
@@ -177,9 +178,14 @@ cc<br>
                 }
             },
 
+//            重命名
             onRename: function (event, treeId, treeNode, isCancel) {
-                console.log(treeNode.name)
-                $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).find('.name').val(treeNode.name);
+                console.log(treeNode)
+                if(!treeNode.isParent){
+//                    不是文件夹
+                    $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).find('.name').val(treeNode.name);
+                }
+
             }
         }
     };
@@ -208,8 +214,15 @@ cc<br>
         }
     }
     function addComponent() {
-        var nodes = zTreeObj.getSelectedNodes();
-        console.log(nodes)
+        var treeNode = zTreeObj.getSelectedNodes();
+
+
+        var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
+
+        console.log(html)
+
+        window.editor[0].execCommand( 'inserthtml', html);
+//        window.editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
     }
     // zTreeObj 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
     var zNodes = [
@@ -242,7 +255,6 @@ cc<br>
 //                el.prop('draggable', !el.prop('draggable'))
 
                 var range = document.createRange();
-//                range.selectNodeContents(el[0]);
                 range.selectNode(el[0]);
 
 
@@ -250,9 +262,6 @@ cc<br>
                 var sel = window.getSelection();
                 sel.removeAllRanges();
                 sel.addRange(range);
-
-                console.log(sel.getRangeAt(0))
-
 
                 $(this).addClass('active');
 
@@ -278,7 +287,16 @@ cc<br>
                 var nodes = zTreeObj.getSelectedNodes();
 
                 nodes[0].name = $(this).val();
+                $(this).attr('value', $(this).val());
                 zTreeObj.updateNode(nodes[0]);
+
+                e.stopPropagation();
+            })
+
+            iframeBody.on('click', '.name', function (e) {
+                var el = $(this).closest('.component');
+                var id = el.attr('class').split('_')[1];
+                $('#treeDemo_' + id + '_a').trigger('click');
 
                 e.stopPropagation();
             })

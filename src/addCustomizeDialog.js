@@ -53,7 +53,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     window.newCount++;
 
                     for(i=0; i<column; i++){
-                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><div class="component-handle">v</div>文本域</td></tr></tbody></table></td>';
+                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><div class="component-handle">v</div><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '" /></td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }

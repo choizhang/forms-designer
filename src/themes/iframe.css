@@ -1,11 +1,16 @@
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
-    display: inline-block;
+    /*不能设置这个,不然会改变table*/
+    /*display: inline-block;*/
 }
 
 .component.focus {
     outline: 2px solid #f00;
+}
+
+.component tr > div {
+    display: none;
 }
 
 .component-handle {
