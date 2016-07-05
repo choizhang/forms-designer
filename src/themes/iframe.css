@@ -1,3 +1,7 @@
+em {
+    font-style: normal;
+}
+
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;

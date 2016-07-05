@@ -49,6 +49,9 @@ table {
 a{
     text-decoration: none;
 }
+em {
+    font-style: normal;
+}
 
 
 html{
@@ -113,6 +116,12 @@ body{
 .domain .icon {
     width: 30px;
     height: 31px;
+}
+
+.content{
+    float: left;
+    width: 80%;
+    margin-right: 40px;
 }
 
 ul {

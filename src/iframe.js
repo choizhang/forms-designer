@@ -4,6 +4,12 @@ $(function () {
     setTimeout(function () {
         var iframeBody = $($('iframe')[0].contentWindow.document.body);
 
+        bindIframe(iframeBody)
+
+    }, 1000)
+
+
+    function bindIframe(iframeBody) {
         iframeBody
         //                    包裹的整个组件
             .on('dragend', '.component', function (e) {
@@ -32,8 +38,10 @@ $(function () {
                     var range = document.createRange();
                     range.selectNode(el[0]);
 
+                    //获取当前是第几个tab
+                    var current = $('.current').index();
 
-                    var window = $('iframe')[0].contentWindow;
+                    var window = $('iframe')[current].contentWindow;
                     var sel = window.getSelection();
                     sel.removeAllRanges();
                     sel.addRange(range);
@@ -97,14 +105,15 @@ $(function () {
             })
 
             .on('dragover', '.component', function (e) {
-//                console.log('drop', e)
-
 //                这样设置了就让组件不能拖到组件内部,还是不行
 //                e.preventDefault();
 //
 //                e.originalEvent.dataTransfer.dropEffect = 'move';
             });
+    }
 
-    }, 1000)
+    window.iframe = {
+        bindIframe: bindIframe
+    }
 
 });

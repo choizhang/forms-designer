@@ -33,6 +33,12 @@ $(function () {
 //            先增加在选中
         $navigation.find('li').last().trigger('click');
 
+        //给新增的iframe绑定事件
+        var iframeBody = $($('iframe')[index-1].contentWindow.document.body);
+
+        iframe.bindIframe(iframeBody)
+
+
         e.stopPropagation();
     })
 
