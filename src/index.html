@@ -6,52 +6,23 @@
     <title>ueditor demo</title>
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="third-party/zTreeStyle.css">
-    <style>
-        .current {
-            color: #ff0000;
-        }
-
-        .domain .icon {
-            width: 30px;
-            height: 31px;
-        }
-
-        ul {
-            -webkit-margin-before: 0;
-            -webkit-margin-after: 0;
-            -webkit-padding-start: 0;
-        }
-
-        div#rMenu {
-            position: absolute;
-            visibility: hidden;
-            top: 0;
-            background-color: #555;
-            text-align: left;
-            padding: 2px;
-        }
-
-        div#rMenu ul li {
-            margin: 1px 0;
-            padding: 0 5px;
-            cursor: pointer;
-            list-style: none outside none;
-            background-color: #DFDFDF;
-        }
-    </style>
 </head>
 
 <body>
 
-<a href="javascript:;" class="add">增加一个视图</a>
+
 
 <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="third-party/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="third-party/jquery.ztree.exedit.js"></script>
 
-<ul class="navigation">
-    <li class="current">视图1</li>
-</ul>
+<div class="tabs">
+    <ul class="navigation">
+        <li class="current">视图1</li>
+    </ul>
+    <a href="javascript:;" class="add">+</a>
+</div>
+
 <ul class="content">
     <li>
         <!-- 加载编辑器的容器 -->
@@ -59,6 +30,12 @@
 bb<br>
 aa<br>
 cc<br>
+
+
+
+
+
+
 
         </script>
     </li>
@@ -71,21 +48,21 @@ cc<br>
     <!--<a href="javascript:;">我是链接</a>-->
 
     <!--<ul class="domain">-->
-        <!--<li>域1</li>-->
-        <!--<li>域2</li>-->
-        <!--<li class="li">-->
-            <!--<div style="position: relative;width: 71px;">-->
-                <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
-                     <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
-                <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
-            <!--</div>-->
-        <!--</li>-->
+    <!--<li>域1</li>-->
+    <!--<li>域2</li>-->
+    <!--<li class="li">-->
+    <!--<div style="position: relative;width: 71px;">-->
+    <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
+    <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
+    <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
+    <!--</div>-->
+    <!--</li>-->
     <!--</ul>-->
 
     <ul id="treeDemo" class="ztree"></ul>
     <div id="rMenu">
         <ul>
-            <li id="m_add" onclick="addComponent();">插入</li>
+            <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
         </ul>
     </div>
 </div>
@@ -98,320 +75,16 @@ cc<br>
 <script type="text/javascript" src="addCustomizeButton.js"></script>
 <script type="text/javascript" src="addCustomizeCombox.js"></script>
 <script type="text/javascript" src="addCustomizeDialog.js"></script>
+<script type="text/javascript" src="domainStructure.js"></script>
+<script type="text/javascript" src="tabs.js"></script>
+<script src="iframe.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-    var ues = [];
-//    控制多个编辑器对象
+
+    //    控制多个编辑器对象
     window.editor = [];
-    ues[0] = UE.getEditor('container', {
-//            toolbars: [
-//                ['fullscreen', 'source', 'undo', 'redo', 'bold']
-//            ],
-//        shortcutMenu: [],
-        allowDivTransToP: false,
-        autoHeightEnabled: true,
-        autoFloatEnabled: true,
-//            分隔线替代文字
-//        pageBreakTag: '\<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'
-    });
-
-    $(function () {
-//        $('#test').draggable();
-        var index = 1;
-        var ss = '<li><script id="container$1" name="content$1" type="text/plain"><\/script></li>';
-        var dd = '<li>视图$1</li>';
-        $('.add').on('click', function () {
-            index++;
-            $('.content').append(ss.replace(/\$1/g, index));
-            $('.navigation').append(dd.replace(/\$1/g, index))
-            ues[index - 1] = UE.getEditor('container' + index);
-
-            $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
-
-//            先增加在选中
-
-            $('.navigation').find('li').last().trigger('click');
-        })
-
-        $('.navigation').on('click', 'li', function () {
-            $('.navigation').find('.current').removeClass('current')
-            var num = $(this).addClass('current').index();
-            $('.content').find('li').hide().eq(num).show();
-
-            var nodes = zTreeObj.getNodes();
-            if (nodes.length > 0) {
-                zTreeObj.selectNode(nodes[num]);
-            }
-        })
-    });
-</script>
-<script>
-    var zTreeObj;
-    // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
-    var setting = {
-        edit: {
-            enable: true,
-            drag: {
-                isCopy: true,
-                isMove: false
-            }
-        },
-        callback: {
-//            点击高亮
-            onClick: function (event, treeId, treeNode) {
-                $('iframe').contents().find('.focus').removeClass('focus');
-                $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).addClass('focus');
-            },
-
-            onDragMove: function (event, treeId, treeNode) {
-                console.log(event.target);
-            },
-
-//            右键菜单
-            onRightClick: function (event, treeId, treeNode) {
-                if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
-                    zTreeObj.cancelSelectedNode();
-                    showRMenu("root", event.clientX, event.clientY);
-                } else if (treeNode && !treeNode.noR) {
-                    zTreeObj.selectNode(treeNode);
-                    showRMenu("node", event.clientX, event.clientY);
-                }
-            },
-
-//            重命名
-            onRename: function (event, treeId, treeNode, isCancel) {
-                console.log(treeNode)
-                if(!treeNode.isParent){
-//                    不是文件夹
-                    $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).find('.name').val(treeNode.name);
-                }
-
-            }
-        }
-    };
-    function showRMenu(type, x, y) {
-        $("#rMenu ul").show();
-        if (type == "root") {
-            $("#m_del").hide();
-            $("#m_check").hide();
-            $("#m_unCheck").hide();
-        } else {
-            $("#m_del").show();
-            $("#m_check").show();
-            $("#m_unCheck").show();
-        }
-        $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible"});
-
-        $("body").on("mousedown", onBodyMouseDown);
-    }
-    function hideRMenu() {
-        if ($("#rMenu")) $("#rMenu").css({"visibility": "hidden"});
-        $("body").off("mousedown", onBodyMouseDown);
-    }
-    function onBodyMouseDown(event) {
-        if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
-            $("#rMenu").css({"visibility": "hidden"});
-        }
-    }
-    function addComponent() {
-        var treeNode = zTreeObj.getSelectedNodes();
-
-
-        var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
-
-        console.log(html)
-
-        window.editor[0].execCommand( 'inserthtml', html);
-//        window.editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
-    }
-    // zTreeObj 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-    var zNodes = [
-//        {
-//            name: "视图1",
-//            open: true,
-//            children: [
-////                    可以在这自定义数据
-//                {name: "test1_1", ddd: 'ggg'},
-//                {name: "test1_2"}
-//            ]
-//        }
-//        {
-//            name: "test2",
-//            open: true,
-//            children: [
-//                {name: "test2_1"},
-//                {name: "test2_2"}
-//            ]
-//        }
-    ];
-    $(document).ready(function () {
-//        因为iframe的初始化需要时间,所以要做一个延迟
-        setTimeout(function () {
-            var iframeBody = $($('iframe')[0].contentWindow.document.body);
-            iframeBody.on('click', '.component-handle', function (e) {
-                var el = $(this).closest('.component');
-
-                el.prop('draggable', true)
-//                el.prop('draggable', !el.prop('draggable'))
-
-                var range = document.createRange();
-                range.selectNode(el[0]);
-
-
-                var window = $('iframe')[0].contentWindow;
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-
-                $(this).addClass('active');
-
-
-//                让树形结构中相应的高亮
-//                zTreeObj.selectNode(nodes[0]);
-                var id = el.attr('class').split('_')[1];
-                $('#treeDemo_' + id + '_a').trigger('click');
-
-                e.stopPropagation();
-            });
-
-//            连续点击handle拖拽的时候要阻止table的update
-            iframeBody.on('mousemove', '.component-handle', function (e) {
-                e.stopPropagation();
-            });
-
-            iframeBody.on('change', '.name', function (e) {
-
-//                var id = $(this).attr('class').split('_')[1];
-//                $('#treeDemo_' + id + '_a').trigger('click');
-
-                var nodes = zTreeObj.getSelectedNodes();
-
-                nodes[0].name = $(this).val();
-                $(this).attr('value', $(this).val());
-                zTreeObj.updateNode(nodes[0]);
-
-                e.stopPropagation();
-            })
-
-            iframeBody.on('click', '.name', function (e) {
-                var el = $(this).closest('.component');
-                var id = el.attr('class').split('_')[1];
-                $('#treeDemo_' + id + '_a').trigger('click');
-
-                e.stopPropagation();
-            })
-
-
-            /**
-             * 点击body区域
-             * 1. 将组件置为不可拖动
-             * 2. 取消组件的高亮状态
-             */
-            iframeBody.on('click', function (e) {
-                var $comp = iframeBody.find('.component');
-                var $focus = iframeBody.find('.focus');
-                $comp.prop('draggable', false);
-                $focus.removeClass('focus');
-
-//                高亮状态取消,并将样式去掉(拖拽的时候将hover的style变成了行内样式)
-                iframeBody.find('.component-handle').removeClass('active').removeAttr('style');
-
-//                console.log(window.editor)
-
-//                我可以在外面往编辑器里插入内容
-//                window.editor.execCommand( 'inserthtml', '<table class="component com-text" draggable="false" id="editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
-
-
-                e.stopPropagation();
-            })
-
-//            iframeBody.on('dragstart', '.component', function (e) {
-//                console.log('dragstart', e)
-//                e.originalEvent.dataTransfer.dropEffect = 'move';
-//            });
-
-            iframeBody.on('dragover', '.component', function (e) {
-//                console.log('drop', e)
-
-//                这样设置了就让组件不能拖到组件内部,还是不行
-//                e.preventDefault();
-//
-//                e.originalEvent.dataTransfer.dropEffect = 'move';
-            });
-
-            iframeBody.on('dragend', '.component', function (e) {
-
-                var dataTransfer = e.originalEvent.dataTransfer;
-
-                if (dataTransfer.dropEffect === 'none') {
-//                    此次拖拽是失败的
-
-                } else {
-//                    拖拽成功,不知道在哪里设置,只能手动删除原来的
-                    $(e.currentTarget).remove();
-                }
-
-//                如果多个组件嵌套
-                e.stopPropagation();
-            });
-        }, 1000)
-
-
-        zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-
-
-        //    动态增加一个子节点
-
-        window.newCount = 1;
-
-        $('#treeDemo').on('addTag', function (e, args) {
-//            var
-////                    nodes = zTreeObj.getSelectedNodes(),
-//                    nodes = args.nodes,
-//                    treeNode = nodes[0];
-
-            if (!args) {
-                args = {};
-                args.isParent = e.isParent;
-                args.name = e.name;
-                args.nodes = e.nodes;
-            }
-
-            var treeNode = args.nodes;
-
-            if (treeNode) {
-                treeNode = zTreeObj.addNodes(treeNode, {
-                    id: (100 + newCount),
-                    pId: treeNode.id,
-                    isParent: args.isParent,
-                    name: args.name + (newCount++)
-                });
-            } else {
-                treeNode = zTreeObj.addNodes(null, {
-                    id: (100 + newCount),
-                    pId: 0,
-                    isParent: args.isParent,
-                    name: args.name + (newCount++)
-                });
-            }
-            if (treeNode) {
-//                zTreeObj.editName(treeNode[0]);
-            } else {
-                alert("叶子节点被锁定，无法增加子节点");
-            }
-
-            return treeNode;
-        })
-
-        $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
-
-//        $("#addParent").on("click", {isParent:true}, add);
-//        $("#addLeaf").on("click", {isParent:false}, add);
-
-//    点击子节点选中相应组件
-
-//    双击弹窗设置
-    });
+//    组件标志
+    window.newCount = 1;
 
 </script>
 

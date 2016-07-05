@@ -20,13 +20,15 @@ UE.registerUI('button', function (editor, uiName) {
             editor.execCommand(uiName);
             //editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
 
-            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><div class="component-handle">v</div><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '"></td></tr></table>');
+            console.log('ddd')
+
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name" value="文本域' + newCount + '"></td></tr></table>');
 
             //这种html结构死活不能整个模块拖动
             //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
 
             var num = $('.current').index();
-            var nodes = zTreeObj.getNodes();
+            var nodes = domainStructure.zTreeObj.getNodes();
             if (nodes.length>0) {
                 $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[num]});
             }
