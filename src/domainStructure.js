@@ -29,7 +29,10 @@ $(function () {
             drag: {
                 isCopy: true,
                 isMove: false
-            }
+            },
+
+            showRemoveBtn: true,
+            showRenameBtn: true
         },
         callback: {
 //            点击高亮

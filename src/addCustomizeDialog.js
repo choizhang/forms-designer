@@ -29,7 +29,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     //html += '</div>';
 
                     var num = $('.current').index();
-                    var nodes = zTreeObj.getNodes();
+                    var nodes = domainStructure.zTreeObj.getNodes();
 
                     //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
                     var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
@@ -43,7 +43,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
                     var html = '<table draggable="false" class="component editorComp_' + newCount + '"><tbody>' ;
 
-                    html += '<tr class="firstRow"><th>标题1<div class="component-handle">v</div></th>'
+                    html += '<tr class="firstRow"><th>标题1<em class="component-handle">v</em></th>'
                     for(var i=1; i<column; i++){
                         html += '<th>标题' + (i+1) + '</th>'
                     }
@@ -53,7 +53,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     window.newCount++;
 
                     for(i=0; i<column; i++){
-                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><div class="component-handle">v</div><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '" /></td></tr></tbody></table></td>';
+                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><em class="component-handle">v</em><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '" /></td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }
