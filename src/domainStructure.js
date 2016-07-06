@@ -59,9 +59,16 @@ $(function () {
 //            重命名
             onRename: function (event, treeId, treeNode, isCancel) {
                 console.log(treeNode)
+                var id = treeNode.id - 100;
+                var newName = treeNode.name;
                 if (!treeNode.isParent) {
 //                    不是文件夹
-                    $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).find('.name').val(treeNode.name);
+                    $('iframe').contents().find('.editorComp_' + id).find('.name').val(newName);
+                }
+
+                if(treeNode.level === 0){
+                    //表示是树形结构的第一级,也即是视图区
+                    $('.editorComp_'+id).find('span').html(newName);
                 }
 
             }

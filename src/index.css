@@ -83,7 +83,7 @@ body{
 .navigation li:hover .tab-del{
     display: block;
 }
-.tab-del{
+.navigation .tab-del{
     display: none;
     position: absolute;
     right: 5px;
@@ -97,7 +97,7 @@ body{
     color: #ffffff;
     background-color: #cccccc;
 }
-.add{
+.tabs .add{
     float: left;
     color: #fff;
     background-color: #ccc;
@@ -109,8 +109,9 @@ body{
     margin-top: 4px;
 }
 
-.current {
+.navigation .current {
     color: #ff0000;
+    background-color: #8486bf;
 }
 
 .domain .icon {

@@ -16,7 +16,7 @@ $(function () {
 
     var index = 1;
     var ss = '<li><script id="container$1" name="content$1" type="text/plain"><\/script></li>';
-    var dd = '<li>视图$1 <i class="tab-del">&times;</i></li>';
+    var dd = '<li class="editorComp_$1"><span>视图$1</span> <i class="tab-del">&times;</i></li>';
 
     /**
      * 新增一个tab分页
