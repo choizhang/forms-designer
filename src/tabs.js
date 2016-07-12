@@ -15,7 +15,7 @@ $(function () {
     });
 
     var index = 1;
-    var ss = '<li><script id="container$1" name="content$1" type="text/plain"><\/script></li>';
+    var ss = '<li><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
     var dd = '<li class="editorComp_$1"><span>视图$1</span> <i class="tab-del">&times;</i></li>';
 
     /**
@@ -73,12 +73,20 @@ $(function () {
     $navigation.on('click', 'li', function (e) {
         $navigation.find('.current').removeClass('current')
         var num = $(this).addClass('current').index();
-        $('.content').find('li').hide().eq(num).show();
+        $('.content').children('li').hide().eq(num).show();
 
         var nodes = domainStructure.zTreeObj.getNodes();
         if (nodes.length > 0) {
             domainStructure.zTreeObj.selectNode(nodes[num]);
         }
+
+        e.stopPropagation();
+    })
+
+    $('.toolbar-tabs').on('click', 'li', function (e) {
+        $('.toolbar-tabs').find('.current').removeClass('current')
+        var num = $(this).addClass('current').index();
+        $('.toolbar-content').find('.edui-toolbar').hide().eq(num).show();
 
         e.stopPropagation();
     })

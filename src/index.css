@@ -125,6 +125,37 @@ body{
     margin-right: 40px;
 }
 
+.toolbar-tabs{
+    overflow: hidden;
+    background-color: #cccccc;
+}
+
+.toolbar-tabs li{
+    float: left;
+    width: 64px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.toolbar-tabs .current {
+    color: #ff0000;
+    background-color: #fff;
+}
+
+
+.edui-toolbar {
+    display: none;
+}
+/*将第一个工具栏的tabs显示出来*/
+.edui-toolbar:nth-child(1) {
+    display: block;
+}
+
+.edui-default .edui-editor{
+    border-top: none;
+}
+
 ul {
     -webkit-margin-before: 0;
     -webkit-margin-after: 0;
