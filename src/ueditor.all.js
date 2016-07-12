@@ -7173,7 +7173,7 @@
                     container.style.zIndex = options.zIndex;
 
                     var html = ( ie && browser.version < 9 ? '' : '<!DOCTYPE html>') +
-                        '<html xmlns=\'http://www.w3.org/1999/xhtml\' class=\'view\' ><head>' +
+                        '<html class=\'view\' ><head>' +
                         '<style type=\'text/css\'>' +
                         '.view{word-wrap:break-word;cursor:text;height:90%;}\n' +
                             //设置默认字体和字号
@@ -12121,7 +12121,7 @@
 
         UE.commands['unlink'] = {
             execCommand: function () {
-                if(this.selection){
+                if (this.selection) {
                     var range = this.selection.getRange(),
                         bookmark;
                     if (range.collapsed && !domUtils.findParentByTagName(range.startContainer, 'a', true)) {
@@ -17338,7 +17338,7 @@
 
                     var id = targetObj.id.split('_')[1];
 
-                    var node = zTreeObj.getNodeByTId("treeDemo_"+id);
+                    var node = zTreeObj.getNodeByTId("treeDemo_" + id);
                 },
                 hide: function () {
                     var me = this;
@@ -17382,7 +17382,7 @@
                 me.addListener('click', function (type, e) {
 
                     var range = me.selection.getRange(),
-                        //必须是单标签
+                    //必须是单标签
                         img = range.getClosedNode();
 
                     //my 我自己的组件也是用img来做
@@ -17455,7 +17455,7 @@
             if (browser.webkit) {
                 me.addListener('click', function (type, e) {
 
-                    if ( e.target.tagName == 'IMG' && me.body.contentEditable != "false") {
+                    if (e.target.tagName == 'IMG' && me.body.contentEditable != "false") {
                         var range = new dom.Range(me.document);
                         range.selectNode(e.target).select();
                     }
@@ -18269,7 +18269,7 @@
         UETable.prototype = {
             getMaxRows: function () {
                 var rows = this.table.rows, maxLen = 1;
-                if(!rows) return;
+                if (!rows) return;
 
                 for (var i = 0, row; row = rows[i]; i++) {
                     var currentMax = 1;
@@ -18437,7 +18437,7 @@
                 this.indexTable = [];
 
                 //my 如果在全选句柄就不执行更新
-                if(this.table.className === 'component-handle'){
+                if (this.table.className === 'component-handle') {
                     return;
                 }
                 var rows = this.table.rows,
@@ -19255,8 +19255,9 @@
                     for (var r = 0; r < rowsNum; r++) {
                         html.push('<tr' + (r == 0 ? ' class="firstRow"' : '') + '>');
                         for (var c = 0; c < colsNum; c++) {
-                            html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
+                            html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '') + '</td>')
                         }
+                        //my br
                         html.push('</tr>')
                     }
                     //禁止指定table-width
@@ -20026,20 +20027,45 @@
             execCommand: function (cmd, color, width, style) {
                 var rng = this.selection.getRange(),
                     table = domUtils.findParentByTagName(rng.startContainer, 'table');
+
                 if (table) {
                     var arr = domUtils.getElementsByTagName(table, "td").concat(
                         domUtils.getElementsByTagName(table, "th"),
                         domUtils.getElementsByTagName(table, "caption")
                     );
-                    utils.each(arr, function (node) {
-                        node.style.borderColor = color;
-                        node.style.borderWidth = width;
-                        node.style.borderStyle = style;
-                    });
+                    //utils.each(arr, function (node) {
+                    //        node.style.borderColor = color;
+                    //        node.style.borderWidth = width;
+                    //        node.style.borderStyle = style;
+                    //
+                    //    }
+                    //);
+
+                    //my 将布局table里面的组件table去除,不然影响太大了
+                    for (var i = 0; i < arr.length; i++) {
+                        var node = arr[i];
+                        if (!$(table).hasClass('component')) {
+                            //是布局的table
+                            if ($(node).closest('.component').length) {
+                                //这个node是组件里面的
+                                continue;
+                            } else {
+                                node.style.borderColor = color;
+                                node.style.borderWidth = width;
+                                node.style.borderStyle = style;
+                            }
+                        } else {
+                            node.style.borderColor = color;
+                            node.style.borderWidth = width;
+                            node.style.borderStyle = style;
+                        }
+
+                    }
                 }
             }
-        };
-        //单元格属性
+        }
+        ;
+//单元格属性
         UE.commands['edittd'] = {
             queryCommandState: function () {
                 return getTableItemsByRange(this).table ? 0 : -1
@@ -20161,7 +20187,8 @@
                 return [];
             }
         }
-    })();
+    })
+    ();
 
 // plugins/table.action.js
     /**
@@ -20287,10 +20314,12 @@
                 '.selectTdClass{background-color:#edf5fa !important}' +
                 'table.noBorderTable td,table.noBorderTable th,table.noBorderTable caption{border:1px dashed #ddd !important}' +
                     //插入的表格的默认样式
-                'table{margin-bottom:10px;border-collapse:collapse;display:table;}' +
-                'td,th{padding: 5px 10px;border: 1px solid #DDD;}' +
+                    //my margin-bottom:10px;
+                'table{border-collapse:collapse;display:table;}' +
+                    //my 去掉了默认间距padding: 5px 10px;
+                'td,th{border: 1px solid #DDD;}' +
                 'caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}' +
-                'th{border-top:1px solid #BBB;background-color:#F7F7F7;}' +
+                'th{border-top:1px solid #BBB;}' +
                 'table tr.firstRow th{border-top-width:2px;}' +
                 '.ue-table-interlace-color-single{ background-color: #fcfcfc; } .ue-table-interlace-color-double{ background-color: #f7faff; }' +
                 'td p{margin:0;padding:0;}', me.document);
@@ -21950,7 +21979,7 @@
             line = editor.document.getElementById('ue_tableDragLine')
 
             //my while太可怕了
-            if(line){
+            if (line) {
                 console.log(line)
                 domUtils.remove(line)
             }
@@ -25990,7 +26019,7 @@
                     this.fireEvent('out');
                 }
             },
-            Stateful_onMouseOver: function (evt, el ) {
+            Stateful_onMouseOver: function (evt, el) {
                 var rel = evt.relatedTarget;
                 if (!uiUtils.contains(el, rel) && el !== rel) {
                     this.Stateful_onMouseEnter(evt, el);
@@ -27592,7 +27621,7 @@
 // ui/multiMenu.js
 ///import core
 ///import uicore
-    ///commands 表情
+///commands 表情
     (function () {
         var utils = baidu.editor.utils,
             Popup = baidu.editor.ui.Popup,
@@ -29607,4 +29636,5 @@
     })();
 
 
-})();
+})
+();

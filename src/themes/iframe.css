@@ -2,6 +2,15 @@ em {
     font-style: normal;
 }
 
+h1{
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+p{
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+}
+
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
@@ -21,13 +30,20 @@ em {
     width: 100%;
     height: 100%;
     border: none;
+    background-color: transparent;
+}
+
+.component .icon {
+    box-sizing: border-box;
+    margin-right: -20px;
+    padding-right: 30px;
 }
 
 .component-handle {
     /*display: none;*/
     position: absolute;
-    left: 0;
-    top: 0;
+    left: -15px;
+    top: -15px;
     width: 15px;
     height: 15px;
     background-color: #999999;
@@ -54,10 +70,17 @@ em {
     height: 1px;
 }
 
-table{
-    margin-bottom: 0;
-}
 table br{
     display: block;
     height: 1px;
+}
+
+.calendar_icon {
+    display: inline-block;
+    vertical-align: middle;
+    height: 16px;
+    width: 16px;
+    line-height: 16px;
+    background: url("icon.png") no-repeat;
+    background-position: 0 -403px;
 }

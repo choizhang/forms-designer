@@ -216,6 +216,7 @@
             return color;
         },
         setStyle: function (e) {
+            //这个是弹窗里面的示例
             var example = $G("J_example"),
                 arr = domUtils.getElementsByTagName(example, "td").concat(
                     domUtils.getElementsByTagName(example, "th"),
@@ -284,8 +285,6 @@
                 editor.queryCommandState(cmds[1]) != -1 && editor.execCommand(cmds[1]);
             }
         }
-
-        console.log(borderWidth)
 
         //修改边框的粗细,样式和颜色
         editor.execCommand("edittable", tone.value, borderWidth.value, borderStyle.value);
