@@ -23,52 +23,53 @@
     <a href="javascript:;" class="add" title="添加视图">+</a>
 </div>
 
-<ul class="content">
-    <li>
-        <ul class="toolbar-tabs">
-            <li class="current">编辑</li>
-            <li>插入</li>
-            <li>表格</li>
-            <li>工具</li>
-            <li>组件</li>
-        </ul>
-        <ul class="toolbar-content">
-            <li>
-                <!-- 加载编辑器的容器 -->
-                <script id="container" name="content" type="text/plain">这里写你的初始化内容<br>
+<div class="left-right">
+    <ul class="content">
+        <li class="view">
+            <ul class="toolbar-tabs">
+                <li class="current">编辑</li>
+                <li>插入</li>
+                <li>表格</li>
+                <li>工具</li>
+                <li>组件</li>
+            </ul>
+            <ul class="toolbar-content">
+                <li>
+                    <!-- 加载编辑器的容器 -->
+                    <script id="container" name="content" type="text/plain">这里写你的初始化内容<br>
 bb<br>
 aa<br>
 cc<br>
                 </script>
-            </li>
-        </ul>
+                </li>
+            </ul>
 
-    </li>
-</ul>
+        </li>
+    </ul>
 
+    <div class="domain-tree">
+        <h2>我是域结构</h2>
 
-<div>
-    <h2>我是域结构</h2>
+        <!--<a href="javascript:;">我是链接</a>-->
 
-    <!--<a href="javascript:;">我是链接</a>-->
+        <!--<ul class="domain">-->
+        <!--<li>域1</li>-->
+        <!--<li>域2</li>-->
+        <!--<li class="li">-->
+        <!--<div style="position: relative;width: 71px;">-->
+        <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
+        <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
+        <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
+        <!--</div>-->
+        <!--</li>-->
+        <!--</ul>-->
 
-    <!--<ul class="domain">-->
-    <!--<li>域1</li>-->
-    <!--<li>域2</li>-->
-    <!--<li class="li">-->
-    <!--<div style="position: relative;width: 71px;">-->
-    <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
-    <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
-    <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
-    <!--</div>-->
-    <!--</li>-->
-    <!--</ul>-->
-
-    <ul id="treeDemo" class="ztree"></ul>
-    <div id="rMenu">
-        <ul>
-            <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
-        </ul>
+        <ul id="treeDemo" class="ztree"></ul>
+        <div id="rMenu">
+            <ul>
+                <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
+            </ul>
+        </div>
     </div>
 </div>
 

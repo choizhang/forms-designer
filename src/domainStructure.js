@@ -38,7 +38,15 @@ $(function () {
 //            点击高亮
             onClick: function (event, treeId, treeNode) {
                 $('iframe').contents().find('.focus').removeClass('focus');
-                $('iframe').contents().find('.editorComp_' + (treeNode.id - 100)).addClass('focus');
+
+                var $component = $('iframe').contents().find('.editorComp_' + (treeNode.id - 100));
+
+
+
+                $component.addClass('focus');
+
+                //触发了click会导致拖拽的bug,而且没有必要,拖拽只能点击标志来拖动
+                //$component.find('.component-handle').eq(0).trigger('click');
             },
 
             onDragMove: function (event, treeId, treeNode) {

@@ -14,8 +14,8 @@ $(function () {
 //        pageBreakTag: '\<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'
     });
 
-    var index = 1;
-    var ss = '<li><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
+    var index = window.newCount + 1;
+    var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
     var dd = '<li class="editorComp_$1"><span>视图$1</span> <i class="tab-del">&times;</i></li>';
 
     /**
@@ -83,10 +83,14 @@ $(function () {
         e.stopPropagation();
     })
 
-    $('.toolbar-tabs').on('click', 'li', function (e) {
-        $('.toolbar-tabs').find('.current').removeClass('current')
+    /**
+     * 点击工具栏tab实现当前tab显示
+     */
+    $('.content').on('click', '.toolbar-tabs li', function (e) {
+        var $currentView = $(this).closest('.view')
+        $currentView.find('.current').removeClass('current')
         var num = $(this).addClass('current').index();
-        $('.toolbar-content').find('.edui-toolbar').hide().eq(num).show();
+        $currentView.find('.edui-toolbar').hide().eq(num).show();
 
         e.stopPropagation();
     })

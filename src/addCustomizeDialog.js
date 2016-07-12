@@ -32,6 +32,8 @@ UE.registerUI('dialog',function(editor,uiName){
                     var nodes = domainStructure.zTreeObj.getNodes();
 
                     //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
+                    console.log(num)
+                    console.log(nodes[num])
                     var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
                     if (nodes.length>0) {
                         //$("#treeDemo").trigger('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
@@ -54,6 +56,8 @@ UE.registerUI('dialog',function(editor,uiName){
 
                     for(i=0; i<column; i++){
                         html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><em class="component-handle">v</em><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '" /></td></tr></tbody></table></td>';
+
+                        console.log(event.result[0])
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }
