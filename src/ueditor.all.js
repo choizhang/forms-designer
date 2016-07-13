@@ -20320,9 +20320,9 @@
                     //my margin-bottom:10px;
                 'table{border-collapse:collapse;display:table;}' +
                     //my 去掉了默认间距padding: 5px 10px;
-                'td,th{border: 1px solid #DDD;}' +
-                'caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}' +
-                'th{border-top:1px solid #BBB;}' +
+                'td,th{border: 1px solid #000;}' +
+                'caption{border:1px dashed #000;border-bottom:0;padding:3px;text-align:center;}' +
+                'th{border-top:1px solid #000;}' +
                 'table tr.firstRow th{border-top-width:2px;}' +
                 '.ue-table-interlace-color-single{ background-color: #fcfcfc; } .ue-table-interlace-color-double{ background-color: #f7faff; }' +
                 'td p{margin:0;padding:0;}', me.document);
@@ -29164,7 +29164,15 @@
                         if (index === undefined) {
                             index = toolbarUi.items.length;
                         }
-                        toolbarUi.add(itemUI, index)
+
+                        //my 自定义控件能插入到前面的tab中
+                        if(typeof index === 'object'){
+                            //如果是数组 [1,2]
+                            toolbarUis[index[0]].add(itemUI, index[1])
+                        } else {
+                            //插入到最后一个tab中去
+                            toolbarUi.add(itemUI, index)
+                        }
                     }
                 });
 
