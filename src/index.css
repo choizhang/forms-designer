@@ -152,10 +152,6 @@ body{
     display: block;
 }
 
-.edui-default .edui-editor{
-    border-top: none;
-}
-
 .left-right{
     overflow: hidden;
 }

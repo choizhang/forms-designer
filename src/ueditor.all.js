@@ -8942,7 +8942,8 @@
                 //源码模式下输入html标签，不能做转换处理，直接输出
                 arr.push(node.data)
             } else {
-                arr.push(notTransTagName[node.parentNode.tagName] ? utils.html(node.data) : node.data.replace(/[ ]{2}/g, ' &nbsp;'))
+                //my 会自动添加&nbsp;这里去掉 http://www.iteye.com/topic/1136084
+                arr.push(notTransTagName[node.parentNode.tagName] ? utils.html(node.data) : node.data.replace(/[ ]{2}/g, ''))
             }
 
         }
@@ -19255,9 +19256,10 @@
                     for (var r = 0; r < rowsNum; r++) {
                         html.push('<tr' + (r == 0 ? ' class="firstRow"' : '') + '>');
                         for (var c = 0; c < colsNum; c++) {
-                            html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '') + '</td>')
+                            //html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
+
+                            html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" ></td>')
                         }
-                        //my br
                         html.push('</tr>')
                     }
                     //禁止指定table-width
@@ -19286,6 +19288,7 @@
 
                 //todo其他属性
                 !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
+                console.log(createTable(opt, tdWidth))
                 me.execCommand("inserthtml", createTable(opt, tdWidth));
             }
         };
@@ -21980,7 +21983,6 @@
 
             //my while太可怕了
             if (line) {
-                console.log(line)
                 domUtils.remove(line)
             }
         }
