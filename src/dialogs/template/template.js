@@ -44,6 +44,23 @@
         var obj = {
             html:currentTmp && currentTmp.html
         };
+
+        //如果模板中含有组件,要添加到域结构中去
+
+        $(obj.html).find('.com-text').each(function(index, value){
+            var className = $(value).attr('class');
+
+            var num = me.execCommand('button');
+            className.replace(/editorComp_{\d}/g, 'editorComp_'+num);
+
+            $(value).attr('class', className)
+
+
+
+        })
+
+        console.log(obj.html)
+
         me.execCommand( "template", obj );
     };
     initPre();
@@ -51,3 +68,5 @@
     pre(2)
 
 })();
+
+console.log(jQuery)

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="content">
+    <h1>重复表</h1>
+    <label>重复表的列数: <input type="number" value="3"></label>
+</div>
+<!--页面中一定要引入internal.js为了能直接使用当前打开dialog的实例变量-->
+<!--internal.js默认是放到dialogs目录下的-->
+<script src="../dialogs/internal.js"></script>
+<script>
+    //可以直接使用以下全局变量
+    //当前打开dialog的实例变量
+    console.log(editor);
+//    一些常用工具
+    console.log(domUtils);
+    console.log(utils);
+    console.log(browser);
+</script>
+</body>
+</html>

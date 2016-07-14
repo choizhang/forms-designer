@@ -7175,11 +7175,11 @@
                     var html = ( ie && browser.version < 9 ? '' : '<!DOCTYPE html>') +
                         '<html class=\'view\' ><head>' +
                         '<style type=\'text/css\'>' +
-                        '.view{word-wrap:break-word;cursor:text;height:90%;}\n' +
+                        '.view{margin: 0;word-wrap:break-word;cursor:text;}\n' +
                             //设置默认字体和字号
                             //font-family不能呢随便改，在safari下fillchar会有解析问题
                             //my 设置四周的留边
-                        'body{margin:20px;font-family:sans-serif;font-size:16px;border: 1px dashed;}' +
+                        'body{font-family:sans-serif;font-size:16px;border: 1px dashed;}' +
                             //设置段落间距
                         'p{margin:5px 0;}</style>' +
                         ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
@@ -25853,6 +25853,20 @@
             },
             _onPickNoColor: function () {
                 this.fireEvent('picknocolor');
+            },
+            //my 输入颜色值
+            _onUserDefineClick : function(){
+                var value = ( this.getDom('color-input').value || '' ).trim();
+                if( ! value || ! /^#?[0-9a-f]{6}$/.test(value) ){
+                    alert('自定义颜色格式错误!! 必须使用 #rrggbb 格式的颜色值!');
+                    return;
+                }
+
+                if( value[0] !== '#' ){
+                    value = '#' + value;
+                }
+
+                this.fireEvent('pickcolor', value);
             }
         };
         utils.inherits(ColorPicker, UIBase);
@@ -26320,20 +26334,6 @@
                 if (this.fireEvent('picknocolor') !== false) {
                     this.popup.hide();
                 }
-            },
-            //my 输入颜色值
-            _onUserDefineClick : function(){
-                var value = ( this.getDom('color-input').value || '' ).trim();
-                if( ! value || ! /^#?[0-9a-f]{6}$/.test(value) ){
-                    alert('自定义颜色格式错误!! 必须使用 #rrggbb 格式的颜色值!');
-                    return;
-                }
-
-                if( value[0] !== '#' ){
-                    value = '#' + value;
-                }
-
-                this.fireEvent('pickcolor', value);
             }
         };
         utils.inherits(ColorButton, SplitButton);

@@ -36,6 +36,14 @@
         type:"text/css",
         rel:"stylesheet"
     });
+
+    utils.loadFile(document,{
+        href:editor.options.themePath + editor.options.theme + "/dialogbase.css?cache="+Math.random(),
+        tag:"link",
+        type:"text/css",
+        rel:"stylesheet"
+    });
+
     lang = editor.getLang(dialog.className.split( "-" )[2]);
     if(lang){
         domUtils.on(window,'load',function () {

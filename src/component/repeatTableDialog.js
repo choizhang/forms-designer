@@ -1,9 +1,9 @@
-UE.registerUI('dialog',function(editor,uiName){
+UE.registerUI('repeatTable',function(editor,uiName){
 
     //创建dialog
     var dialog = new UE.ui.Dialog({
         //指定弹出层中页面的路径，这里只能支持页面,因为跟addCustomizeDialog.js相同目录，所以无需加路径
-        iframeUrl:'customizeDialogPage.html',
+        iframeUrl:'component/repeatTable.html',
         //需要指定当前的编辑器实例
         editor:editor,
         //指定dialog的名字
@@ -32,8 +32,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     var nodes = domainStructure.zTreeObj.getNodes();
 
                     //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
-                    console.log(num)
-                    console.log(nodes[num])
+
                     var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
                     if (nodes.length>0) {
                         //$("#treeDemo").trigger('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
@@ -43,7 +42,7 @@ UE.registerUI('dialog',function(editor,uiName){
                     window.newCount--;
 
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
-                    var html = '<table draggable="false" class="component editorComp_' + newCount + '"><tbody>' ;
+                    var html = '<table draggable="false" class="component com-repeat editorComp_' + newCount + '"><tbody>' ;
 
                     html += '<tr class="firstRow"><th>标题1<em class="component-handle">v</em></th>'
                     for(var i=1; i<column; i++){
@@ -91,4 +90,4 @@ UE.registerUI('dialog',function(editor,uiName){
     });
 
     return btn;
-}, [1,0]/*index 指定添加到工具栏上的那个位置，默认时追加到最后,editorId 指定这个UI是那个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮*/);
+}/*index 指定添加到工具栏上的那个位置，默认时追加到最后,editorId 指定这个UI是那个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮*/);

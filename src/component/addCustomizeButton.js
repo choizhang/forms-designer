@@ -2,29 +2,7 @@ UE.registerUI('button', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
     editor.registerCommand(uiName, {
         execCommand: function () {
-            //alert('execCommand:' + uiName)
-        }
-    });
-
-    //创建一个button
-    var btn = new UE.ui.Button({
-        //按钮的名字
-        name: '文本框',
-        //提示
-        title: '文本域',
-        //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
-        cssRules: 'background-position: -500px 0;',
-        //点击时执行的命令
-        onclick: function () {
-            //这里可以不用执行命令,做你自己的操作也可
-            editor.execCommand(uiName);
-            //editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
-
-            //component-handle还不能使用div,不然会在其他tab被换成p
-            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name" value="文本域' + newCount + '"></td></tr></table>');
-
-            //这种html结构死活不能整个模块拖动
-            //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
+            //uiName就是'button'
 
             var num = $('.current').index();
             var nodes = domainStructure.zTreeObj.getNodes();
@@ -41,6 +19,34 @@ UE.registerUI('button', function (editor, uiName) {
 
             //点击表格前或内部都可以实现表格居中
             //editor.execCommand( 'tablealignment', 'center');
+
+            return newCount;
+        }
+    });
+
+    //创建一个button
+    var btn = new UE.ui.Button({
+        //按钮的名字
+        name: '文本框',
+        //提示
+        title: '文本域',
+        //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
+        cssRules: 'background-position: -500px 0;',
+        //点击时执行的命令
+        onclick: function () {
+            //editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');
+
+            //component-handle还不能使用div,不然会在其他tab被换成p
+            //将数字标识符去掉了,因为在模板添加的时候很容易实现冲突
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name" value="文本域"></td></tr></table>');
+
+            //这种html结构死活不能整个模块拖动
+            //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
+
+
+            //这里是执行的上面注册的命令
+            editor.execCommand(uiName);
+
         }
     });
 

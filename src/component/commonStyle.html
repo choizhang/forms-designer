@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="content">
+    <h1>全局设置</h1>
+    <label>间距(1px 2px 3px 4px对应上右下左): <input type="text" id="margin" value="10px 10px 10px 10px"></label>
+</div>
+<!--页面中一定要引入internal.js为了能直接使用当前打开dialog的实例变量-->
+<!--internal.js默认是放到dialogs目录下的-->
+<script src="../dialogs/internal.js"></script>
+<script>
+    //可以直接使用以下全局变量
+    //当前打开dialog的实例变量
+    document.querySelector('#margin').value = editor.body.style.margin || 0;
+    console.log(editor);
+//    一些常用工具
+    console.log(domUtils);
+    console.log(utils);
+    console.log(browser);
+</script>
+</body>
+</html>
