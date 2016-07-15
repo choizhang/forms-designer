@@ -6983,6 +6983,7 @@
                 initialStyle: '',
                 autoClearinitialContent: false,
                 iframeCssUrl: me.options.UEDITOR_HOME_URL + 'themes/iframe.css',
+                iframePrintCssUrl: me.options.UEDITOR_HOME_URL + 'themes/print.css',
                 textarea: 'editorValue',
                 focus: false,
                 focusInEnd: true,
@@ -7178,11 +7179,12 @@
                         '.view{margin: 0;word-wrap:break-word;cursor:text;}\n' +
                             //设置默认字体和字号
                             //font-family不能呢随便改，在safari下fillchar会有解析问题
-                            //my 设置四周的留边
+                            //my 设置四周的留边,默认的字体和字号
                         'body{font-family:sans-serif;font-size:16px;border: 1px dashed;}' +
                             //设置段落间距
                         'p{margin:5px 0;}</style>' +
                         ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
+                        ( options.iframePrintCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframePrintCssUrl) + '\' media=\'print\'/>' : '' ) +
                         (options.initialStyle ? '<style>' + options.initialStyle + '</style>' : '') +
                         '</head><body class=\'view\' ></body>' +
                         '<script type=\'text/javascript\' ' + (ie ? 'defer=\'defer\'' : '' ) + ' id=\'_initialScript\'>' +
@@ -11684,8 +11686,10 @@
 
             };
         me.setOpt({
+            //my 添加仿宋,Thoma, Sans Serif
             'fontfamily': [
                 {name: 'songti', val: '宋体,SimSun'},
+                {name: 'fangsong', val: '仿宋,仿宋_GB2312'},
                 {name: 'yahei', val: '微软雅黑,Microsoft YaHei'},
                 {name: 'kaiti', val: '楷体,楷体_GB2312, SimKai'},
                 {name: 'heiti', val: '黑体, SimHei'},
