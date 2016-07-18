@@ -47,15 +47,27 @@
 
         //如果模板中含有组件,要添加到域结构中去
 
+        //文本组件
         $(obj.html).find('.com-text').each(function(index, value){
             var className = $(value).attr('class');
 
             var num = me.execCommand('button');
+            //先执行插入一个按钮,通过返回的数字给iframe的组件给id
             className.replace(/editorComp_{\d}/g, 'editorComp_'+num);
 
             $(value).attr('class', className)
 
+        })
 
+        //重复表组件
+        $(obj.html).find('.com-repeat').each(function(index, value){
+            var className = $(value).attr('class');
+
+            var num = me.execCommand('repeatTable');
+            //先执行插入一个按钮,通过返回的数字给iframe的组件给id
+            className.replace(/editorComp_{\d}/g, 'editorComp_'+num);
+
+            $(value).attr('class', className)
 
         })
 

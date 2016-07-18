@@ -20,7 +20,7 @@ UE.registerUI('buttonCalendar', function (editor, uiName) {
             editor.execCommand(uiName);
 
             //component-handle还不能使用div,不然会在其他tab被换成p
-            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name icon" value="日历' + newCount + '"><span class="calendar_icon"></span></td></tr></table>');
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name icon" value="日历"><span class="calendar_icon"></span></td></tr></table>');
 
             var num = $('.current').index();
             var nodes = domainStructure.zTreeObj.getNodes();

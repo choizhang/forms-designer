@@ -1,8 +1,7 @@
 $(function () {
-    var ues = [];
     var $navigation = $('.navigation');
 
-    ues[0] = UE.getEditor('container', {
+    window.editor[0] = UE.getEditor('container', {
 //            toolbars: [
 //                ['fullscreen', 'source', 'undo', 'redo', 'bold']
 //            ],
@@ -14,18 +13,23 @@ $(function () {
 //        pageBreakTag: '\<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'
     });
 
-    var index = window.newCount + 1;
+    console.log(window.newCount)
+
+    //var index = window.newCount + 1;
+
     var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
-    var dd = '<li class="editorComp_$1"><span>视图$1</span> <i class="tab-del">&times;</i></li>';
+    var dd = '<li class="editorComp_$1"><span>视图$2</span> <i class="tab-del">&times;</i></li>';
 
     /**
      * 新增一个tab分页
      */
     $('.add').on('click', function (e) {
-        index++;
+        var index = window.newCount;
+        var num = $navigation.find('li').length;
+
         $('.content').append(ss.replace(/\$1/g, index));
-        $navigation.append(dd.replace(/\$1/g, index))
-        ues[index - 1] = UE.getEditor('container' + index);
+        $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, num+1))
+        window.editor[num] = UE.getEditor('container' + index);
 
         //增加了视图,域结构也要增加
         $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
@@ -34,10 +38,9 @@ $(function () {
         $navigation.find('li').last().trigger('click');
 
         //给新增的iframe绑定事件
-        var iframeBody = $($('iframe')[index-1].contentWindow.document.body);
+        var iframeBody = $($('iframe')[num].contentWindow.document.body);
 
         iframe.bindIframe(iframeBody)
-
 
         e.stopPropagation();
     })

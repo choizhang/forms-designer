@@ -1,5 +1,13 @@
 UE.registerUI('repeatTable',function(editor,uiName){
 
+    editor.registerCommand(uiName, {
+        execCommand: function () {
+
+
+            return newCount;
+        }
+    });
+
     //创建dialog
     var dialog = new UE.ui.Dialog({
         //指定弹出层中页面的路径，这里只能支持页面,因为跟addCustomizeDialog.js相同目录，所以无需加路径
@@ -54,15 +62,15 @@ UE.registerUI('repeatTable',function(editor,uiName){
                     window.newCount++;
 
                     for(i=0; i<column; i++){
-                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><em class="component-handle">v</em><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域' + newCount + '" /></td></tr></tbody></table></td>';
-
-                        console.log(event.result[0])
+                        html += '<td><br><table draggable="false" class="component com-text editorComp_' + newCount + '"><tbody><tr><td><em class="component-handle">v</em><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域" /></td></tr></tbody></table></td>';
 
                         $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
                     }
                     html += '</tr></tbody></table>';
 
                     dialog.editor.execCommand( 'inserthtml', html);
+
+                    editor.execCommand(uiName);
 
                     dialog.close(true);
                 }

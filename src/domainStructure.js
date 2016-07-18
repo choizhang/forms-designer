@@ -88,6 +88,8 @@ $(function () {
 
     //    动态增加一个子节点
     $treeDemo.on('addTag', function (e, args) {
+        var $navigation = $('.navigation');
+        var num = $navigation.find('li').length;
 
         if (!args) {
             args = {};
@@ -99,18 +101,20 @@ $(function () {
         var treeNode = args.nodes;
 
         if (treeNode) {
+            //叶子节点
             treeNode = zTreeObj.addNodes(treeNode, {
                 id: (100 + newCount),
                 pId: treeNode.id,
                 isParent: args.isParent,
-                name: args.name + (newCount++)
+                name: args.name
             });
         } else {
+            //根节点
             treeNode = zTreeObj.addNodes(null, {
                 id: (100 + newCount),
                 pId: 0,
                 isParent: args.isParent,
-                name: args.name + (newCount++)
+                name: args.name + num
             });
         }
         if (treeNode) {
@@ -119,16 +123,20 @@ $(function () {
             alert("叶子节点被锁定，无法增加子节点");
         }
 
+        window.newCount++;
+
         return treeNode;
     })
 
     //        域结构中右键插入一个组件
     function addComponent() {
         var treeNode = zTreeObj.getSelectedNodes();
+        var num = $('.current').index();
 
+        console.log(treeNode)
         var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
 
-        window.editor[0].execCommand('inserthtml', html);
+        window.editor[num].execCommand('inserthtml', html);
     }
 
 //        默认增加视图1
