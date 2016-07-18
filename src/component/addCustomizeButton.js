@@ -38,7 +38,7 @@ UE.registerUI('button', function (editor, uiName) {
 
             //component-handle还不能使用div,不然会在其他tab被换成p
             //将数字标识符去掉了,因为在模板添加的时候很容易实现冲突
-            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle">v</em><input type="text" class="name" value="文本域"></td></tr></table>');
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><em class="component-handle"></em><input type="text" class="name" value="文本域"></td></tr></table>');
 
             //这种html结构死活不能整个模块拖动
             //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
