@@ -49,6 +49,7 @@
 
         //文本组件
         var tep = $(obj.html);
+
         tep.find('.com-text').not('.com-inner-text').each(function (index, value) {
             var className = $(value).attr('class');
 

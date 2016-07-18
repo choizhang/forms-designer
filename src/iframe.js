@@ -31,8 +31,12 @@ $(function () {
             .on({
                 click: function (e) {
                     var el = $(this).closest('.component');
+                    var $comp = iframeBody.find('.component');
 
-                    el.prop('draggable', true)
+                    $comp.removeClass('focus').removeClass('dragable');
+
+                    el.prop('draggable', true);
+                    el.addClass('dragable');
 //                el.prop('draggable', !el.prop('draggable'))
 
                     var range = document.createRange();
@@ -92,9 +96,9 @@ $(function () {
              */
             .on('click', function (e) {
                 var $comp = iframeBody.find('.component');
-                var $focus = iframeBody.find('.focus');
+                //var $focus = iframeBody.find('.focus');
                 $comp.prop('draggable', false);
-                $focus.removeClass('focus');
+                $comp.removeClass('focus').removeClass('dragable');
 
 //                高亮状态取消,并将样式去掉(拖拽的时候将hover的style变成了行内样式)
                 iframeBody.find('.component-handle').removeClass('active').removeAttr('style');

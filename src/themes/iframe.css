@@ -26,6 +26,11 @@ p{
     outline: 2px solid #f00;
 }
 
+.component.dragable {
+    outline: 2px solid #f00;
+    background-color: #76c0d6;
+}
+
 .component tr > div {
     display: none;
 }
@@ -63,7 +68,7 @@ p{
     background-color: #8385BD;
 }
 
-.component:hover .component-handle {
+.component:hover .component-handle, .dragable .component-handle {
     display: block;
 }
 
