@@ -43,7 +43,7 @@ $(function () {
                     range.selectNode(el[0]);
 
                     //获取当前是第几个tab
-                    var current = $('.current').index();
+                    var current = $('.current').index( );
 
                     var window = $('iframe')[current].contentWindow;
                     var sel = window.getSelection();
