@@ -95,6 +95,7 @@ $(function () {
             args = {};
             args.isParent = e.isParent;
             args.name = e.name;
+            args.open = e.open;
             args.nodes = e.nodes;
         }
 
@@ -113,6 +114,7 @@ $(function () {
             treeNode = zTreeObj.addNodes(null, {
                 id: (100 + newCount),
                 pId: 0,
+                open: args.open,
                 isParent: args.isParent,
                 name: args.name + num
             });
@@ -140,7 +142,7 @@ $(function () {
     }
 
 //        默认增加视图1
-    $treeDemo.trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
+    $treeDemo.trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
 
     //        $("#addParent").on("click", {isParent:true}, add);
     //        $("#addLeaf").on("click", {isParent:false}, add);

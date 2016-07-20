@@ -77,7 +77,7 @@ UE.registerUI('repeattable',function(editor,uiName){
                     }
                     html += '</tr></tbody></table>';
 
-                    dialog.editor.execCommand( 'inserthtml', html);
+                    dialog.editor.execCommand( 'inserthtml', html, true);
 
                     dialog.close(true);
                 }

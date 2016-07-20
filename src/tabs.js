@@ -1,7 +1,7 @@
 $(function () {
     var $navigation = $('.navigation');
 
-    window.editor[0] = UE.getEditor('container', {
+    var config = {
 //            toolbars: [
 //                ['fullscreen', 'source', 'undo', 'redo', 'bold']
 //            ],
@@ -10,10 +10,12 @@ $(function () {
         autoHeightEnabled: true,
         autoFloatEnabled: true,
         //initialFrameWidth : 1000,  //编辑器宽度，默认1000
-        initialFrameHeight : 500  //编辑器高度，默认320
+        //initialFrameHeight : 500  //编辑器高度，默认320
 //            分隔线替代文字
 //        pageBreakTag: '\<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'
-    });
+    };
+
+    window.editor[0] = UE.getEditor('container', config);
 
     console.log(window.newCount)
 
@@ -31,10 +33,10 @@ $(function () {
 
         $('.content').append(ss.replace(/\$1/g, index));
         $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, num+1))
-        window.editor[num] = UE.getEditor('container' + index);
+        window.editor[num] = UE.getEditor('container' + index, config);
 
         //增加了视图,域结构也要增加
-        $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', nodes: undefined});
+        $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
 
 //            先增加在选中
         $navigation.find('li').last().trigger('click');
