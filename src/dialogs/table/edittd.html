@@ -5,19 +5,26 @@
     <script type="text/javascript" src="../internal.js"></script>
     <style type="text/css">
         .section {
-            text-align: center;
             margin-top: 10px;
+            text-align: left;
+            margin-left: 50px;
         }
         .section input {
             margin-left: 5px;
-            width: 70px;
+            width: 110px;
         }
     </style>
 </head>
 <body>
 <div class="section">
-    <span><var id="lang_tdBkColor"></var></span>
-    <input type="text" id="J_tone"/>
+    <div>
+        <span><var id="lang_tdBkColor"></var></span>
+        <input type="text" id="J_tone"/>
+    </div>
+
+    <div>
+        <label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" value="1px 2px 3px 4px"></label>
+    </div>
 </div>
 <script type="text/javascript">
     var tone = $G("J_tone"),
@@ -28,6 +35,8 @@
                 editor:editor,
                 content:colorPiker
             });
+    var padding = $G('padding');
+
     domUtils.on(tone, "click", function () {
         colorPop.showAnchor(tone);
     });
@@ -44,7 +53,7 @@
         colorPop.hide();
     });
     dialog.onok=function(){
-        editor.execCommand("edittd",tone.value);
+        editor.execCommand("edittd",tone.value, padding.value);
     };
 
     var start = editor.selection.getStart(),

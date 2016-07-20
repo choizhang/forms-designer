@@ -21,15 +21,21 @@ UE.registerUI('createTable',function(editor,uiName){
                 label:'确定',
                 onclick:function () {
                     var $iframe = $('#' + dialog.id).find('iframe').contents();
-                    var $rows = $iframe.find('#rows').val();
-                    var $clomns = $iframe.find('#clomns').val();
-
+                    var rows = $iframe.find('#rows').val();
+                    var clomns = $iframe.find('#clomns').val();
+                    var select = $iframe.find('input[name="width"]:checked').val();
 
                     var opt = {
-                        numCols: $clomns,
-                        numRows: $rows
+                        numCols: clomns,
+                        numRows: rows
                         //默认就是top
                         //tdvalign: 'top'
+                    }
+
+                    if(select == 1){
+                        opt.tableWidth = $iframe.find('#tableWidth').val();
+                    } else {
+                        opt.tdWidth = $iframe.find('#tdWidth').val();;
                     }
 
                     dialog.editor.execCommand( 'inserttable', opt);

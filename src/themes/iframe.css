@@ -3,7 +3,7 @@ em {
 }
 
 td, th {
-    padding: 5px 10px;
+    /*padding: 5px 10px;*/
 }
 
 h1{
@@ -75,8 +75,7 @@ p{
 
 .com-text td {
     display: block;
-    min-width: 50px;
-    padding: 5px;
+    min-width: 40px;
     border: none;
 }
 

@@ -9,6 +9,14 @@
     <h1>创建表格</h1>
     <label>行数: <input type="number" id="rows" value="3"></label>
     <label>列数: <input type="number" id="clomns" value="3"></label>
+
+    <div class="width-set">
+        <label><input type="radio" name="width" value="1" checked>表格宽度: <input type="text" id="tableWidth" value="500px"></label>
+
+        <label><input type="radio" name="width" value="2">单元格宽度: <input type="text" id="tdWidth" value="50px"></label>
+
+    </div>
+
 </div>
 <!--页面中一定要引入internal.js为了能直接使用当前打开dialog的实例变量-->
 <!--internal.js默认是放到dialogs目录下的-->

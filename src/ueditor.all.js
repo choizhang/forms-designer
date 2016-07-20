@@ -18983,8 +18983,11 @@ UE.plugins['video'] = function (){
                     }
                     html.push('</tr>')
                 }
+
                 //禁止指定table-width
-                return '<table><tbody>' + html.join('') + '</tbody></table>'
+                //my 不知道为什么禁止
+                var width = opt.tableWidth ? 'style="width:' + opt.tableWidth + '"' : '';
+                return '<table '+width+'><tbody>' + html.join('') + '</tbody></table>'
             }
 
             if (!opt) {
@@ -19001,15 +19004,25 @@ UE.plugins['video'] = function (){
                     return domUtils.isBlockElm(node);
                 }, true) || me.body;
 
-            var defaultValue = getDefaultValue(me),
-                // tableWidth = firstParentBlock.offsetWidth,
+            var defaultValue = getDefaultValue(me);
+                 //tableWidth = firstParentBlock.offsetWidth,
                 // my 让table默认使用500的宽度
-                    tableWidth = 500,
-                tdWidth = Math.floor(tableWidth / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+                //    tableWidth = 500,
+                //tdWidth = Math.floor(tableWidth / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+
+            if(opt.tableWidth){
+                opt.tdWidth = Math.floor(parseInt(opt.tableWidth) / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+            } else {
+                if(!opt.tdWidth){
+                    //2个宽度都没有设置,默认宽度500px
+                    opt.tableWidth = '500px';
+                    opt.tdWidth = Math.floor(parseInt(opt.tableWidth) / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+                }
+            }
 
             //todo其他属性
             !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
-            me.execCommand("inserthtml", createTable(opt, tdWidth));
+            me.execCommand("inserthtml", createTable(opt, opt.tdWidth));
         }
     };
 
@@ -19746,7 +19759,7 @@ UE.plugins['video'] = function (){
         queryCommandState: function () {
             return getTableItemsByRange(this).table ? 0 : -1
         },
-        execCommand: function (cmd, color) {
+        execCommand: function (cmd, color, width, style) {
             var rng = this.selection.getRange(),
                 table = domUtils.findParentByTagName(rng.startContainer, 'table');
             if (table) {
@@ -19758,7 +19771,7 @@ UE.plugins['video'] = function (){
                 //     node.style.borderColor = color;
                 // });
 
-                //my 将布局table里面的组件table去除,不然影响太大了
+                //my 将布局table里面的组件table的样式影响去除,不然影响太大了
                 for (var i = 0; i < arr.length; i++) {
                     var node = arr[i];
                     if (!$(table).hasClass('component')) {
@@ -19786,7 +19799,7 @@ UE.plugins['video'] = function (){
         queryCommandState: function () {
             return getTableItemsByRange(this).table ? 0 : -1
         },
-        execCommand: function (cmd, bkColor) {
+        execCommand: function (cmd, bkColor, padding) {
             var me = this,
                 ut = getUETableBySelected(me);
 
@@ -19795,10 +19808,13 @@ UE.plugins['video'] = function (){
                     cell = start && domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
                 if (cell) {
                     cell.style.backgroundColor = bkColor;
+                    cell.style.padding = padding;
                 }
             } else {
+                //这个是多选的时候
                 utils.each(ut.selectedTds, function (cell) {
                     cell.style.backgroundColor = bkColor;
+                    cell.style.padding = padding;
                 });
             }
         }
@@ -20031,9 +20047,9 @@ UE.plugins['table'] = function () {
                 //插入的表格的默认样式
                 // my 去掉了margin-bottom:10px;
                 'table{border-collapse:collapse;display:table;}' +
-                // my 去掉了padding: 5px 10px;
-                'td,th{border: 1px solid #DDD;}' +
-                'caption{border:1px dashed #DDD;border-bottom:0;padding:3px;text-align:center;}' +
+                // my 去掉了padding: 5px 10px;边框默认黑色
+                'td,th{border: 1px solid #000;}' +
+                'caption{border:1px dashed #000;border-bottom:0;padding:3px;text-align:center;}' +
                 'th{border-top:1px solid #BBB;background-color:#F7F7F7;}' +
                 'table tr.firstRow th{border-top-width:2px;}' +
                 '.ue-table-interlace-color-single{ background-color: #fcfcfc; } .ue-table-interlace-color-double{ background-color: #f7faff; }' +
@@ -27812,6 +27828,10 @@ UE.ui = baidu.editor.ui = {};
         setContent: function(content){
             this.getDom('content').innerHTML = content;
         },
+        /**
+         * 提示的几种类型
+         * @param type 默认是info [info, success, danger, error]
+         */
         setType: function(type){
             type = type || 'info';
             var body = this.getDom('body');
@@ -27825,7 +27845,8 @@ UE.ui = baidu.editor.ui = {};
             return arr ? arr[1]:'';
         },
         show: function (){
-            this.getDom().style.display = 'block';
+            //my 目前是将保存提示信息隐藏了,因为不是简单的移动位置,关键是这个屏蔽了,还是会显示,我在ueditor里面通过css强制隐藏了
+            //this.getDom().style.display = 'block';
         },
         hide: function (){
             var dom = this.getDom();

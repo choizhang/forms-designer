@@ -1381,8 +1381,8 @@ div.edui-box {
 
 /*edittd-dialog*/
 .edui-default .edui-for-edittd .edui-dialog-content {
-    width: 240px;
-    height: 50px;
+    width: 500px;
+    height: 150px;
 }
 /*snapscreen-dialog*/
 .edui-default .edui-for-snapscreen .edui-dialog-content {
@@ -1847,9 +1847,14 @@ div.edui-box {
     border: 0;
     margin: 0;
     padding: 0;
-    position: absolute;
-    top: 28px;
-    right: 3px;
+    /*position: absolute;*/
+    /*top: 28px;*/
+    /*right: 3px;*/
+
+    display: none!important;
+    /*position: absolute;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
 }
 
 .edui-default .edui-message{
@@ -1859,9 +1864,7 @@ div.edui-box {
     margin-bottom: 3px;
     position: relative;
 
-    position: absolute;
-    right: 0;
-    bottom: 0;
+
 }
 .edui-default .edui-message-body{
     border-radius: 3px;
