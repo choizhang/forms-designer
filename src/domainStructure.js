@@ -35,7 +35,7 @@ $(function () {
             showRenameBtn: true
         },
         callback: {
-//            点击高亮
+//            点击组件高亮
             onClick: function (event, treeId, treeNode) {
                 $('iframe').contents().find('.focus').removeClass('focus');
 

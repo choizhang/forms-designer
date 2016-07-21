@@ -17994,6 +17994,8 @@ UE.plugins['video'] = function (){
     UETable.prototype = {
         getMaxRows:function () {
             var rows = this.table.rows, maxLen = 1;
+            //my 防止报错
+            if(!rows || !rows.length) return;
             for (var i = 0, row; row = rows[i]; i++) {
                 var currentMax = 1;
                 for (var j = 0, cj; cj = row.cells[j++];) {
@@ -18163,6 +18165,9 @@ UE.plugins['video'] = function (){
             if (this.table.className === 'component-handle') {
                 return;
             }
+
+            //my 解决报错
+            if(!this.table.rows) return;
 
             var rows = this.table.rows,
                 rowsNum = this.getMaxRows(),

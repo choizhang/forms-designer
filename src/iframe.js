@@ -55,8 +55,8 @@ $(function () {
 
 //                让树形结构中相应的高亮
 //                zTreeObj.selectNode(nodes[0]);
-                    var id = el.attr('class').split('_')[1];
-                    $('#treeDemo_' + id + '_a').trigger('click');
+                    var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
+                    //$('#treeDemo_' + id + '_a').trigger('click');
 
                     e.stopPropagation();
                 },
