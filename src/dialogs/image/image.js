@@ -899,6 +899,9 @@
         pushData: function (list) {
             var i, item, img, icon, _this = this,
                 urlPrefix = editor.getOpt('imageManagerUrlPrefix');
+
+            //my 本来是应该在config.json里面配置的,但是无论我修改imageManagerUrlPrefix还是imageManagerListPath都会导致在线图片加载不出来,可能是关联影响了,所以我在这写死了
+            urlPrefix = '/fd';
             for (i = 0; i < list.length; i++) {
                 if(list[i] && list[i].url) {
                     item = document.createElement('li');

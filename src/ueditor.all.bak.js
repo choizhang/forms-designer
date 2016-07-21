@@ -12670,7 +12670,7 @@ UE.plugins['paragraph'] = function() {
                         } );
                     }
                     tmpRange.setEndAfter( tmpNode );
-
+                    
                     para = range.document.createElement( style );
                     if(attrs){
                         domUtils.setAttributes(para,attrs);
@@ -12682,7 +12682,7 @@ UE.plugins['paragraph'] = function() {
                     //需要内容占位
                     if(domUtils.isEmptyNode(para)){
                         domUtils.fillChar(range.document,para);
-
+                        
                     }
 
                     tmpRange.insertNode( para );
@@ -12806,7 +12806,7 @@ UE.plugins['paragraph'] = function() {
 
         },
         doDirectionality = function(range,editor,forward){
-
+            
             var bookmark,
                 filterFn = function( node ) {
                     return   node.nodeType == 1 ? !domUtils.isBookmarkNode(node) : !domUtils.isWhitespace(node);
@@ -18984,10 +18984,7 @@ UE.plugins['video'] = function (){
                 for (var r = 0; r < rowsNum; r++) {
                     html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
                     for (var c = 0; c < colsNum; c++) {
-                        //my
-                        //html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
-
-                        html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" ></td>')
+                        html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
                     }
                     html.push('</tr>')
                 }
@@ -21054,80 +21051,79 @@ UE.plugins['table'] = function () {
 
     //双击收缩
     function tableDbclickHandler(evt) {
-        //my 不需要收缩
-        //singleClickState = 0;
-        //evt = evt || me.window.event;
-        //var target = getParentTdOrTh(evt.target || evt.srcElement);
-        //if (target) {
-        //    var h;
-        //    if (h = getRelation(target, mouseCoords(evt))) {
-        //
-        //        hideDragLine( me );
-        //
-        //        if (h == 'h1') {
-        //            h = 'h';
-        //            if (inTableSide(domUtils.findParentByTagName(target, "table"), target, evt)) {
-        //                me.execCommand('adaptbywindow');
-        //            } else {
-        //                target = getUETable(target).getPreviewCell(target);
-        //                if (target) {
-        //                    var rng = me.selection.getRange();
-        //                    rng.selectNodeContents(target).setCursor(true, true)
-        //                }
-        //            }
-        //        }
-        //        if (h == 'h') {
-        //            var ut = getUETable(target),
-        //                table = ut.table,
-        //                cells = getCellsByMoveBorder( target, table, true );
-        //
-        //            cells = extractArray( cells, 'left' );
-        //
-        //            ut.width = ut.offsetWidth;
-        //
-        //            var oldWidth = [],
-        //                newWidth = [];
-        //
-        //            utils.each( cells, function( cell ){
-        //
-        //                oldWidth.push( cell.offsetWidth );
-        //
-        //            } );
-        //
-        //            utils.each( cells, function( cell ){
-        //
-        //                cell.removeAttribute("width");
-        //
-        //            } );
-        //
-        //            window.setTimeout( function(){
-        //
-        //                //是否允许改变
-        //                var changeable = true;
-        //
-        //                utils.each( cells, function( cell, index ){
-        //
-        //                    var width = cell.offsetWidth;
-        //
-        //                    if( width > oldWidth[index] ) {
-        //                        changeable = false;
-        //                        return false;
-        //                    }
-        //
-        //                    newWidth.push( width );
-        //
-        //                } );
-        //
-        //                var change = changeable ? newWidth : oldWidth;
-        //
-        //                utils.each( cells, function( cell, index ){
-        //
-        //                    cell.width = change[index] - getTabcellSpace();
-        //
-        //                } );
-        //
-        //
-        //            }, 0 );
+        singleClickState = 0;
+        evt = evt || me.window.event;
+        var target = getParentTdOrTh(evt.target || evt.srcElement);
+        if (target) {
+            var h;
+            if (h = getRelation(target, mouseCoords(evt))) {
+
+                hideDragLine( me );
+
+                if (h == 'h1') {
+                    h = 'h';
+                    if (inTableSide(domUtils.findParentByTagName(target, "table"), target, evt)) {
+                        me.execCommand('adaptbywindow');
+                    } else {
+                        target = getUETable(target).getPreviewCell(target);
+                        if (target) {
+                            var rng = me.selection.getRange();
+                            rng.selectNodeContents(target).setCursor(true, true)
+                        }
+                    }
+                }
+                if (h == 'h') {
+                    var ut = getUETable(target),
+                        table = ut.table,
+                        cells = getCellsByMoveBorder( target, table, true );
+
+                    cells = extractArray( cells, 'left' );
+
+                    ut.width = ut.offsetWidth;
+
+                    var oldWidth = [],
+                        newWidth = [];
+
+                    utils.each( cells, function( cell ){
+
+                        oldWidth.push( cell.offsetWidth );
+
+                    } );
+
+                    utils.each( cells, function( cell ){
+
+                        cell.removeAttribute("width");
+
+                    } );
+
+                    window.setTimeout( function(){
+
+                        //是否允许改变
+                        var changeable = true;
+
+                        utils.each( cells, function( cell, index ){
+
+                            var width = cell.offsetWidth;
+
+                            if( width > oldWidth[index] ) {
+                                changeable = false;
+                                return false;
+                            }
+
+                            newWidth.push( width );
+
+                        } );
+
+                        var change = changeable ? newWidth : oldWidth;
+
+                        utils.each( cells, function( cell, index ){
+
+                            cell.width = change[index] - getTabcellSpace();
+
+                        } );
+
+
+                    }, 0 );
 
 //                    minWidth -= cellMinWidth;
 //
@@ -21137,9 +21133,9 @@ UE.plugins['table'] = function () {
 //                        cell.width -= minWidth;
 //                    });
 
-        //        }
-        //    }
-        //}
+                }
+            }
+        }
     }
 
     function tableClickHander( evt ) {
@@ -22307,13 +22303,10 @@ UE.plugins['contextmenu'] = function () {
                     ]
                 },
                 {
-                    //表格对齐方式
                     group:lang.aligntable,
                     icon:'aligntable',
-                    //二级菜单
                     subMenu:[
                         {
-                            //命令名
                             cmdName:'tablealignment',
                             className: 'left',
                             label:lang.tableleft,
@@ -22801,7 +22794,7 @@ UE.plugins['formatmatch'] = function(){
      });
 
     function addList(type,evt){
-
+        
         if(browser.webkit){
             var target = evt.target.tagName == 'IMG' ? evt.target : null;
         }
@@ -22867,7 +22860,7 @@ UE.plugins['formatmatch'] = function(){
 
     me.commands['formatmatch'] = {
         execCommand : function( cmdName ) {
-
+          
             if(flag){
                 flag = 0;
                 list = [];
@@ -22876,7 +22869,7 @@ UE.plugins['formatmatch'] = function(){
             }
 
 
-
+              
             var range = me.selection.getRange();
             img = range.getClosedNode();
             if(!img || img.tagName != 'IMG'){
@@ -25349,7 +25342,7 @@ UE.ui = baidu.editor.ui = {};
         domUtils = baidu.editor.dom.domUtils,
         UIBase = baidu.editor.ui.UIBase,
         uiUtils = baidu.editor.ui.uiUtils;
-
+    
     var Mask = baidu.editor.ui.Mask = function (options){
         this.initOptions(options);
         this.initUIBase();
@@ -25649,7 +25642,7 @@ UE.ui = baidu.editor.ui = {};
         }
     };
     utils.inherits(Popup, UIBase);
-
+    
     domUtils.on( document, 'mousedown', function ( evt ) {
         var el = evt.target || evt.srcElement;
         closeAllPopup( evt,el );
@@ -25765,7 +25758,7 @@ UE.ui = baidu.editor.ui = {};
     var utils = baidu.editor.utils,
         uiUtils = baidu.editor.ui.uiUtils,
         UIBase = baidu.editor.ui.UIBase;
-
+    
     var TablePicker = baidu.editor.ui.TablePicker = function (options){
         this.initOptions(options);
         this.initTablePicker();
@@ -25849,7 +25842,7 @@ UE.ui = baidu.editor.ui = {};
     var browser = baidu.editor.browser,
         domUtils = baidu.editor.dom.domUtils,
         uiUtils = baidu.editor.ui.uiUtils;
-
+    
     var TPL_STATEFUL = 'onmousedown="$$.Stateful_onMouseDown(event, this);"' +
         ' onmouseup="$$.Stateful_onMouseUp(event, this);"' +
         ( browser.ie ? (
@@ -25858,7 +25851,7 @@ UE.ui = baidu.editor.ui = {};
         : (
         ' onmouseover="$$.Stateful_onMouseOver(event, this);"' +
         ' onmouseout="$$.Stateful_onMouseOut(event, this);"' ));
-
+    
     baidu.editor.ui.Stateful = {
         alwalysHoverable: false,
         target:null,//目标元素和this指向dom不一样
@@ -27485,7 +27478,7 @@ UE.ui = baidu.editor.ui = {};
         setValue : function(value){
             this._value = value;
         }
-
+        
     };
     utils.inherits(MenuButton, SplitButton);
 })();
@@ -29116,7 +29109,7 @@ UE.ui = baidu.editor.ui = {};
                     if(index === undefined){
                         index = toolbarUi.items.length;
                     }
-
+                    
                     //my 自定义控件能插入到前面的tab中
                     if(typeof index === 'object'){
                         //如果是数组 [1,2]
@@ -29546,7 +29539,7 @@ UE.ui = baidu.editor.ui = {};
 
         //my 多视图
         window.editor.push(editor);
-
+        
         return editor;
     };
 
