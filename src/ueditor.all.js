@@ -14173,7 +14173,7 @@ UE.version = "1.4.3";
         //分页符样式添加
 
         me.ready(function () {
-            utils.cssRule('pagebreak', '.pagebreak{display:block;clear:both !important;cursor:default !important;width: 100% !important;margin:0;}', me.document);
+            utils.cssRule('pagebreak', '.pagebreak{display:block;page-break-after:always;clear:both !important;cursor:default !important;width: 100% !important;margin:0;}', me.document);
         });
         function isHr(node) {
             return node && node.nodeType == 1 && node.tagName == 'HR' && node.className == 'pagebreak';
@@ -14191,7 +14191,8 @@ UE.version = "1.4.3";
         me.addOutputRule(function (node) {
             utils.each(node.getNodesByTagName('hr'), function (n) {
                 if (n.getAttr('class') == 'pagebreak') {
-                    var txt = UE.uNode.createText(me.options.pageBreakTag);
+                    //my abc123
+                    var txt = UE.uNode.createElement(me.options.pageBreakTag);
                     n.parentNode.insertBefore(txt, n);
                     n.parentNode.removeChild(n);
                 }

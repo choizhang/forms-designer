@@ -2,7 +2,7 @@
 
 ## Intro:
 
-主要是基于[UEditor](https://github.com/fex-team/ueditor)来做二次开发,目前是启用了一个[node static server](https://github.com/avevlad/gulp-connect)来做,所以对文件图片的上传效果是不支持的,后期是会放到php的server上面去
+主要是基于[UEditor](https://github.com/fex-team/ueditor)来做二次开发,目前是启用了一个[node static server](https://github.com/avevlad/gulp-connect)来做,所以对文件图片的上传效果是不支持的,后期是会放到jsp的server上面去(公司的后台就是jsp),[如何跟jsp整合](https://github.com/choizhang/forms-designer/wiki/%E8%B7%9F%E5%90%8E%E7%AB%AFjsp%E6%95%B4%E5%90%88)
 
 infopath目前的问题:
 
