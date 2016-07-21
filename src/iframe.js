@@ -56,7 +56,7 @@ $(function () {
 //                让树形结构中相应的高亮
 //                zTreeObj.selectNode(nodes[0]);
                     var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
-                    //$('#treeDemo_' + id + '_a').trigger('click');
+                    $('#treeDemo_' + id + '_a').trigger('click');
 
                     e.stopPropagation();
                 },
@@ -82,7 +82,14 @@ $(function () {
                 //            单击拖拽句柄,相当于是单击域结构
                 click: function (e) {
                     var el = $(this).closest('.component');
-                    var id = el.attr('class').split('_')[1];
+
+                    //先将其他组件的状态全部去掉
+                    iframeBody.trigger('click');
+
+                    //在拖拽态,如果点击组件要取消拖拽态,不然这个时候也拖不动
+                    el.removeClass('dragable');
+                    //var id = el.attr('class').split('_')[1];
+                    var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
                     $('#treeDemo_' + id + '_a').trigger('click');
 
                     e.stopPropagation();

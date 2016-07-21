@@ -1,139 +1,87 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Example</title>
+    <title>字体说明</title>
     <style>
-        #src > *
-        {
-        }
-        #target, #src > img
-        {
-            border: thin solid black;
-            padding: 2px;
-            margin: 4px;
-        }
-        #target
-        {
-            height: 123px;
-            width: 220px;
-            text-align: center;
-            display: table;
-        }
-        #target > p
-        {
-            display: table-cell;
-            vertical-align: middle;
-        }
-        #target > img
-        {
-            margin: 1px;
-        }
-        img.dragged
-        {
-            background-color: lightgrey;
+        .demo{
+            /*text-indent: -999px;*/
         }
     </style>
 </head>
 <body>
-<div id="src" contenteditable="true">
-    <img draggable="true" id="car1" src="http://ires.qiniudn.com/my/img/avatar-80-80.jpg" alt="car1" />
-    <img draggable="true" id="car2" src="http://ires.qiniudn.com/my/img/avatar-80-80.jpg" alt="car2" />
-    <img draggable="true" id="car3" src="http://ires.qiniudn.com/my/img/avatar-80-80.jpg" alt="car3" />
+Arial, Arial Black, Comic Sans MS, Courier New, Georgia, Impact Times New Roman, Trebuchet MS,
 
-        <!--<table id="main" draggable="true"><tbody><tr class="firstRow"><th class="selectTdClass">​11<button id="abc">click</button></th><th class="selectTdClass">22</th><th class="selectTdClass">33</th></tr><tr><td><img src="text.png" id="editorComp_104" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_105" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td><td><img src="text.png" id="editorComp_106" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;" _src="text.png"></td></tr></tbody></table>-->
-
-
-    <div id="main" class="component" draggable="true" id="editorComp_102"><button id="abc">click</button>文本域</div>
-
-
-    发士大夫撒
-
-
-    fas
-    fasfa
-
-    fa
-
-    <!--<div id="main" draggable="true">-->
-        <!--<button id="click">click</button>-->
-        <!--<div>Hello world!</div>-->
-        <!--<div>This is a paragraph</div>-->
-    <!--</div>-->
+<div class="demo">
+    <a id="font1" style="display:inline-block;font-size:30px;font-family:'SimSun','宋体'">壹貳mmmmmm</a>
+    <a id="font2" style="display:inline-block;font-size:30px;font-family:'FangSong','仿宋','SimSun','宋体'">壹貳mmmmmm</a>
+    <a id="font3" style="display:inline-block;font-size:30px;font-family:'Microsoft YaHei','微软雅黑','SimSun','宋体'">壹貳mmmmmm</a>
+    <a id="font4" style="display:inline-block;font-size:30px;font-family:'KaiTi','楷体','SimSun','宋体'">壹貳mmmmmm</a>
+    <a id="font5" style="display:inline-block;font-size:30px;font-family:'SimHei','黑体','SimSun','宋体'">壹貳mmmmmm</a>
+    <a id="font6" style="display:inline-block;font-size:30px;font-family:'隶书','SimSun','宋体'">壹貳mmmmmm</a>
 </div>
 
+
+
+<p class="intro">
+    如果你本地没有安装你在ueditor中设置的字体,那在ueditor中也不会有相应字体的效果的.所以这里建议你安装以下字体:
+</p>
+
+<ul>
+    <li>
+        <h2>中文字体</h2>
+        <ul>
+            <li>宋体</li>
+            <li>仿宋</li>
+            <li>微软雅黑</li>
+            <li>楷体</li>
+            <li>黑体</li>
+            <li>隶书</li>
+        </ul>
+    </li>
+    <li>
+        <h2>英文字体</h2>
+    </li>
+</ul>
 
 
 <script type="text/javascript" src="third-party/jquery-1.10.2.js"></script>
 
 <script>
+    $(function () {
+        var songti = document.getElementById("font1").clientWidth;
 
-    var mainDiv = document.getElementById("main");
-//    var startNode = mainDiv.childNodes[1].childNodes[0];
-//    var endNode = mainDiv.childNodes[3].childNodes[0];
-//
-//    var range = document.createRange();
-//    range.setStart(startNode, 6); // 6 is the offset of "world" within "Hello world"
-//    range.setEnd(endNode, 7); // 7 is the length of "this is"
-//    var sel = window.getSelection();
-//    sel.removeAllRanges();
-//    sel.addRange(range);
+        console.log(songti)
+        console.log(document.getElementById("font2").clientWidth)
+        if ( songti == document.getElementById("font2").clientWidth) {
+            console.log("华文仿宋：没有安装")
+        } else {
+            console.log("华文仿宋：有安装")
+        }
 
+        if ( songti == document.getElementById("font3").clientWidth) {
+            console.log("微软雅黑：没有安装")
+        } else {
+            console.log("微软雅黑：有安装")
+        }
 
-    $('body').on('click', '#abc', function(e) {
-        var el = $(this).closest('#main');
+        if ( songti == document.getElementById("font4").clientWidth) {
+            console.log("楷体：没有安装")
+        } else {
+            console.log("楷体：有安装")
+        }
 
-        requestAnimationFrame(function() {
-            selectElementContents(el[0]);
-        });
-    })
+        if ( songti == document.getElementById("font5").clientWidth) {
+            console.log("黑体：没有安装")
+        } else {
+            console.log("黑体：有安装")
+        }
 
-    function selectElementContents(el) {
-        var range = document.createRange();
-//        range.selectNodeContents(el);
-        range.selectNode(el);
-
-        var sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-
-        console.log(range)
-        console.log(sel)
-    }
-
-
-
-
-    var src = document.getElementById("src");
-//    var target = document.getElementById("target");
-    var msg = document.getElementById("msg");
-    var draggedID;
-//    target.ondragenter = handleDrag;
-//    target.ondragover = handleDrag;
-    function handleDrag(e) {
-//        e.preventDefault();
-    }
-//    target.ondrop = function (e) {
-////        var newElem = document.getElementById(draggedID).cloneNode(false);
-////        target.innerHTML = "";
-////        target.appendChild(newElem);
-////        e.preventDefault();
-//
-//        console.log('drop')
-//    }
-    src.ondragstart = function (e) {
-//        draggedID = e.target.id;
-//        e.target.classList.add("dragged");
-
-        console.log('aaa')
-    }
-    src.ondragend = function (e) {
-//        var elems = document.querySelectorAll(".dragged");
-//        for (var i = 0; i < elems.length; i++) {
-//            elems[i].classList.remove("dragged");
-//        }
-
-        console.log('dd')
-    }
+        if ( songti == document.getElementById("font6").clientWidth) {
+            console.log("隶书：没有安装")
+        } else {
+            console.log("隶书：有安装")
+        }
+    });
 </script>
 </body>
 </html>

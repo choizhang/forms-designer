@@ -17,6 +17,14 @@ $(function () {
 
     window.editor[0] = UE.getEditor('container', config);
 
+    //这样就不会自动插入节点,还没试过
+    window.editor[0].addOutputRule(function(root){
+        // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+        // 只处理第一个空的段落，后面的段落可能是人为添加
+        var firstPNode = root.getNodesByTagName("p")[0];
+        firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+    });
+
     console.log(window.newCount)
 
     //var index = window.newCount + 1;
