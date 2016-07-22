@@ -112,7 +112,8 @@ $(function () {
 
                 iframeBody.find('.name').removeAttr('style');
 
-                e.stopPropagation();
+                //为了注释这句话找了大半天拖拽,因为ueditor也有监听click,而且是在iframe上,所以如果中断事件传输,他有些功能就失效了.比如图片出现拖拽句柄
+                //e.stopPropagation();
             })
 
             .on('dragover', '.component', function (e) {

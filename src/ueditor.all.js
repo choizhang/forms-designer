@@ -17241,7 +17241,6 @@ UE.version = "1.4.3";
 
                     me.initStyle();
                     me.initEvents();
-                    console.log('dd')
                 },
                 initStyle: function () {
                     utils.cssRule('imagescale', '.edui-editor-imagescale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;-webkit-box-sizing: content-box;-moz-box-sizing: content-box;box-sizing: content-box;}' +
@@ -17418,10 +17417,10 @@ UE.version = "1.4.3";
 
             if ( !browser.ie && me.options.imageScaleEnabled) {
                 me.addListener('click', function (type, e) {
-
                     var range = me.selection.getRange(),
                         img = range.getClosedNode();
 
+                    console.log(img)
                     if (img && img.tagName == 'IMG' && me.body.contentEditable!="false") {
 
                         if (img.className.indexOf("edui-faked-music") != -1 ||
@@ -17481,7 +17480,9 @@ UE.version = "1.4.3";
                         }
                         imageScale.show(img);
                     } else {
-                        if (imageScale && imageScale.resizer.style.display != 'none') imageScale.hide();
+                        if (imageScale && imageScale.resizer.style.display != 'none'){
+                            imageScale.hide();
+                        }
                     }
                 });
             }
@@ -17491,6 +17492,10 @@ UE.version = "1.4.3";
                     if (e.target.tagName == 'IMG' && me.body.contentEditable!="false") {
                         var range = new dom.Range(me.document);
                         range.selectNode(e.target).select();
+                    } else {
+                        //my 选中图片后,第一次点击其他地方是关闭cover,第二次就到了图片前面,第三次才能正常使用
+                        this.selection.getRange().setEnd(e.target, 0).setCursor();
+
                     }
                 });
             }

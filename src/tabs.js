@@ -25,7 +25,7 @@ $(function () {
         firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
     });
 
-    console.log(window.newCount)
+    console.log(window.editor)
 
     //var index = window.newCount + 1;
 
