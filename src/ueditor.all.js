@@ -14191,8 +14191,10 @@ UE.version = "1.4.3";
         me.addOutputRule(function (node) {
             utils.each(node.getNodesByTagName('hr'), function (n) {
                 if (n.getAttr('class') == 'pagebreak') {
+
                     //my 他本来是想做个占位符提交给后端处理,我这不需要,我将预览中展示为hr了
                     var txt = UE.uNode.createElement(me.options.pageBreakTag);
+
                     n.parentNode.insertBefore(txt, n);
                     n.parentNode.removeChild(n);
                 }
@@ -14220,7 +14222,7 @@ UE.version = "1.4.3";
                 domUtils.setAttributes(hr, {
                     'class': 'pagebreak',
                     noshade: "noshade",
-                    size: "5"
+                    size: "3"
                 });
                 domUtils.unSelectable(hr);
                 //table单独处理
@@ -14304,6 +14306,19 @@ UE.version = "1.4.3";
                     }
 
                     range.select(true);
+
+
+
+                    //my 在插入分页符的时候插入页眉页脚
+                    var iframeBody = $($('iframe')[0].contentWindow.document.body);
+
+                    var $pagebreak = iframeBody.find('.pagebreak').last();
+
+                    var $pageHeader = iframeBody.find('#page_header');
+
+                    if($pageHeader) {
+                        $( $pageHeader[0].outerHTML ).insertAfter( $pagebreak );
+                    }
 
                 }
 
@@ -17494,8 +17509,16 @@ UE.version = "1.4.3";
                         range.selectNode(e.target).select();
                     } else {
                         //my 选中图片后,第一次点击其他地方是关闭cover,第二次就到了图片前面,第三次才能正常使用
-                        this.selection.getRange().setEnd(e.target, 0).setCursor();
+                        //但是写在这太暴力了,不能正常选中了
+                        //this.selection.getRange().setEnd(e.target, 0).setCursor();
 
+                        //如果不是点击的img,但是获取的还是img就设置下
+                        var range = me.selection.getRange(),
+                            img = range.getClosedNode();
+
+                        if (img && img.tagName == 'IMG'){
+                            me.selection.getRange().setEnd(e.target, 0).setCursor();
+                        }
                     }
                 });
             }
@@ -23002,12 +23025,14 @@ UE.version = "1.4.3";
         });
         me.addInputRule(function (root) {
             utils.each(root.getNodesByTagName('b i'), function (node) {
+                //将b,i等标签换成h5标准的strong,em
                 switch (node.tagName) {
                     case 'b':
                         node.tagName = 'strong';
                         break;
-                    case 'i':
-                        node.tagName = 'em';
+                    //my i标签还是有用的
+                    //case 'i':
+                    //    node.tagName = 'em';
                 }
             });
         });
