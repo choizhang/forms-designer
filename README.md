@@ -4,13 +4,13 @@
 
 主要是基于[UEditor](https://github.com/fex-team/ueditor)来做二次开发,目前是启用了一个[node static server](https://github.com/avevlad/gulp-connect)来做,所以对文件图片的上传效果是不支持的,后期是会放到jsp的server上面去(公司的后台就是jsp),[如何跟jsp整合](https://github.com/choizhang/forms-designer/wiki/%E8%B7%9F%E5%90%8E%E7%AB%AFjsp%E6%95%B4%E5%90%88)
 
-infopath目前的问题:
+Infopath目前的问题:
 
 1. 生成出来的html不符合标准模式且修复兼容性无法解决(致命)
 2. 微软官方已经不再维护(致命)
 3. 基于CS架构,且性能较差
 
-跟Formtalk的区别
+跟[Formtalk](http://www.formtalk.net/form/form.do?method=design4New&formType=form)的区别
 2种都是表单设计器,目前市面上组要是以Formtalk这种生成器比较多
 
 我们的优势
