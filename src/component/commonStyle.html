@@ -8,19 +8,49 @@
 <div class="content">
     <h1>全局设置</h1>
     <label>间距(1px 2px 3px 4px对应上右下左): <input type="text" id="margin" value="10px 10px 10px 10px"></label>
+
+    <h2>页眉设置</h2>
+    <label><input type="radio" name="header" value="0">无页眉</label>
+    <label><input type="radio" name="header" value="1">页眉1</label>
+    <label><input type="radio" name="header" value="2">页眉2</label>
+
+    <h2>页脚设置</h2>
+    <label><input type="radio" name="footer" value="0">无页脚</label>
+    <label><input type="radio" name="footer" value="1">页脚1</label>
+    <label><input type="radio" name="footer" value="2">页脚2</label>
 </div>
 <!--页面中一定要引入internal.js为了能直接使用当前打开dialog的实例变量-->
 <!--internal.js默认是放到dialogs目录下的-->
 <script src="../dialogs/internal.js"></script>
+<script src="../third-party/jquery-1.10.2.js"></script>
 <script>
-    //可以直接使用以下全局变量
+    var $body = $(editor.body);
     //当前打开dialog的实例变量
-    document.querySelector('#margin').value = editor.body.style.margin || 0;
-    console.log(editor);
-//    一些常用工具
-    console.log(domUtils);
-    console.log(utils);
-    console.log(browser);
+    document.querySelector('#margin').value = $body.css('margin') || 0;
+//    $body.find('input[name="header"]:checked').val(2);
+
+    var headerIndex, footerIndex;
+    if($body.find('.page_header').length){
+//        存在页眉
+        headerIndex = $body.find('.page_header').attr('class').replace(/page_header page_header(\w)/g, '$1');
+
+    } else {
+//        不存在页眉
+        headerIndex = 0;
+    }
+    $('input[name="header"]').eq(headerIndex).prop('checked', true);
+
+
+    if($body.find('.page_footer').length){
+//        存在
+        footerIndex = $body.find('.page_footer').attr('class').replace(/page_footer page_footer(\w)/g, '$1');
+
+    } else {
+//        不存在
+        footerIndex = 0;
+    }
+    console.log(footerIndex)
+    $('input[name="footer"]').eq(footerIndex).prop('checked', true);
 </script>
 </body>
 </html>

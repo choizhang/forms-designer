@@ -40,11 +40,7 @@ UE.registerUI('button', function (editor, uiName) {
             //将数字标识符去掉了,因为在模板添加的时候很容易实现冲突
             //最后一个参数要设置成true,不然会将input给过滤了
             //component-handle如果使用双标签,要么被变成span,而且将contenteditable属性在拖拽后去掉了,于是使用单标签算了
-            //editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><hr class="component-handle"><input type="text" class="name" value="文本域"></td></tr></table>');
-
-
-            editor.execCommand( 'inserthtml', '<div id="page_header">我是页眉</div>');
-
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="100" height="25"><hr class="component-handle"><input type="text" class="name" value="文本域"></td></tr></table>');
 
 
             //这种html结构死活不能整个模块拖动

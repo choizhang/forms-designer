@@ -14314,10 +14314,17 @@ UE.version = "1.4.3";
 
                     var $pagebreak = iframeBody.find('.pagebreak').last();
 
-                    var $pageHeader = iframeBody.find('#page_header');
+                    var $pageHeader = iframeBody.find('.page_header');
+                    var $pageFooter = iframeBody.find('.page_footer');
 
-                    if($pageHeader) {
+                    //页眉
+                    if($pageHeader.length) {
                         $( $pageHeader[0].outerHTML ).insertAfter( $pagebreak );
+                    }
+
+                    //页脚
+                    if($pageFooter.length) {
+                        $( $pageFooter[0].outerHTML ).insertBefore( $pagebreak );
                     }
 
                 }
