@@ -25,7 +25,18 @@
     <div>
         <label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" value="1px 2px 3px 4px"></label>
     </div>
+
+    <div>
+        <label>权限设置: <br>
+            <select name="" id="power">
+                <option value="1">普通</option>
+                <option value="2">经理</option>
+                <option value="3">管理员</option>
+            </select>
+        </label>
+    </div>
 </div>
+<script src="../../third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript">
     var tone = $G("J_tone"),
             colorPiker = new UE.ui.ColorPicker({
@@ -36,6 +47,7 @@
                 content:colorPiker
             });
     var padding = $G('padding');
+    var power = $G('power');
 
     domUtils.on(tone, "click", function () {
         colorPop.showAnchor(tone);
@@ -53,16 +65,28 @@
         colorPop.hide();
     });
     dialog.onok=function(){
-        editor.execCommand("edittd",tone.value, padding.value);
+        editor.execCommand("edittd",tone.value, padding.value, power.value);
     };
 
     var start = editor.selection.getStart(),
         cell = start && domUtils.findParentByTagName(start, ["td", "th"], true);
+//    即使选择了多个,这里的cell也只是第一个
     if(cell){
+//        设置初始值
         var color = domUtils.getComputedStyle(cell,'background-color');
         if(/^#/.test(color)){
             tone.value = color
         }
+
+//        间距
+        var paddingNow = domUtils.getComputedStyle(cell,'padding');
+        console.log(paddingNow)
+        padding.value = paddingNow;
+
+//        权限
+        var powerNow = $(cell).attr('data-power');
+        console.log(powerNow)
+        power.value = powerNow ? powerNow : 1;
 
     }
 

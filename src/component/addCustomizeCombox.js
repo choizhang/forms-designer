@@ -46,6 +46,7 @@ UE.registerUI('combox', function (editor, uiName) {
         initValue: uiName
     });
 
+    //选中文字之后要将文字的字号反应到下拉框中
     editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
         if (!uiReady) {
             var state = editor.queryCommandState(uiName);

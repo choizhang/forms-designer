@@ -17442,7 +17442,6 @@ UE.version = "1.4.3";
                     var range = me.selection.getRange(),
                         img = range.getClosedNode();
 
-                    console.log(img)
                     if (img && img.tagName == 'IMG' && me.body.contentEditable!="false") {
 
                         if (img.className.indexOf("edui-faked-music") != -1 ||
@@ -20159,9 +20158,10 @@ UE.version = "1.4.3";
         queryCommandState: function () {
             return getTableItemsByRange(this).table ? 0 : -1
         },
-        execCommand: function (cmd, bkColor, padding) {
+        execCommand: function (cmd, bkColor, padding, power) {
             var me = this,
-                ut = getUETableBySelected(me);
+                ut = getUETableBySelected(me),
+                i;
 
             if (!ut) {
                 var start = me.selection.getStart(),
@@ -20171,7 +20171,58 @@ UE.version = "1.4.3";
                     cell.style.padding = padding;
                 }
             } else {
-                //这个是多选的时候
+                //这个是多选的时候,背景会变色
+
+                //my 给单元格设置权限
+                //选中的第一行
+                var row = [ut.selectedTds[0]];
+                //选中的第一列
+                var col = [ut.selectedTds[0]];
+
+                for(i=1;i<ut.selectedTds.length;i++){
+                    if(ut.selectedTds[i].cellIndex != ut.selectedTds[0].cellIndex){
+                        //如果顺序不是第一个的位置,则加入数组
+                        row.push(ut.selectedTds[i]);
+                    } else {
+                        break;
+                    }
+                }
+
+                while(ut.selectedTds[i]){
+                    col.push(ut.selectedTds[i]);
+                    i += row.length;
+                }
+
+                if(row.length != ut.colsNum){
+                    //选择的并不是整行
+                    //给相关的列添加一个标志
+                    utils.each(ut.selectedTds, function (cell) {
+                        if(power == 1){
+                            //要变为普通
+                            $(cell).removeAttr('data-power');
+                        } else {
+                            $(cell).attr('data-power', power);
+                        }
+                    });
+                } else {
+                    //整行
+                    //给每一行添加一个标志
+                    utils.each(col, function (cell) {
+                        if(power == 1){
+                            //要变为普通
+                            $(cell).removeAttr('data-power');
+                        } else {
+                            $(cell).parent().attr('data-power', power);
+                        }
+
+                    });
+                }
+
+                //获取当前页面的权限值
+                var nowPower = me.queryCommandValue('powercombox');
+                me.execCommand('powercombox', nowPower);
+
+
                 utils.each(ut.selectedTds, function (cell) {
                     cell.style.backgroundColor = bkColor;
                     cell.style.padding = padding;
@@ -25997,7 +26048,7 @@ UE.version = "1.4.3";
             html += '</tr></table></div>';
 
             //my 添加自定义输入颜色
-            html += '<div><input type="text"><input id="##_color-input" type="text" placeholder="自定义颜色值" style="width: 95px; margin-right: 10px;" /><span id="##_submit" onclick="return $$._onUserDefineClick(event, this);"  style="padding: 4px 10px; border: 1px solid #000;" >确认</span></div>';
+            html += '<div><input id="##_color-input" type="text" placeholder="自定义颜色值" style="width: 95px; margin-right: 10px;" /><span id="##_submit" onclick="return $$._onUserDefineClick(event, this);"  style="padding: 4px 10px; border: 1px solid #000;" >确认</span></div>';
 
             html += '</div>';
 
