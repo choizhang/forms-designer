@@ -788,6 +788,15 @@ div.edui-box {
     background-position: -620px -20px;
 }
 
+/*my 均分行列*/
+.edui-default  .edui-for-averagedistributerow .edui-icon {
+    background-position: -171px -76px;
+}
+
+.edui-default  .edui-for-averagedistributecol .edui-icon {
+    background-position: -214px -77px;
+}
+
 .edui-default  .edui-for-cleardoc .edui-icon {
     background-position: -520px 0;
 }

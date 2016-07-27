@@ -19978,6 +19978,7 @@ UE.version = "1.4.3";
                 var ut = getUETableBySelected(this);
                 if (!ut) return -1;
                 if (ut.selectedTds && /th/ig.test(ut.selectedTds[0].tagName)) return -1;
+                //my 这里其实是只要行或者列是整的,就可以设置区域了
                 return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
             },
             execCommand: function (cmd) {
@@ -20036,6 +20037,21 @@ UE.version = "1.4.3";
                 if (ut && ut.selectedTds.length) {
                     setAverageHeight(getAverageHeight());
                 }
+            }
+        };
+
+        //my 增加了一个可以同时均分行列的功能
+        UE.commands['averagedistribute'] = {
+            queryCommandState: function () {
+                var ut = getUETableBySelected(this);
+                if (!ut) return -1;
+                return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
+            },
+            execCommand: function (cmd) {
+                var me = this;
+
+                me.execCommand('averagedistributerow');
+                me.execCommand('averagedistributecol');
             }
         };
 
@@ -22466,91 +22482,93 @@ UE.version = "1.4.3";
                         group: lang.table,
                         icon: 'table',
                         subMenu: [
-                            {
-                                label: lang.inserttable,
-                                cmdName: 'inserttable'
-                            },
-                            {
-                                label: lang.deletetable,
-                                cmdName: 'deletetable'
-                            },
+                            //{
+                            //    label: lang.inserttable,
+                            //    cmdName: 'inserttable'
+                            //},
+                            //{
+                            //    label: lang.deletetable,
+                            //    cmdName: 'deletetable'
+                            //},
                             '-',
-                            {
-                                label: lang.deleterow,
-                                cmdName: 'deleterow'
-                            },
-                            {
-                                label: lang.deletecol,
-                                cmdName: 'deletecol'
-                            },
-                            {
-                                label: lang.insertcol,
-                                cmdName: 'insertcol'
-                            },
-                            {
-                                label: lang.insertcolnext,
-                                cmdName: 'insertcolnext'
-                            },
-                            {
-                                label: lang.insertrow,
-                                cmdName: 'insertrow'
-                            },
-                            {
-                                label: lang.insertrownext,
-                                cmdName: 'insertrownext'
-                            },
+                            //{
+                            //    label: lang.deleterow,
+                            //    cmdName: 'deleterow'
+                            //},
+                            //{
+                            //    label: lang.deletecol,
+                            //    cmdName: 'deletecol'
+                            //},
+                            //{
+                            //    label: lang.insertcol,
+                            //    cmdName: 'insertcol'
+                            //},
+                            //{
+                            //    label: lang.insertcolnext,
+                            //    cmdName: 'insertcolnext'
+                            //},
+                            //{
+                            //    label: lang.insertrow,
+                            //    cmdName: 'insertrow'
+                            //},
+                            //{
+                            //    label: lang.insertrownext,
+                            //    cmdName: 'insertrownext'
+                            //},
+                            //'-',
+                            //{
+                            //    label: lang.insertcaption,
+                            //    cmdName: 'insertcaption'
+                            //},
+                            //{
+                            //    label: lang.deletecaption,
+                            //    cmdName: 'deletecaption'
+                            //},
+                            //{
+                            //    label: lang.inserttitle,
+                            //    cmdName: 'inserttitle'
+                            //},
+                            //{
+                            //    label: lang.deletetitle,
+                            //    cmdName: 'deletetitle'
+                            //},
+                            //{
+                            //    label: lang.inserttitlecol,
+                            //    cmdName: 'inserttitlecol'
+                            //},
+                            //{
+                            //    label: lang.deletetitlecol,
+                            //    cmdName: 'deletetitlecol'
+                            //},
+                            //工具栏有
+                            //'-',
+                            //{
+                            //    label: lang.mergecells,
+                            //    cmdName: 'mergecells'
+                            //},
+                            //{
+                            //    label: lang.mergeright,
+                            //    cmdName: 'mergeright'
+                            //},
+                            //{
+                            //    label: lang.mergedown,
+                            //    cmdName: 'mergedown'
+                            //},
+                            //'-',
+                            //{
+                            //    label: lang.splittorows,
+                            //    cmdName: 'splittorows'
+                            //},
+                            //{
+                            //    label: lang.splittocols,
+                            //    cmdName: 'splittocols'
+                            //},
+                            //{
+                            //    label: lang.splittocells,
+                            //    cmdName: 'splittocells'
+                            //},
                             '-',
-                            {
-                                label: lang.insertcaption,
-                                cmdName: 'insertcaption'
-                            },
-                            {
-                                label: lang.deletecaption,
-                                cmdName: 'deletecaption'
-                            },
-                            {
-                                label: lang.inserttitle,
-                                cmdName: 'inserttitle'
-                            },
-                            {
-                                label: lang.deletetitle,
-                                cmdName: 'deletetitle'
-                            },
-                            {
-                                label: lang.inserttitlecol,
-                                cmdName: 'inserttitlecol'
-                            },
-                            {
-                                label: lang.deletetitlecol,
-                                cmdName: 'deletetitlecol'
-                            },
-                            '-',
-                            {
-                                label: lang.mergecells,
-                                cmdName: 'mergecells'
-                            },
-                            {
-                                label: lang.mergeright,
-                                cmdName: 'mergeright'
-                            },
-                            {
-                                label: lang.mergedown,
-                                cmdName: 'mergedown'
-                            },
-                            '-',
-                            {
-                                label: lang.splittorows,
-                                cmdName: 'splittorows'
-                            },
-                            {
-                                label: lang.splittocols,
-                                cmdName: 'splittocols'
-                            },
-                            {
-                                label: lang.splittocells,
-                                cmdName: 'splittocells'
-                            },
-                            '-',
+                            //均分行列
                             {
                                 label: lang.averageDiseRow,
                                 cmdName: 'averagedistributerow'
@@ -22579,11 +22597,13 @@ UE.version = "1.4.3";
                                     }
                                     this.getDialog('edittable').open();
                                 }
-                            },
-                            {
-                                label: lang.setbordervisible,
-                                cmdName: 'setbordervisible'
                             }
+                            //在表格属性中
+                            //,
+                            //{
+                            //    label: lang.setbordervisible,
+                            //    cmdName: 'setbordervisible'
+                            //}
                         ]
                     },
                     {
@@ -28152,8 +28172,8 @@ UE.version = "1.4.3";
             'strikethrough', 'subscript', 'superscript', 'source', 'indent', 'outdent',
             'blockquote', 'pasteplain', 'pagebreak',
             'selectall', 'print', 'horizontal', 'removeformat', 'time', 'date', 'unlink',
-            'insertparagraphbeforetable', 'insertrow', 'insertcol', 'mergeright', 'mergedown', 'deleterow',
-            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts'];
+            'insertparagraphbeforetable', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext', 'mergeright', 'mergedown', 'deleterow',
+            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute'];
 
         //下面的代码就是对工具栏中的按钮进行事件绑定了
         for (var i = 0, ci; ci = btnCmds[i++];) {

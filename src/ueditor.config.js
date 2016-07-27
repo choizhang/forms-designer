@@ -45,7 +45,7 @@
 
             ['simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', 'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage'],
 
-            ['inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols'],
+            [['inserttable', 'deletetable', 'insertparagraphbeforetable'], '|', ['insertrow', 'insertrownext', 'insertcol', 'insertcolnext'], '|', 'deleterow', 'deletecol', '|', 'mergecells', 'mergeright', 'mergedown', '|', 'splittocells', 'splittorows', 'splittocols', '|', 'averagedistributerow', 'averagedistributecol', 'averagedistribute'],
 
             ['print', 'preview', 'searchreplace', 'drafts', 'help'],
             []

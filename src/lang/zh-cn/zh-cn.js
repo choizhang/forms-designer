@@ -523,9 +523,9 @@ UE.I18N['zh-cn'] = {
     },
     'help':{
         'static':{
-            'lang_input_about':'关于UEditor',
+            'lang_input_about':'关于Form-Designer',
             'lang_input_shortcuts':'快捷键',
-            'lang_input_introduction':'UEditor是由百度web前端研发部开发的所见即所得富文本web编辑器，具有轻量，可定制，注重用户体验等特点。开源基于BSD协议，允许自由使用和修改代码。',
+            'lang_input_introduction':'Form-Designer是由致远公司开发的所见即所得富文本web编辑器，具有轻量，可定制，注重用户体验等特点。',
             'lang_Txt_shortcuts':'快捷键',
             'lang_Txt_func':'功能',
             'lang_Txt_bold':'给选中字设置为加粗',

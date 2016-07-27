@@ -54,7 +54,8 @@ UE.registerUI('createTable',function(editor,uiName){
 
     //参考addCustomizeButton.js
     var btn = new UE.ui.Button({
-        name:'插入表格',
+        //css的类要用,所以必须是英文
+        name:'createTable',
         title:'插入表格',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
         cssRules :'background-position: -500px 0;',
