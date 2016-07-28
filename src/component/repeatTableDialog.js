@@ -20,7 +20,6 @@ UE.registerUI('repeattable',function(editor,uiName){
 
     editor.registerCommand('repeattext', {
         execCommand: function (uiName, event) {
-            console.log(event)
             $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: event.result[0]});
         }
     });

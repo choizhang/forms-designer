@@ -29339,10 +29339,8 @@ UE.version = "1.4.3";
                                         if(index === 1){
                                             //如果是第一个就添加html
                                             var str = toolbarItemUi.getHtmlTpl();
-                                            //toolbarItemUi.getHtmlTpl = function() {
-                                            //    return '<div class="mod"><div>'+ toolbarItem[0] +'</div>' + str;
-                                            //}
 
+                                            // 这使用了闭包来保存数据
                                             toolbarItemUi.getHtmlTpl = (function(name) {
                                                 return function() {
                                                     return '<div class="mod"><div class="mod-title">'+ name +'</div>' + str;

@@ -183,6 +183,68 @@ $(function () {
         if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length > 0)) {
             $("#rMenu").css({"visibility": "hidden"});
         }
+
+        //使用闭包获取域结构的json节点
+        //[
+        //    {
+        //        name: '视图1',
+        //        children: [
+        //            {
+        //                name: '姓名'
+        //            },
+        //            {
+        //                name: '报销明细',
+        //                children: [
+        //                    {
+        //                        name: '交通费'
+        //                    },
+        //                    {
+        //                        name: '差旅费'
+        //                    },
+        //                    {
+        //                        name: '补助'
+        //                    }
+        //                ]
+        //            }
+        //        ]
+        //    },
+        //    {
+        //        name: '视图2',
+        //        children: [
+        //            {
+        //                name: '付款金额'
+        //            }
+        //        ]
+        //    }
+        //]
+
+        var allNodes = zTreeObj.getNodes();
+        var result = [];
+
+        function getTest(value){
+            var obj = {};
+            obj.name = value.name;
+            if(value.children){
+                //如果有子节点
+                obj.children = [];
+                value.children.forEach(function(value){
+                    var tt = getTest(value)
+                    obj.children.push(tt);
+                })
+                return obj;
+            } else {
+                return obj;
+            }
+        }
+
+        allNodes.forEach(function(value){
+            var obj = {};
+            obj.name = value.name;
+            result.push(getTest(value));
+        });
+
+        console.log('域结构的json', result)
+
     }
 
 

@@ -26,10 +26,6 @@ $(function () {
         firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
     });
 
-    console.log(window.editor)
-
-    //var index = window.newCount + 1;
-
     var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
     var dd = '<li class="editorComp_$1"><span>视图$2</span> <i class="tab-del">&times;</i></li>';
 
