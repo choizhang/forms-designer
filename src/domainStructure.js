@@ -55,12 +55,28 @@ $(function () {
 
 //            右键菜单
             onRightClick: function (event, treeId, treeNode) {
+                console.log(event)
+                console.log(treeNode)
+
                 if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
                     zTreeObj.cancelSelectedNode();
                     showRMenu("root", event.clientX, event.clientY);
                 } else if (treeNode && !treeNode.noR) {
+                    if(!treeNode.level){
+                        //第一级
+                        showRMenu("view", event.clientX, event.clientY);
+                        //当前的权限设置
+                        $('#m_power').find('.current').removeClass('current');
+
+                        var num = $('.editorComp_' + (treeNode.id - 100)).attr('data-power') || '1';
+
+                        $('#m_power').find('li').eq(parseInt(num)-1).addClass('current');
+
+                    } else {
+                        showRMenu("node", event.clientX, event.clientY);
+                    }
                     zTreeObj.selectNode(treeNode);
-                    showRMenu("node", event.clientX, event.clientY);
+
                 }
             },
 
@@ -135,10 +151,26 @@ $(function () {
         var treeNode = zTreeObj.getSelectedNodes();
         var num = $('.current').index();
 
-        console.log(treeNode)
         var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
 
         window.editor[num].execCommand('inserthtml', html);
+
+        hideRMenu();
+    }
+
+    //        给视图添加权限
+    function addPower(event, num) {
+        console.log($(event.target))
+        console.log(num)
+        var $target = $(event.target);
+        var treeNode = zTreeObj.getSelectedNodes();
+
+        $('.editorComp_' + (treeNode[0].id - 100)).attr('data-power', num);
+
+        $target.parent().find('.current').removeClass('current');
+        $target.addClass('current');
+
+        hideRMenu();
     }
 
 //        默认增加视图1
@@ -151,23 +183,19 @@ $(function () {
 
     //    双击弹窗设置
 
-
-
-
-
-
-
-
     function showRMenu(type, x, y) {
         $("#rMenu ul").show();
+        console.log(type)
         if (type == "root") {
-            $("#m_del").hide();
-            $("#m_check").hide();
-            $("#m_unCheck").hide();
+            // 这个应该是右键到了非文字图形的其他区域,目前无用
+            $("#rMenu ul").hide();
+        } else if(type == "view") {
+            $('#m_power').show();
+            $('#m_add').hide();
+
         } else {
-            $("#m_del").show();
-            $("#m_check").show();
-            $("#m_unCheck").show();
+            $('#m_power').hide();
+            $('#m_add').show();
         }
         $("#rMenu").css({"top": y + "px", "left": x + "px", "visibility": "visible"});
 
@@ -251,6 +279,7 @@ $(function () {
     //保留给外部使用
     window.domainStructure = {
         addComponent: addComponent,
+        addPower: addPower,
         zTreeObj: zTreeObj
     }
 });

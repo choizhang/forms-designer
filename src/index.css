@@ -143,7 +143,6 @@ body{
     background-color: #fff;
 }
 
-
 .edui-toolbar {
     display: none;
 }
@@ -181,4 +180,8 @@ div#rMenu ul li {
     cursor: pointer;
     list-style: none outside none;
     background-color: #DFDFDF;
+}
+
+div#rMenu ul li.current {
+    color: #ff0000;
 }

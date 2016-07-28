@@ -58,6 +58,13 @@
         <ul id="treeDemo" class="ztree"></ul>
         <div id="rMenu">
             <ul>
+                <li id="m_power">
+                    <ul>
+                        <li onclick="domainStructure.addPower(event, 1);">普通</li>
+                        <li onclick="domainStructure.addPower(event, 2);">经理</li>
+                        <li onclick="domainStructure.addPower(event, 3);">管理员</li>
+                    </ul>
+                </li>
                 <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
             </ul>
         </div>
