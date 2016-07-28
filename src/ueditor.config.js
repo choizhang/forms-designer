@@ -35,7 +35,8 @@
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
             'fullscreen', 'source', '|', 'undo', 'redo', '|',
-            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
+ 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
             'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
             'directionalityltr', 'directionalityrtl', 'indent', '|',
@@ -45,7 +46,7 @@
 
             ['simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', 'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage'],
 
-            [['inserttable', 'deletetable', 'insertparagraphbeforetable'], '|', ['insertrow', 'insertrownext', 'insertcol', 'insertcolnext'], '|', 'deleterow', 'deletecol', '|', 'mergecells', 'mergeright', 'mergedown', '|', 'splittocells', 'splittorows', 'splittocols', '|', 'averagedistributerow', 'averagedistributecol', 'averagedistribute'],
+            [['插入表格', 'inserttable', 'deletetable', 'insertparagraphbeforetable'], ['插入', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext'], ['test', 'deleterow', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'averagedistributerow', 'averagedistributecol', 'averagedistribute']],
 
             ['print', 'preview', 'searchreplace', 'drafts', 'help'],
             []

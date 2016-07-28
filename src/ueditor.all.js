@@ -26939,8 +26939,12 @@ UE.version = "1.4.3";
 
             },
             getHtmlTpl: function () {
+                this.items = this.items.filter(function(value){
+                    return value
+                })
                 var buff = [];
                 for (var i = 0; i < this.items.length; i++) {
+                    //my
                     buff[i] = this.items[i].renderHtml();
                 }
                 return '<div id="##" class="edui-toolbar %%" onselectstart="return false;" onmousedown="return $$._onMouseDown(event, this);">' +
@@ -29327,6 +29331,39 @@ UE.version = "1.4.3";
 
 
                             }
+                        } else if(Array.isArray(toolbarItem)) {
+                            toolbarItem.forEach(function(value, index){
+                                if(index){
+                                    if (baidu.editor.ui[value]) {
+                                        toolbarItemUi = new baidu.editor.ui[value](editor);
+                                        if(index === 1){
+                                            //如果是第一个就添加html
+                                            var str = toolbarItemUi.getHtmlTpl();
+                                            toolbarItemUi.getHtmlTpl = function() {
+                                                return '<div class="mod"><div>'+ toolbarItem[0] +'</div>' + str;
+                                            }
+                                        }
+                                        //
+                                        if(index === toolbarItem.length - 1){
+                                            //如果是最后一个就添加html
+                                            var str = toolbarItemUi.getHtmlTpl();
+                                            toolbarItemUi.getHtmlTpl = function() {
+                                                return str + '</div>';
+                                            }
+                                        }
+
+                                        toolbarUi.add(toolbarItemUi);
+
+                                        toolbarItemUi = null;
+                                    }
+                                } else {
+                                    // 是标题
+
+                                }
+
+
+                            })
+
                         } else {
                             toolbarItemUi = toolbarItem;
                         }
