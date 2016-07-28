@@ -65,11 +65,9 @@ $(function () {
                     if(!treeNode.level){
                         //第一级
                         showRMenu("view", event.clientX, event.clientY);
-                        //当前的权限设置
+                        //当前的权限设置,因为右键菜单是公用的,所以要获取到tab的值,然后动态设置当前态
                         $('#m_power').find('.current').removeClass('current');
-
                         var num = $('.editorComp_' + (treeNode.id - 100)).attr('data-power') || '1';
-
                         $('#m_power').find('li').eq(parseInt(num)-1).addClass('current');
 
                     } else {

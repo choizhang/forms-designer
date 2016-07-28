@@ -20169,6 +20169,26 @@ UE.version = "1.4.3";
             }
         }
     };
+
+        /** my
+         * 给单元格设置权限
+         * @param power
+         * @param cell
+         */
+    function setPower(power, cell) {
+        var me = this;
+        if(power == 1){
+            //要变为普通
+            $(cell).removeAttr('data-power');
+        } else {
+            $(cell).attr('data-power', power);
+        }
+
+        //获取当前页面的权限值
+        var nowPower = me.queryCommandValue('powercombox');
+        me.execCommand('powercombox', nowPower);
+    };
+
     //单元格属性
     UE.commands['edittd'] = {
         queryCommandState: function () {
@@ -20185,6 +20205,8 @@ UE.version = "1.4.3";
                 if (cell) {
                     cell.style.backgroundColor = bkColor;
                     cell.style.padding = padding;
+
+                    setPower.call(me, power, cell);
                 }
             } else {
                 //这个是多选的时候,背景会变色
@@ -20213,30 +20235,16 @@ UE.version = "1.4.3";
                     //选择的并不是整行
                     //给相关的列添加一个标志
                     utils.each(ut.selectedTds, function (cell) {
-                        if(power == 1){
-                            //要变为普通
-                            $(cell).removeAttr('data-power');
-                        } else {
-                            $(cell).attr('data-power', power);
-                        }
+                        setPower.call(me, power, cell);
                     });
                 } else {
                     //整行
                     //给每一行添加一个标志
                     utils.each(col, function (cell) {
-                        if(power == 1){
-                            //要变为普通
-                            $(cell).removeAttr('data-power');
-                        } else {
-                            $(cell).parent().attr('data-power', power);
-                        }
+                        setPower.call(me, power, cell);
 
                     });
                 }
-
-                //获取当前页面的权限值
-                var nowPower = me.queryCommandValue('powercombox');
-                me.execCommand('powercombox', nowPower);
 
 
                 utils.each(ut.selectedTds, function (cell) {
@@ -29365,8 +29373,6 @@ UE.version = "1.4.3";
                                     // 是标题
 
                                 }
-
-
                             })
 
                         } else {

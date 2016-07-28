@@ -6,7 +6,7 @@ $(function () {
 
         bindIframe(iframeBody)
 
-    }, 1000)
+    }, 2000)
 
 
     function bindIframe(iframeBody) {
