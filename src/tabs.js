@@ -32,9 +32,14 @@ $(function () {
     /**
      * 新增一个tab分页
      */
-    $('.add').on('click', function (e) {
+    $('#viewAdd').on('click', function (e) {
         var index = window.newCount;
         var num = $navigation.find('li').length;
+
+        if(num > 6){
+            alert('抱歉,已经不能更多了');
+            return;
+        }
 
         $('.content').append(ss.replace(/\$1/g, index));
         $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, num+1))
@@ -94,6 +99,85 @@ $(function () {
 
         e.stopPropagation();
     })
+
+    function getDomain() {
+        //使用闭包获取域结构的json节点
+        //[
+        //    {
+        //        name: '视图1',
+        //        children: [
+        //            {
+        //                name: '姓名'
+        //            },
+        //            {
+        //                name: '报销明细',
+        //                children: [
+        //                    {
+        //                        name: '交通费'
+        //                    },
+        //                    {
+        //                        name: '差旅费'
+        //                    },
+        //                    {
+        //                        name: '补助'
+        //                    }
+        //                ]
+        //            }
+        //        ]
+        //    },
+        //    {
+        //        name: '视图2',
+        //        children: [
+        //            {
+        //                name: '付款金额'
+        //            }
+        //        ]
+        //    }
+        //]
+
+        var allNodes = window.domainStructure.zTreeObj.getNodes();
+        var result = [];
+
+        function getTest(value){
+            var obj = {};
+            obj.name = value.name;
+            if(value.children){
+                //如果有子节点
+                obj.children = [];
+                value.children.forEach(function(value){
+                    var tt = getTest(value)
+                    obj.children.push(tt);
+                })
+                return obj;
+            } else {
+                return obj;
+            }
+        }
+
+        allNodes.forEach(function(value){
+            var obj = {};
+            obj.name = value.name;
+            result.push(getTest(value));
+        });
+
+        return result;
+    }
+
+    /**
+     * 导出到外部的数据
+     * 1. 视图中编辑过的html
+     * 2. 域结构的json对象
+     */
+    $('#output').on('click', function (e) {
+        console.log('域结构的json', getDomain());
+
+        var html = '';
+        window.editor.forEach(function(value){
+            html += value.getContent();
+        })
+
+        console.log('html: ', html);
+    });
 
     /**
      * 点击工具栏tab实现当前tab显示

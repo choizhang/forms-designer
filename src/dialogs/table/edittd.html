@@ -80,12 +80,10 @@
 
 //        间距
         var paddingNow = domUtils.getComputedStyle(cell,'padding');
-        console.log(paddingNow)
         padding.value = paddingNow;
 
 //        权限
         var powerNow = $(cell).attr('data-power');
-        console.log(powerNow)
         power.value = powerNow ? powerNow : 1;
 
     }
