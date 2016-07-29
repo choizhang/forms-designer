@@ -19328,13 +19328,14 @@ UE.version = "1.4.3";
             return getTableItemsByRange(this).table ? -1 : 0;
         },
         execCommand: function (cmd, opt) {
-            function createTable(opt, tdWidth, tdHeight) {
+            function createTable(opt) {
                 var html = [],
                     rowsNum = opt.numRows,
                     colsNum = opt.numCols;
 
+                console.log(opt)
                 //my 可以设置最小高度
-                tdHeight = tdHeight || 20;
+                var tdHeight = opt.tdHeight || 20;
 
                 for (var r = 0; r < rowsNum; r++) {
                     html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
@@ -19342,7 +19343,7 @@ UE.version = "1.4.3";
                         //my
                         //html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
 
-                        html.push('<td width="' + tdWidth + '"  height="' + tdHeight + '" vAlign="' + opt.tdvalign + '" ></td>')
+                        html.push('<td width="' + opt.tdWidth + '"  height="' + tdHeight + '" data-minHeight="' + tdHeight + '" vAlign="' + opt.tdvalign + '" ></td>')
                     }
                     html.push('</tr>')
                 }
@@ -19385,7 +19386,7 @@ UE.version = "1.4.3";
 
             //todo其他属性
             !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
-            me.execCommand("inserthtml", createTable(opt, opt.tdWidth));
+            me.execCommand("inserthtml", createTable(opt));
         }
     };
 
@@ -21832,11 +21833,22 @@ UE.version = "1.4.3";
             evt.preventDefault ? evt.preventDefault() : (evt.returnValue = false);
         }
 
+        /**
+         * 设置单元格高度
+         * @param cell
+         * @param height
+         * @param backHeight
+         */
         function setCellHeight(cell, height, backHeight) {
+            //my lineheight在把br去掉后就肯定是nan
             var lineHight = parseInt(domUtils.getComputedStyle(cell, "line-height"), 10),
                 tmpHeight = backHeight + height;
-            height = tmpHeight < lineHight ? lineHight : tmpHeight;
-            console.log(height)
+            //height = tmpHeight < lineHight ? lineHight : tmpHeight;
+
+            //my 拖动最小值不能比设置的小
+            var minHeight = cell.dataset.minheight;
+            height = tmpHeight < minHeight ? minHeight : tmpHeight;
+
             if (cell.style.height) cell.style.height = "";
             cell.rowSpan == 1 ? cell.setAttribute("height", height) : (cell.removeAttribute && cell.removeAttribute("height"));
         }
@@ -21894,6 +21906,7 @@ UE.version = "1.4.3";
                 var cells = ut.getSameEndPosCells(td, "y"),
                 //备份需要连带变化的td的原始高度，否则后期无法获取正确的值
                     backHeight = cells[0] ? cells[0].offsetHeight : 0;
+
                 for (var i = 0, cell; cell = cells[i++];) {
                     setCellHeight(cell, changeValue, backHeight);
                 }
