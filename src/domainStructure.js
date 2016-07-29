@@ -27,11 +27,17 @@ $(function () {
         edit: {
             enable: true,
             drag: {
-                isCopy: true,
+                isCopy: false,
                 isMove: false
             },
 
-            showRemoveBtn: true,
+            removeTitle: '删除',
+            renameTitle: '重命名',
+
+            showRemoveBtn: function(treeId, treeNode) {
+                //视图目录不会显示删除按钮
+                return treeNode.level;
+            },
             showRenameBtn: true
         },
         callback: {
@@ -93,6 +99,16 @@ $(function () {
                     $('.editorComp_'+id).find('span').html(newName);
                 }
 
+            },
+
+//            只有组件能删除
+            onRemove: function (event, treeId, treeNode) {
+                var id = treeNode.id - 100;
+                //直接多iframe查找也能实现,暂时不做优化了
+                var $target = $('iframe').contents().find('.editorComp_'+id);
+
+                $target.remove();
+                return false;
             }
         }
     };

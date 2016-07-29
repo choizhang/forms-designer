@@ -27398,8 +27398,6 @@ UE.version = "1.4.3";
                     if (cssRules) {
                         options.cssRules = '.edui-default .edui-for-' + name + ' .edui-dialog-content  {' + cssRules + '}'
                     }
-
-                    console.log('dd')
                 }
                 this.initOptions(utils.extend({
                     autoReset: true,
