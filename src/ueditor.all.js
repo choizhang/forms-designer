@@ -10374,7 +10374,8 @@ UE.version = "1.4.3";
                         case 'th':
                         case 'caption':
                             if (!node.children || !node.children.length) {
-                                node.appendChild(browser.ie11below ? UE.uNode.createText(' ') : UE.uNode.createElement('br'))
+                                //my 将单元格里的br标签占位符取消了
+                                //node.appendChild(browser.ie11below ? UE.uNode.createText(' ') : UE.uNode.createElement('br'))
                             }
                             break;
                         case 'table':
@@ -19327,17 +19328,21 @@ UE.version = "1.4.3";
             return getTableItemsByRange(this).table ? -1 : 0;
         },
         execCommand: function (cmd, opt) {
-            function createTable(opt, tdWidth) {
+            function createTable(opt, tdWidth, tdHeight) {
                 var html = [],
                     rowsNum = opt.numRows,
                     colsNum = opt.numCols;
+
+                //my 可以设置最小高度
+                tdHeight = tdHeight || 20;
+
                 for (var r = 0; r < rowsNum; r++) {
                     html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
                     for (var c = 0; c < colsNum; c++) {
                         //my
                         //html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
 
-                        html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" ></td>')
+                        html.push('<td width="' + tdWidth + '"  height="' + tdHeight + '" vAlign="' + opt.tdvalign + '" ></td>')
                     }
                     html.push('</tr>')
                 }
@@ -20833,7 +20838,7 @@ UE.version = "1.4.3";
                         if (!target)return;
                         var ut = getUETable(target),
                             table = ut.table,
-                            cellInfo = ut.getCellInfo(target),
+                            cellInffo = ut.getCellInfo(target),
                             cellsRange,
                             rng = me.selection.getRange();
 //                    if ("topLeft" == inPosition(table, mouseCoords(evt))) {
@@ -21831,6 +21836,7 @@ UE.version = "1.4.3";
             var lineHight = parseInt(domUtils.getComputedStyle(cell, "line-height"), 10),
                 tmpHeight = backHeight + height;
             height = tmpHeight < lineHight ? lineHight : tmpHeight;
+            console.log(height)
             if (cell.style.height) cell.style.height = "";
             cell.rowSpan == 1 ? cell.setAttribute("height", height) : (cell.removeAttribute && cell.removeAttribute("height"));
         }
@@ -26104,6 +26110,7 @@ UE.version = "1.4.3";
             maxNumCols: 20,
             numRows: 10,
             numCols: 10,
+            //每一个格子的大小,要跟numRows配合,设置成11就最多可以设置20行20列
             lengthOfCellSide: 22,
             initTablePicker: function () {
                 this.initUIBase();
