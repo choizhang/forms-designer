@@ -1,4 +1,4 @@
-UE.registerUI('createTable',function(editor,uiName){
+UE.registerUI('createtable',function(editor,uiName){
 
     //创建dialog
     var dialog = new UE.ui.Dialog({
@@ -54,8 +54,8 @@ UE.registerUI('createTable',function(editor,uiName){
 
     //参考addCustomizeButton.js
     var btn = new UE.ui.Button({
-        //css的类要用,所以必须是英文
-        name:'createTable',
+        //css的类要用,所以必须是英文.但是英文会导致dialog的宽度有问题,用中文反而还可以
+        name:'插入表格',
         title:'插入表格',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
         cssRules :'background-position: -500px 0;',

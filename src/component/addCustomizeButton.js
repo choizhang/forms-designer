@@ -27,7 +27,7 @@ UE.registerUI('button', function (editor, uiName) {
     //创建一个button
     var btn = new UE.ui.Button({
         //按钮的名字
-        name: '文本框',
+        name: 'text',
         //提示
         title: '文本域',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon

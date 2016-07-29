@@ -9,7 +9,7 @@ UE.registerUI('buttonCalendar', function (editor, uiName) {
     //创建一个button
     var btn = new UE.ui.Button({
         //按钮的名字
-        name: '日历',
+        name: 'calendar',
         //提示
         title: '日历',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon

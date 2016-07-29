@@ -22498,7 +22498,7 @@ UE.version = "1.4.3";
                             //    label: lang.deletetable,
                             //    cmdName: 'deletetable'
                             //},
-                            '-',
+                            //'-',
                             //{
                             //    label: lang.deleterow,
                             //    cmdName: 'deleterow'
@@ -22575,17 +22575,17 @@ UE.version = "1.4.3";
                             //    label: lang.splittocells,
                             //    cmdName: 'splittocells'
                             //},
-                            '-',
-                            //均分行列
-                            {
-                                label: lang.averageDiseRow,
-                                cmdName: 'averagedistributerow'
-                            },
-                            {
-                                label: lang.averageDisCol,
-                                cmdName: 'averagedistributecol'
-                            },
-                            '-',
+                            //'-',
+                            ////均分行列
+                            //{
+                            //    label: lang.averageDiseRow,
+                            //    cmdName: 'averagedistributerow'
+                            //},
+                            //{
+                            //    label: lang.averageDisCol,
+                            //    cmdName: 'averagedistributecol'
+                            //},
+                            //'-',
                             {
                                 label: lang.edittd,
                                 cmdName: 'edittd',
@@ -27378,6 +27378,8 @@ UE.version = "1.4.3";
                     if (cssRules) {
                         options.cssRules = '.edui-default .edui-for-' + name + ' .edui-dialog-content  {' + cssRules + '}'
                     }
+
+                    console.log('dd')
                 }
                 this.initOptions(utils.extend({
                     autoReset: true,

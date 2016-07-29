@@ -92,6 +92,19 @@ $(function () {
                     var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
                     $('#treeDemo_' + id + '_a').trigger('click');
 
+
+
+                    //将组件在拖拽过程中自动生成的无长度空格,加粗等去除.组件的样式不是通过富文本编辑的
+                    var html = $(this).parent().html()
+                        .replace(/[\u200B]/g, '')
+                        .replace(/<strong.*ong>/g, '')
+                        .replace(/<em.*em>/g, '')
+
+                    $(this).parent().html( html );
+
+
+
+
                     e.stopPropagation();
                 }
             }, '.name')
