@@ -27,10 +27,11 @@ $(function () {
     });
 
     var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
-    var dd = '<li class="editorComp_$1"><span>视图$2</span> <i class="tab-del">&times;</i></li>';
+    var dd = '<li class="editorComp_$1"><span>视图</span> <i class="tab-del">&times;</i></li>';
 
     /**
      * 新增一个tab分页
+     * 这里有2个值,一个是全局的标志,一个是tab单独的标志(因为要存到数组中)
      */
     $('#viewAdd').on('click', function (e) {
         var index = window.newCount;
@@ -41,8 +42,11 @@ $(function () {
             return;
         }
 
+        console.log('index', index)
+        console.log('num', num)
+
         $('.content').append(ss.replace(/\$1/g, index));
-        $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, num+1))
+        $navigation.append(dd.replace(/\$1/g, index));
         window.editor[num] = UE.getEditor('container' + index, config);
 
         //增加了视图,域结构也要增加
@@ -66,18 +70,26 @@ $(function () {
         // 应该给予提示
         //alert('删除不可逆,确定要删除该视图吗?')
 
+        var num = $navigation.find('li').length;
+
+        if(num < 2){
+            alert('抱歉,至少要保留一个视图');
+            return;
+        }
+
         var relateLi = $(this).closest('li');
         var index = relateLi.index();
         relateLi.remove();
         $('.content').eq(index).remove();
 
+        window.editor.splice(index, 1);
+
         var nodes = domainStructure.zTreeObj.getNodes();
-        console.log($navigation.find('.current'))
 
         domainStructure.zTreeObj.removeNode(nodes[index]);
 
+        //设置当前状态
         if(!$navigation.find('.current').length){
-            console.log($navigation.find('li').eq(index))
             $navigation.find('li').eq(index).trigger('click');
         }
 

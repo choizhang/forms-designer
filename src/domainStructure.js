@@ -86,7 +86,6 @@ $(function () {
 
 //            重命名
             onRename: function (event, treeId, treeNode, isCancel) {
-                console.log(treeNode)
                 var id = treeNode.id - 100;
                 var newName = treeNode.name;
                 if (!treeNode.isParent) {
@@ -119,7 +118,6 @@ $(function () {
     //    动态增加一个子节点
     $treeDemo.on('addTag', function (e, args) {
         var $navigation = $('.navigation');
-        var num = $navigation.find('li').length;
 
         if (!args) {
             args = {};
@@ -146,7 +144,7 @@ $(function () {
                 pId: 0,
                 open: args.open,
                 isParent: args.isParent,
-                name: args.name + num
+                name: args.name
             });
         }
         if (treeNode) {
@@ -174,8 +172,6 @@ $(function () {
 
     //        给视图添加权限
     function addPower(event, num) {
-        console.log($(event.target))
-        console.log(num)
         var $target = $(event.target);
         var treeNode = zTreeObj.getSelectedNodes();
 
