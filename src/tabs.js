@@ -42,9 +42,6 @@ $(function () {
             return;
         }
 
-        console.log('index', index)
-        console.log('num', num)
-
         $('.content').append(ss.replace(/\$1/g, index));
         $navigation.append(dd.replace(/\$1/g, index));
         window.editor[num] = UE.getEditor('container' + index, config);
@@ -179,6 +176,7 @@ $(function () {
      * 导出到外部的数据
      * 1. 视图中编辑过的html
      * 2. 域结构的json对象
+     * todo: 多视图中的html是以怎么样的方式导出
      */
     $('#output').on('click', function (e) {
         console.log('域结构的json', getDomain());

@@ -23,6 +23,7 @@ p{
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
+    width: 100%;
     /*不能设置这个,不然会改变table*/
     /*display: inline-block;*/
 }
