@@ -95,10 +95,7 @@ $(function () {
 
                     //将组件在拖拽过程中自动生成的无长度空格,加粗等去除.组件的样式不是通过富文本编辑的
                     var $td = $(this).parent();
-                    var html = $td.html()
-                        //.replace(/[\u200B]/g, '')
-                        //.replace(/<strong.*ong>/g, '')
-                        //.replace(/<em.*em>/g, '')
+                    var html = $td.html();
 
                     //要判断下,不然会感染正常的情况,焦点无法聚焦
                     if(/[\u200B]/.test(html)){
@@ -119,7 +116,27 @@ $(function () {
 
                     //进入到组件内部,需要禁用掉工具栏,组件有自己的样式编辑
                     var current = $('.current').index();
+                    //这样设置会导致焦点出问题
                     //window.editor[current].setDisabled();
+
+                    $('.components').show();
+
+                    var $this = $(this);
+
+                    $('#bgColor').val( $this.css('color') );
+                    $('#fontSize').val( $this.css('fontSize') );
+
+                    $('#bgColor').change(function() {
+                        console.log($(this).val())
+                        $this.css('color', $(this).val())
+
+                    })
+
+                    $('#fontSize').change(function() {
+                        console.log($(this).val())
+                        $this.css('fontSize', $(this).val())
+
+                    })
 
 
                     e.stopPropagation();
@@ -140,12 +157,27 @@ $(function () {
 //                高亮状态取消,并将样式去掉(拖拽的时候将hover的style变成了行内样式)
                 iframeBody.find('.component-handle').removeClass('active').removeAttr('style');
 
-                iframeBody.find('.name').removeAttr('style');
+                //iframeBody.find('.name').removeAttr('style');
 
 
                 //进入到组件内部,需要禁用掉工具栏,组件有自己的样式编辑
                 var current = $('.current').index();
                 //window.editor[current].setEnabled();
+
+                $('.components').hide();
+
+
+
+                iframeBody.find('.name').each(function(){
+                    var $td = $(this).parent();
+                    var html = $td.html();
+                    if(/[\u200B]/.test(html)){
+                        html = html.replace(/[\u200B]/g, '');
+                        console.log(html)
+                        $td.html( html );
+                    }
+                })
+
 
                 //为了注释这句话找了大半天拖拽,因为ueditor也有监听click,而且是在iframe上,所以如果中断事件传输,他有些功能就失效了.比如图片出现拖拽句柄
                 //e.stopPropagation();

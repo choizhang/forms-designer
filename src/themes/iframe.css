@@ -23,10 +23,14 @@ p{
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
-    width: 100%;
     /*不能设置这个,不然会改变table*/
     /*display: inline-block;*/
 }
+
+/*table不用100%,可以直接拖动高宽的*/
+/*table .component {*/
+    /*width: 100%;*/
+/*}*/
 
 .component.focus {
     outline: 2px solid #f00;
@@ -83,7 +87,12 @@ p{
     display: block;
     min-width: 40px;
     border: none;
+    padding: 5px;
 }
+
+/*table .com-text td {*/
+    /*width: 100%;*/
+/*}*/
 
 .test{
     text-indent: -999em;

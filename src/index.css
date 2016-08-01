@@ -131,9 +131,17 @@ body{
     height: 31px;
 }
 
+.component-setting{
+    float: left;
+    width: 13%;
+    min-height: 300px;
+}
+.component-setting .components{
+    display: none;
+}
 .content{
     float: left;
-    width: 78%;
+    width: 70%;
     margin-right: 40px;
 }
 

@@ -20790,7 +20790,6 @@ UE.version = "1.4.3";
             //内容变化时触发索引更新
             //todo 可否考虑标记检测，如果不涉及表格的变化就不进行索引重建和更新
             me.addListener("contentchange", function () {
-                return;
                 var me = this;
                 //尽可能排除一些不需要更新的状况
                 //hideDragLine(me);
