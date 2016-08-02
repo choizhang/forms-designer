@@ -20,8 +20,23 @@ $(function () {
 //                    此次拖拽是失败的
 
                 } else {
-//                    拖拽成功,不知道在哪里设置,只能手动删除原来的
-                    $(e.currentTarget).remove();
+
+                    if($(e.currentTarget).parent()[0].tagName == 'td'){
+                        //                    拖拽成功,不知道在哪里设置,只能手动删除原来的
+                        $(e.currentTarget).remove();
+                    } else {
+                        //修复自动添加table的情况. 将组件从左单元格拖到单元格,再拖回去,会自动添加一个空的div,会导致以后不可拖进去了
+                        $(e.currentTarget).parent().remove();
+                    }
+
+
+                }
+
+                //修复自动添加table的情况. 将组件从左单元格拖到单元格,再拖回去,会自动包裹一个table
+                var $table = iframeBody.find('table table:not(".component")');
+                if($table.length){
+                    $table.parent().html($table.find('.component')[0].outerHTML);
+
                 }
 
 //                如果多个组件嵌套
@@ -166,17 +181,18 @@ $(function () {
 
                 $('.components').hide();
 
+                //input在focus后,失去焦点,再回来就会产生空格
+                //iframeBody.find('.name').each(function(){
+                //    var $td = $(this).parent();
+                //    var html = $td.html();
+                //    if(/[\u200B]/.test(html)){
+                //        html = html.replace(/[\u200B]/g, '');
+                //        console.log(html)
+                //        $td.html( html );
+                //    }
+                //})
 
 
-                iframeBody.find('.name').each(function(){
-                    var $td = $(this).parent();
-                    var html = $td.html();
-                    if(/[\u200B]/.test(html)){
-                        html = html.replace(/[\u200B]/g, '');
-                        console.log(html)
-                        $td.html( html );
-                    }
-                })
 
 
                 //为了注释这句话找了大半天拖拽,因为ueditor也有监听click,而且是在iframe上,所以如果中断事件传输,他有些功能就失效了.比如图片出现拖拽句柄
