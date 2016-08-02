@@ -182,17 +182,15 @@ $(function () {
                 $('.components').hide();
 
                 //input在focus后,失去焦点,再回来就会产生空格
-                //iframeBody.find('.name').each(function(){
-                //    var $td = $(this).parent();
-                //    var html = $td.html();
-                //    if(/[\u200B]/.test(html)){
-                //        html = html.replace(/[\u200B]/g, '');
-                //        console.log(html)
-                //        $td.html( html );
-                //    }
-                //})
-
-
+                iframeBody.find('.name').each(function(){
+                    var $td = $(this).parent();
+                    var html = $td.html();
+                    if(/[\u200B]/.test(html)){
+                        html = html.replace(/[\u200B]/g, '');
+                        console.log(html)
+                        $td.html( html );
+                    }
+                })
 
 
                 //为了注释这句话找了大半天拖拽,因为ueditor也有监听click,而且是在iframe上,所以如果中断事件传输,他有些功能就失效了.比如图片出现拖拽句柄
