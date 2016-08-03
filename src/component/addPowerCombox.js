@@ -109,23 +109,23 @@ UE.registerUI('powercombox', function (editor, uiName) {
 
     //我这倒是没啥用
     //里面有disabled设置,所以是有必要的,比如我讲所有按钮disabled掉
-    //editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
-    //    if (!uiReady) {
-    //        var state = editor.queryCommandState(uiName);
-    //        if (state == -1) {
-    //            combox.setDisabled(true);
-    //        } else {
-    //            combox.setDisabled(false);
-    //            var value = editor.queryCommandValue(uiName);
-    //            if (!value) {
-    //                //这是设置默认值的
-    //                combox.setValue('普通');
-    //                return;
-    //            }
-    //        }
-    //    }
-    //
-    //});
+    editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
+        if (!uiReady) {
+            var state = editor.queryCommandState(uiName);
+            if (state == -1) {
+                combox.setDisabled(true);
+            } else {
+                combox.setDisabled(false);
+                var value = editor.queryCommandValue(uiName);
+                if (!value) {
+                    //这是设置默认值的
+                    combox.setValue('普通');
+                    return;
+                }
+            }
+        }
+
+    });
 
     return combox;
 }, [0,3]/*index 指定添加到工具栏上的那个位置，默认时追加到最后,editorId 指定这个UI是那个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮*/);

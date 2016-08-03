@@ -60,7 +60,7 @@ UE.registerUI('repeattable',function(editor,uiName){
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
                     var html = '<table draggable="false" class="component com-repeat editorComp_' + newCount + '"><tbody>' ;
 
-                    html += '<tr class="firstRow"><th>标题1<em class="component-handle"></em></th>'
+                    html += '<tr class="firstRow"><th>标题1<hr class="component-handle"></th>'
                     for(var i=1; i<column; i++){
                         html += '<th>标题' + (i+1) + '</th>'
                     }
@@ -69,8 +69,9 @@ UE.registerUI('repeattable',function(editor,uiName){
 
                     window.newCount++;
 
+                    //br放在了table前面,不然会造成均分按钮不可用
                     for(i=0; i<column; i++){
-                        html += '<td><br><table draggable="false" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td><em class="component-handle"></em><input type="text" class="name" style="width: 100%;height: 100%;border: none;" value="文本域" /></td></tr></tbody></table></td>';
+                        html += '<td width="40" height="20" data-minheight="20" valign="top"><br><table draggable="false" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="30" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" value="文本域" /></td></tr></tbody></table></td>';
 
                         editor.execCommand('repeattext', event);
                     }

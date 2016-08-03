@@ -19956,7 +19956,13 @@ UE.version = "1.4.3";
                             colsNum += 1;
                         }
                     }
+
                     averageWidth = Math.ceil(sumWidth / colsNum) - tbAttr.tdBorder * 2 - tbAttr.tdPadding * 2;
+
+                    console.log(sumWidth)
+                    console.log(colsNum)
+                    console.log(averageWidth)
+
                     return averageWidth;
                 }
 
@@ -19966,8 +19972,10 @@ UE.version = "1.4.3";
                     });
                     var cells = ut.isFullRow() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
 
+                    console.log(cells)
                     utils.each(cells, function (node) {
-                        if (node.colSpan == 1) {
+                        //my 要对重复表这种表格嵌套表格的情况做排除
+                        if (node.colSpan == 1 && node.className == 'selectTdClass') {
                             node.setAttribute("width", averageWidth);
                         }
                     });
@@ -19985,6 +19993,7 @@ UE.version = "1.4.3";
                 if (!ut) return -1;
                 if (ut.selectedTds && /th/ig.test(ut.selectedTds[0].tagName)) return -1;
                 //my 这里其实是只要行或者列是整的,就可以设置区域了
+
                 return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
             },
             execCommand: function (cmd) {

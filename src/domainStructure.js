@@ -224,6 +224,23 @@ $(function () {
 
     }
 
+    /**
+     * 对页面中的组件进行轮询,如果已经被删除了,则域结构也做相应处理
+     * 因为删除的方式有很多种,所以不好控(触发).所以目前是手动的方式
+     */
+    $('#domainRefresh').on('click', function() {
+        var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+        var contents = $('iframe').contents();
+
+        nodes.forEach(function(value){
+            if(value.level!=0 && !contents.find('.editorComp_' + (value.id-100) ).length){
+                //组件已经不存在了
+                zTreeObj.removeNode(value);
+            }
+        })
+
+    })
+
 
     //保留给外部使用
     window.domainStructure = {
