@@ -38,10 +38,16 @@ UE.registerUI('powercombox', function (editor, uiName) {
 
     function hideNoPower(value) {
         var $ele = $(editor.body).find('[data-power="'+value+'"]');
+        var html;
+        console.log($ele)
         $ele.each(function(index, value){
             if(value.tagName === 'TD'){
                 //现将内容存储起来
-                $(value).data('save', $(value).html());
+                if(html = $(value).html()){
+                    //设置一次内容就为空了,不能反复设置
+                    $(value).data('save', html);
+                }
+
                 $(value).html('')
             } else if(value.tagName === 'TR'){
                 $(value).hide();
@@ -54,7 +60,7 @@ UE.registerUI('powercombox', function (editor, uiName) {
         $ele.each(function(index, value){
             if(value.tagName === 'TD'){
                 //现将内容存储起来
-                $(value).html($(value).data('save'))
+                $(value).html($(value).data('save') || '');
             } else if(value.tagName === 'TR'){
                 $(value).show();
             }
@@ -103,23 +109,23 @@ UE.registerUI('powercombox', function (editor, uiName) {
 
     //我这倒是没啥用
     //里面有disabled设置,所以是有必要的,比如我讲所有按钮disabled掉
-    editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
-        if (!uiReady) {
-            var state = editor.queryCommandState(uiName);
-            if (state == -1) {
-                combox.setDisabled(true);
-            } else {
-                combox.setDisabled(false);
-                var value = editor.queryCommandValue(uiName);
-                if (!value) {
-                    //这是设置默认值的
-                    combox.setValue('普通');
-                    return;
-                }
-            }
-        }
-
-    });
+    //editor.addListener('selectionchange', function (type, causeByUi, uiReady) {
+    //    if (!uiReady) {
+    //        var state = editor.queryCommandState(uiName);
+    //        if (state == -1) {
+    //            combox.setDisabled(true);
+    //        } else {
+    //            combox.setDisabled(false);
+    //            var value = editor.queryCommandValue(uiName);
+    //            if (!value) {
+    //                //这是设置默认值的
+    //                combox.setValue('普通');
+    //                return;
+    //            }
+    //        }
+    //    }
+    //
+    //});
 
     return combox;
 }, [0,3]/*index 指定添加到工具栏上的那个位置，默认时追加到最后,editorId 指定这个UI是那个编辑器实例上的，默认是页面上所有的编辑器都会添加这个按钮*/);

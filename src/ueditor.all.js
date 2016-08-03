@@ -20182,17 +20182,12 @@ UE.version = "1.4.3";
          * @param cell
          */
     function setPower(power, cell) {
-        var me = this;
         if(power == 1){
             //要变为普通
             $(cell).removeAttr('data-power');
         } else {
             $(cell).attr('data-power', power);
         }
-
-        //获取当前页面的权限值
-        var nowPower = me.queryCommandValue('powercombox');
-        me.execCommand('powercombox', nowPower);
     };
 
     //单元格属性
@@ -20212,7 +20207,7 @@ UE.version = "1.4.3";
                     cell.style.backgroundColor = bkColor;
                     cell.style.padding = padding;
 
-                    setPower.call(me, power, cell);
+                    setPower(power, cell);
                 }
             } else {
                 //这个是多选的时候,背景会变色
@@ -20232,23 +20227,28 @@ UE.version = "1.4.3";
                     }
                 }
 
-                while(ut.selectedTds[i]){
-                    col.push(ut.selectedTds[i]);
-                    i += row.length;
-                }
+                console.log(ut.selectedTds)
+                //console.log(col)
 
                 if(row.length != ut.colsNum){
                     //选择的并不是整行
                     //给相关的列添加一个标志
                     utils.each(ut.selectedTds, function (cell) {
-                        setPower.call(me, power, cell);
+                        setPower(power, cell);
                     });
                 } else {
-                    //整行
+                    //整行,先考虑行的,列比较麻烦
                     //给每一行添加一个标志
-                    utils.each(col, function (cell) {
-                        setPower.call(me, power, cell);
 
+                    //col是选中每行的第一个的数组
+                    while(ut.selectedTds[i]){
+                        col.push(ut.selectedTds[i]);
+                        i += row.length;
+                    }
+
+                    //我是要给tr设置data-power
+                    utils.each(col, function (row) {
+                        setPower(power, $(row).parent());
                     });
                 }
 
@@ -20258,6 +20258,11 @@ UE.version = "1.4.3";
                     cell.style.padding = padding;
                 });
             }
+
+            //设置完成后要根据目前的权限状态去设置
+            //获取当前页面的权限值
+            var nowPower = me.queryCommandValue('powercombox');
+            me.execCommand('powercombox', nowPower);
         }
     };
 
