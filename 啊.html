@@ -4,9 +4,19 @@
             #field0001{
                 width: 70px; height: 20px; font-size: 18px; color: rgb(3, 206, 101);
             }
+            #field0002{
+                width: 70px; height: 20px; font-size: 18px; color: rgb(3, 206, 101);
+            }
+            #field0003{
+                width: 70px; height: 20px; font-size: 18px; color: rgb(3, 206, 101);
+            }
+            #field0004{
+                width: 70px; height: 20px; font-size: 18px; color: rgb(3, 206, 101);
+            }
         </style>
         <table>
             <tbody>
+            <!--文本域-->
             <tr>
                 <td width="80" height="20" data-minheight="20" valign="middle" style="word-break: break-all;" align="center">姓名：
                 </td>
@@ -14,14 +24,36 @@
                     @field0001@
                 </td>
             </tr>
+            <!--重复表-->
+            <tr>
+                <td width="80" height="20" data-minheight="20" valign="middle" style="word-break: break-all;" align="center">个人工资信息
+                </td>
+                <td width="80" height="20" data-minheight="20" valign="top">
+                    <table draggable="false" class="component com-repeat editorComp_2"><tbody><tr class="firstRow"><th>姓名<hr class="component-handle"></th><th>年龄</th><th>收入</th></tr><tr><td width="40" height="20" data-minheight="20" valign="top">@field0002@</td><td width="40" height="20" data-minheight="20" valign="top">@field0003@</td><td width="40" height="20" data-minheight="20" valign="top">@field0004@</td></tr></tbody></table>
+                </td>
+            </tr>
             </tbody>
         </table>',
 
     description: {
         "controlls": {
-            "field0001": {
-                "fieldTitle": "姓名",
+            "姓名": {
+                "fieldName": "field0001",
                 "inputType":"text"
+            }
+            "个人工资信息": {
+                "姓名": {
+                    "fieldName": "field0002",
+                    "inputType":"text"
+                },
+                "年龄": {
+                    "fieldName": "field0003",
+                    "inputType":"text"
+                },
+                "收入": {
+                    "fieldName": "field0004",
+                    "inputType":"text"
+                }
             }
         }
     }

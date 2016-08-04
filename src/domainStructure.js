@@ -84,14 +84,32 @@ $(function () {
                 }
             },
 
-//            重命名
+            // 重命名,不能出现一样的名字包括嵌套结构里面
+            beforeRename: function (treeId, treeNode, newName, isCancel) {
+                var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+
+                return nodes.every(function(value){
+                    //非自己的其他组件名有一样的
+                    if(treeNode.id != value.id && value.name == newName){
+                        //组件的名称已经存在了
+                        alert('组件的名称('+newName+')已经存在了');
+                        //让焦点聚焦在input输入框里面
+                        zTreeObj.editName(treeNode);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                })
+            },
+
+//            重命名,让视图中的组件提示文字改变
             onRename: function (event, treeId, treeNode, isCancel) {
                 var id = treeNode.id - 100;
                 var newName = treeNode.name;
 
                 //目前不需要在视图中反应了
                 if (!treeNode.isParent) {
-//                    不是文件夹
+//                    不是文件夹,修改组件中的展示名称
                     $('iframe').contents().find('.editorComp_' + id).find('.name').attr('value', newName);
                 }
 
@@ -99,7 +117,6 @@ $(function () {
                     //表示是树形结构的第一级,也即是视图区
                     $('.editorComp_'+id).find('span').html(newName);
                 }
-
             },
 
 //            只有组件能删除
@@ -137,7 +154,7 @@ $(function () {
                 id: (100 + newCount),
                 pId: treeNode.id,
                 isParent: args.isParent,
-                name: args.name
+                name: args.name + newCount
             });
         } else {
             //根节点
@@ -146,7 +163,7 @@ $(function () {
                 pId: 0,
                 open: args.open,
                 isParent: args.isParent,
-                name: args.name
+                name: args.name + newCount
             });
         }
         if (treeNode) {
@@ -162,10 +179,16 @@ $(function () {
 
     //        域结构中右键插入一个组件
     function addComponent() {
-        var treeNode = zTreeObj.getSelectedNodes();
+        var treeNode = zTreeObj.getSelectedNodes()[0];
         var num = $('.current').index();
 
-        var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
+        console.log(treeNode)
+
+        //如果视图中已经没有这个组件了,这种方法就行不通了
+        //var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
+
+
+        var html = '<table draggable="false" class="component com-text editorComp_' + (treeNode.id-100) + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" value="'+ treeNode.name + '" readonly="readonly"></td></tr></table>'
 
         window.editor[num].execCommand('inserthtml', html);
 
@@ -233,11 +256,26 @@ $(function () {
     $('#domainRefresh').on('click', function() {
         var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
         var contents = $('iframe').contents();
+        var target, length;
 
         nodes.forEach(function(value){
-            if(value.level!=0 && !contents.find('.editorComp_' + (value.id-100) ).length){
-                //组件已经不存在了
-                zTreeObj.removeNode(value);
+            target = $('#'+value.tId+'_ico');
+            if(value.level!=0){
+                length = contents.find('.editorComp_' + (value.id-100) ).length;
+
+                if(length === 0){
+                    //组件已经不存在了不用删除,通过前面的图片做一个记录即可
+                    //zTreeObj.removeNode(value);
+
+                    target.addClass('remove');
+                } else if(length === 1){
+                    target.removeClass('remove');
+                    target.removeClass('edit');
+                } else {
+                    //有多个组件,就添加另外一种标志
+                    target.addClass('edit');
+                }
+
             }
         })
 
