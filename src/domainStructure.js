@@ -186,7 +186,7 @@ $(function () {
         //var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
 
 
-        var html = '<table draggable="false" class="component com-text editorComp_' + (treeNode.id-100) + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" value="'+ treeNode.name + '" readonly="readonly"></td></tr></table>'
+        var html = '<table draggable="false" id="field' + newCount++ + '" class="component com-text editorComp_' + (treeNode.id-100) + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" value="'+ treeNode.name + '" readonly="readonly"></td></tr></table>'
 
         window.editor[num].execCommand('inserthtml', html);
 

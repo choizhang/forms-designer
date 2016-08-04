@@ -109,67 +109,102 @@ $(function () {
         e.stopPropagation();
     })
 
+    //function getDomain() {
+    //    //使用闭包获取域结构的json节点
+    //    //[
+    //    //    {
+    //    //        name: '视图1',
+    //    //        children: [
+    //    //            {
+    //    //                name: '姓名'
+    //    //            },
+    //    //            {
+    //    //                name: '报销明细',
+    //    //                children: [
+    //    //                    {
+    //    //                        name: '交通费'
+    //    //                    },
+    //    //                    {
+    //    //                        name: '差旅费'
+    //    //                    },
+    //    //                    {
+    //    //                        name: '补助'
+    //    //                    }
+    //    //                ]
+    //    //            }
+    //    //        ]
+    //    //    },
+    //    //    {
+    //    //        name: '视图2',
+    //    //        children: [
+    //    //            {
+    //    //                name: '付款金额'
+    //    //            }
+    //    //        ]
+    //    //    }
+    //    //]
+    //
+    //    var allNodes = window.domainStructure.zTreeObj.getNodes();
+    //    var result = [];
+    //
+    //    function getTest(value){
+    //        var obj = {};
+    //        obj.name = value.name;
+    //        if(value.children){
+    //            //如果有子节点
+    //            obj.children = [];
+    //            value.children.forEach(function(value){
+    //                var tt = getTest(value)
+    //                obj.children.push(tt);
+    //            })
+    //            return obj;
+    //        } else {
+    //            return obj;
+    //        }
+    //    }
+    //
+    //    allNodes.forEach(function(value){
+    //        var obj = {};
+    //        obj.name = value.name;
+    //        result.push(getTest(value));
+    //    });
+    //
+    //    return result;
+    //}
+
     function getDomain() {
-        //使用闭包获取域结构的json节点
-        //[
-        //    {
-        //        name: '视图1',
-        //        children: [
-        //            {
-        //                name: '姓名'
-        //            },
-        //            {
-        //                name: '报销明细',
-        //                children: [
-        //                    {
-        //                        name: '交通费'
-        //                    },
-        //                    {
-        //                        name: '差旅费'
-        //                    },
-        //                    {
-        //                        name: '补助'
-        //                    }
-        //                ]
-        //            }
-        //        ]
-        //    },
-        //    {
-        //        name: '视图2',
-        //        children: [
-        //            {
-        //                name: '付款金额'
-        //            }
-        //        ]
-        //    }
-        //]
+        var zTreeObj = window.domainStructure.zTreeObj;
 
-        var allNodes = window.domainStructure.zTreeObj.getNodes();
-        var result = [];
+        var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+        var controlls = {};
+        var temp = {};
+        var table = {};
+        var value;
 
-        function getTest(value){
-            var obj = {};
-            obj.name = value.name;
-            if(value.children){
-                //如果有子节点
-                obj.children = [];
-                value.children.forEach(function(value){
-                    var tt = getTest(value)
-                    obj.children.push(tt);
+        //把第一个节点(域结构)去掉
+        nodes.shift();
+
+        for(var i=0;i<nodes.length;i++){
+            value = nodes[i];
+            if(value.isParent){
+                // 重复表
+                temp = {"name": value.name};
+
+                value.children.forEach(function(repeat) {
+                    table['field'+(repeat.id-100)] = repeat.name;
                 })
-                return obj;
+                temp.fields = table;
+                controlls['formtable'+value.id] = temp;
+                i += value.children.length;
             } else {
-                return obj;
+                temp = {"fieldTitle": value.name}
+                controlls['field'+(value.id-100)] = temp;
             }
         }
 
-        allNodes.forEach(function(value){
-            var obj = {};
-            obj.name = value.name;
-            result.push(getTest(value));
-        });
+        console.log(controlls)
+        return controlls;
 
-        return result;
     }
 
     /**
@@ -182,12 +217,46 @@ $(function () {
         console.log('域结构的json', getDomain());
 
         var html = '';
+        var resutl;
         window.editor.forEach(function(value){
-            html += value.getContent();
+            html += processHtml(value.getContent());
         })
 
-        console.log('html: ', html);
+        result = {
+            html: html,
+            controlls: getDomain()
+        }
+
+        console.log(result)
     });
+
+    function processHtml(html) {
+        html = $('<div>' + html + '</div>');
+        var input = html.find('.com-text');
+        var style = '<style>';
+
+        console.log(input)
+
+        input.each(function(index, value){
+            console.log($(value).find('input'))
+            var cstyle = $(value).find('input').attr('style') || '';
+            var width = $(value).find('td').attr('width');
+            var height = $(value).find('td').attr('height');
+            var id = $(value).attr('id');
+
+            cstyle += 'width:' + width + 'px;height:' + height + 'px;';
+            style += '#' + id + '{' + cstyle + '}';
+
+            $(value).after('<div>@'+id+'@</div>');
+            $(value).remove();
+        })
+
+        style += '</style>';
+
+        console.log(style)
+
+        return style + html.html();
+    }
 
     /**
      * 点击工具栏tab实现当前tab显示
