@@ -7,7 +7,11 @@ UE.registerUI('repeattable',function(editor,uiName){
 
             //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
 
-            var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
+            //var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
+
+            //域结构不分视图了
+            var event = $.Event('addTag', {isParent:true, name: '重复表', nodes: nodes[0]});
+
             if (nodes.length>0) {
                 //$("#treeDemo").trigger('addTag', {isParent:true, name: '重复表', nodes: nodes[num]});
                 $("#treeDemo").trigger(event);

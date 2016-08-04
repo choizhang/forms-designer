@@ -4,10 +4,17 @@ UE.registerUI('button', function (editor, uiName) {
         execCommand: function () {
             //uiName就是'button'
 
-            var num = $('.current').index();
+            //var num = $('.current').index();
+            //var nodes = domainStructure.zTreeObj.getNodes();
+            //if (nodes.length>0) {
+            //    $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[num]});
+            //}
+
+
+            //域结构不分视图了
             var nodes = domainStructure.zTreeObj.getNodes();
             if (nodes.length>0) {
-                $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[num]});
+                $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[0]});
             }
 
 
@@ -40,7 +47,7 @@ UE.registerUI('button', function (editor, uiName) {
             //将数字标识符去掉了,因为在模板添加的时候很容易实现冲突
             //最后一个参数要设置成true,不然会将input给过滤了
             //component-handle如果使用双标签,要么被变成span,而且将contenteditable属性在拖拽后去掉了,于是使用单标签算了
-            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="30" height="20"><hr class="component-handle"><input type="text" class="name" value="文本域" readonly="readonly"></td></tr></table>');
+            editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" value="文本域'+ newCount + '" readonly="readonly"></td></tr></table>');
 
 
             //这种html结构死活不能整个模块拖动

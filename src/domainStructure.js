@@ -136,8 +136,6 @@ $(function () {
 
     //    动态增加一个子节点
     $treeDemo.on('addTag', function (e, args) {
-        var $navigation = $('.navigation');
-
         if (!args) {
             args = {};
             args.isParent = e.isParent;
@@ -209,7 +207,17 @@ $(function () {
     }
 
 //        默认增加视图1
-    $treeDemo.trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
+//    $treeDemo.trigger('addTag', {isParent: true, name: '域结构', open: true, nodes: undefined});
+
+    //        默认增加域结构
+    zTreeObj.addNodes(null, {
+        id: 100,
+        pId: 0,
+        open: true,
+        isParent: true,
+        name: '域结构'
+    });
+    newCount++;
 
     //        $("#addParent").on("click", {isParent:true}, add);
     //        $("#addLeaf").on("click", {isParent:false}, add);

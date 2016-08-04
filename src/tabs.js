@@ -47,7 +47,7 @@ $(function () {
         window.editor[num] = UE.getEditor('container' + index, config);
 
         //增加了视图,域结构也要增加
-        $("#treeDemo").trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
+        //$("#treeDemo").trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
 
 //            先增加在选中
         $navigation.find('li').last().trigger('click');
