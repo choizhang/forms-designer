@@ -105,6 +105,7 @@ $(function () {
                     el.removeClass('dragable');
                     //var id = el.attr('class').split('_')[1];
                     var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
+                    console.log(id)
                     $('#treeDemo_' + id + '_a').trigger('click');
 
 

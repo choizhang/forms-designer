@@ -113,7 +113,6 @@ UE.registerUI('commonStyle',function(editor,uiName){
         cssRules :'background-position: -500px 0;',
         onclick:function () {
             //渲染dialog
-            console.log(dialog)
             dialog.render();
             dialog.open();
         }

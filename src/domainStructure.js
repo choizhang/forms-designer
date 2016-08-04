@@ -88,9 +88,11 @@ $(function () {
             onRename: function (event, treeId, treeNode, isCancel) {
                 var id = treeNode.id - 100;
                 var newName = treeNode.name;
+
+                //目前不需要在视图中反应了
                 if (!treeNode.isParent) {
 //                    不是文件夹
-                    $('iframe').contents().find('.editorComp_' + id).find('.name').val(newName);
+                    $('iframe').contents().find('.editorComp_' + id).find('.name').attr('value', newName);
                 }
 
                 if(treeNode.level === 0){

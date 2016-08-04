@@ -18301,7 +18301,6 @@ UE.version = "1.4.3";
                     tdPadding: tdPadding,
                     tdBorder: tdBorder
                 };
-                console.log(dd)
                 return dd;
             }
         };
@@ -19333,7 +19332,6 @@ UE.version = "1.4.3";
                     rowsNum = opt.numRows,
                     colsNum = opt.numCols;
 
-                console.log(opt)
                 //my 可以设置最小高度
                 var tdHeight = opt.tdHeight || 20;
 
@@ -19959,10 +19957,6 @@ UE.version = "1.4.3";
 
                     averageWidth = Math.ceil(sumWidth / colsNum) - tbAttr.tdBorder * 2 - tbAttr.tdPadding * 2;
 
-                    console.log(sumWidth)
-                    console.log(colsNum)
-                    console.log(averageWidth)
-
                     return averageWidth;
                 }
 
@@ -19972,7 +19966,6 @@ UE.version = "1.4.3";
                     });
                     var cells = ut.isFullRow() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
 
-                    console.log(cells)
                     utils.each(cells, function (node) {
                         //my 要对重复表这种表格嵌套表格的情况做排除
                         if (node.colSpan == 1 && node.className == 'selectTdClass') {
@@ -20137,7 +20130,6 @@ UE.version = "1.4.3";
                     start = me.selection.getStart(),
                     table = start && domUtils.findParentByTagName(start, ["table"], true);
 
-                console.log(table)
                 if (table) {
                     table.setAttribute("align", value);
                 }
@@ -20235,9 +20227,6 @@ UE.version = "1.4.3";
                         break;
                     }
                 }
-
-                console.log(ut.selectedTds)
-                //console.log(col)
 
                 if(row.length != ut.colsNum){
                     //选择的并不是整行
@@ -24430,7 +24419,6 @@ UE.version = "1.4.3";
                         //取消拖放图片时出现的文字光标位置提示
                         domUtils.on(me.body, 'dragover', function (e) {
                             if (e.dataTransfer.types[0] == 'Files') {
-                                console.log('aa')
                                 e.preventDefault();
                             }
                         });
@@ -29762,7 +29750,6 @@ UE.version = "1.4.3";
 
 
         UE.ui.Editor = function (options) {
-            console.log('eee')
             var editor = new UE.Editor(options);
             //如果是多视图,要对window.editor进行数组管理
             //window.editor = new UE.Editor(options);
