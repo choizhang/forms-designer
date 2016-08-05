@@ -3,13 +3,16 @@ $(function () {
     var $treeDemo = $('#treeDemo');
 
     var zNodes = [
+        //{"id":100,"pId":0,"open":true,"isParent":true,"name":"域结构","level":0,"tId":"treeDemo_1","parentTId":null,"zAsync":false,"isFirstNode":true,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"children":[{"id":102,"pId":100,"isParent":false,"name":"文本域2","level":1,"tId":"treeDemo_2","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":true,"isLastNode":false,"isAjaxing":false,"isHover":true,"editNameFlag":false,"isHide":true,"isOld":true},{"id":103,"pId":100,"isParent":false,"name":"文本域3","level":1,"tId":"treeDemo_3","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}],"isOld":true}
 //        {
 //            name: "视图1",
 //            open: true,
+//            id: 11,
+//            pid: 10,  // 表示父子关系,在标准的关系里面,这个没啥用
 //            children: [
 ////                    可以在这自定义数据
-//                {name: "test1_1", ddd: 'ggg'},
-//                {name: "test1_2"}
+//                {name: "test1_1", id: 12, ddd: 'ggg'},
+//                {name: "test1_2", id: 13}
 //            ]
 //        }
 //        {
@@ -34,11 +37,35 @@ $(function () {
             removeTitle: '删除',
             renameTitle: '重命名',
 
-            showRemoveBtn: function(treeId, treeNode) {
-                //视图目录不会显示删除按钮
-                return treeNode.level;
-            },
+            //showRemoveBtn: function(treeId, treeNode) {
+            //    //视图目录不会显示删除按钮
+            //    return treeNode.level;
+            //},
+            showRemoveBtn: false,
             showRenameBtn: true
+        },
+        view: {
+            addHoverDom: function(treeId, treeNode) {
+                if(!treeNode.isOld){
+                    //只对新插入组件能删除
+                    var aObj = $("#" + treeNode.tId + "_a");
+                    if ($("#diyBtn_"+treeNode.id).length>0) return;
+                    var editStr = "<button type='button' class='diyBtn1' id='diyBtn_" + treeNode.id
+                        + "' title='删除'>删除</button>";
+                    aObj.append(editStr);
+                    var btn = $("#diyBtn_"+treeNode.id);
+                    if (btn) btn.bind("click", function(){
+                        aObj.parent().hide();
+                        treeNode.isHide = true;
+                    });
+                }
+            },
+            removeHoverDom: function (treeId, treeNode) {
+                //为了占位,id正确,所以只是隐藏
+                if(!treeNode.isOld) {
+                    $("#diyBtn_" + treeNode.id).unbind().remove();
+                }
+            }
         },
         callback: {
 //            点击组件高亮
@@ -134,6 +161,17 @@ $(function () {
     //        域结构初始化
     var zTreeObj = $.fn.zTree.init($treeDemo, setting, zNodes);
 
+    var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+
+    //将之前删除过的隐藏起来,初始化操作
+    nodes.forEach(function(value) {
+        console.log(value)
+        if(value.isHide){
+            //需要被隐藏
+            $('#'+value.tId).hide();
+        }
+    })
+
     //    动态增加一个子节点
     $treeDemo.on('addTag', function (e, args) {
         if (!args) {
@@ -209,15 +247,19 @@ $(function () {
 //        默认增加视图1
 //    $treeDemo.trigger('addTag', {isParent: true, name: '域结构', open: true, nodes: undefined});
 
-    //        默认增加域结构
-    zTreeObj.addNodes(null, {
-        id: 100,
-        pId: 0,
-        open: true,
-        isParent: true,
-        name: '域结构'
-    });
-    newCount++;
+    //        默认增加域结构,如果是更新就不需要增加了
+
+    if(!zNodes.length){
+        zTreeObj.addNodes(null, {
+            id: 100,
+            pId: 0,
+            open: true,
+            isParent: true,
+            name: '域结构'
+        });
+        newCount++;
+    }
+
 
     //        $("#addParent").on("click", {isParent:true}, add);
     //        $("#addLeaf").on("click", {isParent:false}, add);
@@ -262,6 +304,7 @@ $(function () {
      * 因为删除的方式有很多种,所以不好控(触发).所以目前是手动的方式
      */
     $('#domainRefresh').on('click', function() {
+
         var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
         var contents = $('iframe').contents();
         var target, length;
@@ -285,6 +328,7 @@ $(function () {
                 }
 
             }
+
         })
 
     })

@@ -217,14 +217,31 @@ $(function () {
         console.log('域结构的json', getDomain());
 
         var html = '';
-        var resutl;
+        var style = '';
+        var result;
         window.editor.forEach(function(value){
-            html += processHtml(value.getContent());
+            var editorResult = processHtml(value.getContent());
+            html += editorResult.html;
+            style += editorResult.style;
         })
 
+        var zTreeObj = domainStructure.zTreeObj;
+        var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+        nodes.forEach(function(value){
+            //将之前的组件都设置为老的
+            if(!value.isOld){
+                value.isOld = true
+            }
+        });
+
         result = {
+            style: style,
             html: html,
-            controlls: getDomain()
+            controlls: getDomain(),
+            storage: {
+                newCount: window.newCount,
+                nodes: JSON.stringify(zTreeObj.getNodes()[0])
+            }
         }
 
         console.log(result)
@@ -234,8 +251,6 @@ $(function () {
         html = $('<div>' + html + '</div>');
         var input = html.find('.com-text');
         var style = '<style>';
-
-        console.log(input)
 
         input.each(function(index, value){
             console.log($(value).find('input'))
@@ -253,9 +268,10 @@ $(function () {
 
         style += '</style>';
 
-        console.log(style)
-
-        return style + html.html();
+        return {
+            style: style,
+            html: html.html()
+        }
     }
 
     /**
