@@ -90,8 +90,6 @@ $(function () {
 
 //            右键菜单
             onRightClick: function (event, treeId, treeNode) {
-                console.log(event)
-                console.log(treeNode)
 
                 if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
                     zTreeObj.cancelSelectedNode();
@@ -160,19 +158,38 @@ $(function () {
         }
     };
 
-    //        域结构初始化
-    var zTreeObj = $.fn.zTree.init($treeDemo, setting, zNodes);
 
-    var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+    function init(zNodes) {
+        //        域结构初始化
+        var zTreeObj = $.fn.zTree.init($treeDemo, setting, zNodes);
 
-    //将之前删除过的隐藏起来,初始化操作
-    nodes.forEach(function(value) {
-        console.log(value)
-        if(value.isHide){
-            //需要被隐藏
-            $('#'+value.tId).hide();
-        }
-    })
+        var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
+
+        //将之前删除过的隐藏起来,初始化操作
+        nodes.forEach(function(value) {
+            console.log(value)
+            if(value.isHide){
+                //需要被隐藏
+                $('#'+value.tId).hide();
+            }
+        })
+
+        //        默认增加域结构,如果是更新就不需要增加了
+        //if(!zNodes.length){
+        //    zTreeObj.addNodes(null, {
+        //        id: 100,
+        //        pId: 0,
+        //        open: true,
+        //        isParent: true,
+        //        name: '域结构'
+        //    });
+        //    newCount++;
+        //}
+
+        newCount++;
+
+        return zTreeObj;
+    }
 
     //    动态增加一个子节点
     $treeDemo.on('addTag', function (e, args) {
@@ -248,19 +265,6 @@ $(function () {
 
 //        默认增加视图1
 //    $treeDemo.trigger('addTag', {isParent: true, name: '域结构', open: true, nodes: undefined});
-
-    //        默认增加域结构,如果是更新就不需要增加了
-
-    if(!zNodes.length){
-        zTreeObj.addNodes(null, {
-            id: 100,
-            pId: 0,
-            open: true,
-            isParent: true,
-            name: '域结构'
-        });
-        newCount++;
-    }
 
 
     //        $("#addParent").on("click", {isParent:true}, add);
@@ -340,6 +344,6 @@ $(function () {
     window.domainStructure = {
         addComponent: addComponent,
         addPower: addPower,
-        zTreeObj: zTreeObj
+        init: init
     }
 });

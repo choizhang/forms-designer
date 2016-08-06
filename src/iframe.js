@@ -85,11 +85,11 @@ $(function () {
             //                    对组件里面真实组件事件绑定
             .on({
                 change: function (e) {
-                    var nodes = domainStructure.zTreeObj.getSelectedNodes();
+                    var nodes = zTreeObj.getSelectedNodes();
 
                     nodes[0].name = $(this).val();
                     $(this).attr('value', $(this).val());
-                    domainStructure.zTreeObj.updateNode(nodes[0]);
+                    zTreeObj.updateNode(nodes[0]);
 
                     e.stopPropagation();
                 },
@@ -105,7 +105,6 @@ $(function () {
                     el.removeClass('dragable');
                     //var id = el.attr('class').split('_')[1];
                     var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
-                    console.log(id)
                     $('#treeDemo_' + id + '_a').trigger('click');
 
 

@@ -82,9 +82,9 @@ $(function () {
 
         window.editor.splice(index, 1);
 
-        var nodes = domainStructure.zTreeObj.getNodes();
+        var nodes = zTreeObj.getNodes();
 
-        domainStructure.zTreeObj.removeNode(nodes[index]);
+        zTreeObj.removeNode(nodes[index]);
 
         //设置当前状态
         if(!$navigation.find('.current').length){
@@ -102,9 +102,9 @@ $(function () {
         var num = $(this).addClass('current').index();
         $('.content').children('li').hide().eq(num).show();
 
-        var nodes = domainStructure.zTreeObj.getNodes();
+        var nodes = zTreeObj.getNodes();
         if (nodes.length > 0) {
-            domainStructure.zTreeObj.selectNode(nodes[num]);
+            zTreeObj.selectNode(nodes[num]);
         }
 
         e.stopPropagation();
@@ -174,8 +174,6 @@ $(function () {
     //}
 
     function getDomain() {
-        var zTreeObj = window.domainStructure.zTreeObj;
-
         var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
         var controlls = {};
         var temp = {};
@@ -203,7 +201,6 @@ $(function () {
             }
         }
 
-        console.log(controlls)
         return controlls;
 
     }
@@ -215,8 +212,6 @@ $(function () {
      * todo: 多视图中的html是以怎么样的方式导出
      */
     $('#output').on('click', function (e) {
-        console.log('域结构的json', getDomain());
-
         var html = '';
         var style = '';
         var storeHtml = '';
@@ -229,7 +224,6 @@ $(function () {
             storeHtml += value.getContent();
         })
 
-        var zTreeObj = domainStructure.zTreeObj;
         var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
         nodes.forEach(function(value){
             //将之前的组件都设置为老的
@@ -248,7 +242,7 @@ $(function () {
                 //视图的html
                 storeHtml: storeHtml,
                 //初始化域结构的数据
-                nodes: zTreeObj.getNodes()[0]
+                nodes: zTreeObj.getNodes()
             }
         }
 
@@ -264,7 +258,6 @@ $(function () {
         var storeStyle = {};
 
         input.each(function(index, value){
-            console.log($(value).find('input'))
             var cstyle = $(value).find('input').attr('style') || '';
             var width = $(value).find('td').attr('width');
             var height = $(value).find('td').attr('height');

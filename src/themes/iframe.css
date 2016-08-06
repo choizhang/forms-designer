@@ -1,6 +1,7 @@
-em {
-    font-style: normal;
-}
+/*编辑器的斜体就是用的这个,所以不能重置*/
+/*em {*/
+    /*font-style: normal;*/
+/*}*/
 
 hr{
     -webkit-margin-before: 0;

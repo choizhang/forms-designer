@@ -3,7 +3,7 @@ UE.registerUI('repeattable',function(editor,uiName){
     editor.registerCommand(uiName, {
         execCommand: function () {
             var num = $('.current').index();
-            var nodes = domainStructure.zTreeObj.getNodes();
+            var nodes = zTreeObj.getNodes();
 
             //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
 

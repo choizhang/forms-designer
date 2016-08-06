@@ -136,15 +136,11 @@
 <script src="iframe.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
-
     var fromServer = {
-        "style": "<style>#field2{width:50px;height:20px;}</style>",
-        "html": "<div>@field2@</div>",
-        "controlls": {"field2": {"fieldTitle": "文本域2"}},
         "storage": {
-            "newCount": 3,
-            "storeHtml": "<table draggable=\"false\" id=\"field2\" class=\"component com-text editorComp_2\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域2\" readonly=\"readonly\"/></td></tr></tbody></table>",
-            "nodes": {
+            "newCount": 2,
+            "storeHtml": "",
+            "nodes": [{
                 "id": 100,
                 "pId": 0,
                 "open": true,
@@ -159,37 +155,26 @@
                 "isAjaxing": false,
                 "isHover": false,
                 "editNameFlag": false,
-                "children": [{
-                    "id": 102,
-                    "pId": 100,
-                    "isParent": false,
-                    "name": "文本域2",
-                    "level": 1,
-                    "tId": "treeDemo_2",
-                    "parentTId": "treeDemo_1",
-                    "open": false,
-                    "zAsync": true,
-                    "isFirstNode": true,
-                    "isLastNode": true,
-                    "isAjaxing": false,
-                    "isHover": false,
-                    "editNameFlag": false,
-                    "isOld": true
-                }],
-                "isOld": true
-            }
+            }]
         }
     }
+
+    var fromServer = {"style":"<style>#field2{width:62px;height:43px;}#field4{width:93px;height:20px;}#field5{width:50px;height:20px;}#field6{width:57px;height:20px;}#field8{font-size: 18px; color: rgb(122, 20, 243);width:50px;height:20px;}#field9{width:50px;height:20px;}</style>","html":"<div>@field2@</div><p>qqqq<br></p><table draggable=\"false\" id=\"field3\" class=\"component com-repeat editorComp_3\"><tbody><tr class=\"firstRow\"><th width=\"\">标题1<hr class=\"component-handle\"></th><th width=\"\">标题2</th><th width=\"\">标题3</th></tr><tr><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br><div>@field4@</div></td><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br><div>@field5@</div></td><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br><div>@field6@</div></td></tr></tbody></table><p>111</p><p>22</p><div>@field8@</div><p>ddd</p><div>@field9@</div><p><br></p>","controlls":{"field2":{"fieldTitle":"我修改"},"formtable103":{"name":"重复表3","fields":{"field4":"文本域4","field5":"文本域5","field6":"文本域6"}},"field7":{"fieldTitle":"文本域7"},"field8":{"fieldTitle":"简单"},"field9":{"fieldTitle":"文本域9"}},"storage":{"newCount":10,"storeHtml":"<table draggable=\"false\" id=\"field2\" class=\"component com-text editorComp_2\"><tbody><tr class=\"firstRow\"><td width=\"62\" height=\"43\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"我修改\" readonly=\"readonly\"/></td></tr></tbody></table><p>qqqq<br/></p><table draggable=\"false\" id=\"field3\" class=\"component com-repeat editorComp_3\"><tbody><tr class=\"firstRow\"><th width=\"\">标题1<hr class=\"component-handle\"/></th><th width=\"\">标题2</th><th width=\"\">标题3</th></tr><tr><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br/><table draggable=\"false\" id=\"field4\" class=\"component com-text com-inner-text editorComp_4\"><tbody><tr class=\"firstRow\"><td width=\"93\" height=\"20\" data-minheight=\"20\" valign=\"top\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域4\"/></td></tr></tbody></table></td><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br/><table draggable=\"false\" id=\"field5\" class=\"component com-text com-inner-text editorComp_5\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\" data-minheight=\"20\" valign=\"top\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域5\"/></td></tr></tbody></table></td><td width=\"188\" height=\"20\" data-minheight=\"20\" valign=\"top\"><br/><table draggable=\"false\" id=\"field6\" class=\"component com-text com-inner-text editorComp_6\"><tbody><tr class=\"firstRow\"><td width=\"57\" height=\"20\" data-minheight=\"20\" valign=\"top\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域6\"/></td></tr></tbody></table></td></tr></tbody></table><p>111</p><p>22</p><table draggable=\"false\" id=\"field8\" class=\"component com-text editorComp_8 focus\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"简单\" readonly=\"readonly\" style=\"font-size: 18px; color: rgb(122, 20, 243);\"/></td></tr></tbody></table><p>ddd</p><table draggable=\"false\" id=\"field9\" class=\"component com-text editorComp_9\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域9\" readonly=\"readonly\"/></td></tr></tbody></table><p><br/></p>","nodes":[{"id":100,"pId":0,"open":true,"isParent":true,"name":"域结构","level":0,"tId":"treeDemo_1","parentTId":null,"zAsync":true,"isFirstNode":true,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"children":[{"id":102,"pId":100,"isParent":false,"name":"我修改","level":1,"tId":"treeDemo_2","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":true,"isLastNode":false,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true},{"id":103,"pId":100,"isParent":true,"name":"重复表3","level":1,"tId":"treeDemo_3","parentTId":"treeDemo_1","open":true,"zAsync":true,"isFirstNode":false,"isLastNode":false,"isAjaxing":false,"isHover":false,"editNameFlag":false,"children":[{"id":104,"pId":103,"isParent":false,"name":"文本域4","level":2,"tId":"treeDemo_4","parentTId":"treeDemo_3","open":false,"zAsync":true,"isFirstNode":true,"isLastNode":false,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true},{"id":105,"pId":103,"isParent":false,"name":"文本域5","level":2,"tId":"treeDemo_5","parentTId":"treeDemo_3","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":false,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true},{"id":106,"pId":103,"isParent":false,"name":"文本域6","level":2,"tId":"treeDemo_6","parentTId":"treeDemo_3","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}],"isOld":true},{"id":107,"pId":100,"isParent":false,"name":"文本域7","level":1,"tId":"treeDemo_7","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":false,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isHide":true,"isOld":true},{"id":108,"pId":100,"isParent":false,"name":"简单","level":1,"tId":"treeDemo_8","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":false,"isAjaxing":false,"isHover":true,"editNameFlag":false,"isOld":true},{"id":109,"pId":100,"isParent":false,"name":"文本域9","level":1,"tId":"treeDemo_9","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}],"isOld":true}]}}
 
     //    控制多个编辑器对象
     window.editor = [];
 
     //    组件标志
-    window.newCount = fromServer.storage.newCount || 1;
+    window.newCount = fromServer.storage.newCount - 1;
 
     setTimeout(function () {
+//        iframe初始化,这里2000是随便写的,不严谨
         window.editor[0].setContent(fromServer.storage.storeHtml);
+
+        window.zTreeObj = window.domainStructure.init(fromServer.storage.nodes)
     }, 2000)
+
+
 
 </script>
 

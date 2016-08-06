@@ -12,7 +12,7 @@ UE.registerUI('button', function (editor, uiName) {
 
 
             //域结构不分视图了
-            var nodes = domainStructure.zTreeObj.getNodes();
+            var nodes = zTreeObj.getNodes();
             if (nodes.length>0) {
                 $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[0]});
             }
