@@ -57,6 +57,8 @@ $(function () {
                     if (btn) btn.bind("click", function(){
                         aObj.parent().hide();
                         treeNode.isHide = true;
+
+                        $('iframe').contents().find('.editorComp_'+(treeNode.id-100)).remove();
                     });
                 }
             },

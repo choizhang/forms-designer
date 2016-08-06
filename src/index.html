@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="index.css">
     <!--<link rel="stylesheet" href="themes/default/dialogbase.css">-->
     <link rel="stylesheet" href="third-party/zTreeStyle.css">
-    <link rel="stylesheet" href="themes/print.css" media="print" />
+    <link rel="stylesheet" href="themes/print.css" media="print"/>
 </head>
 
 <body>
@@ -24,7 +24,8 @@
     <div class="component-setting">
         <div class="components">
             <div class="color">
-                <label>颜色: <input type="color" id="bgColor" value="#000000" class="color" list="layerBackgroundColor_list"/></label>
+                <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
+                                  list="layerBackgroundColor_list"/></label>
                 <datalist id="layerBackgroundColor_list">
                     <option>#FFFFFF</option>
                     <option>#000000</option>
@@ -136,11 +137,59 @@
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
 
+    var fromServer = {
+        "style": "<style>#field2{width:50px;height:20px;}</style>",
+        "html": "<div>@field2@</div>",
+        "controlls": {"field2": {"fieldTitle": "文本域2"}},
+        "storage": {
+            "newCount": 3,
+            "storeHtml": "<table draggable=\"false\" id=\"field2\" class=\"component com-text editorComp_2\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" value=\"文本域2\" readonly=\"readonly\"/></td></tr></tbody></table>",
+            "nodes": {
+                "id": 100,
+                "pId": 0,
+                "open": true,
+                "isParent": true,
+                "name": "域结构",
+                "level": 0,
+                "tId": "treeDemo_1",
+                "parentTId": null,
+                "zAsync": false,
+                "isFirstNode": true,
+                "isLastNode": true,
+                "isAjaxing": false,
+                "isHover": false,
+                "editNameFlag": false,
+                "children": [{
+                    "id": 102,
+                    "pId": 100,
+                    "isParent": false,
+                    "name": "文本域2",
+                    "level": 1,
+                    "tId": "treeDemo_2",
+                    "parentTId": "treeDemo_1",
+                    "open": false,
+                    "zAsync": true,
+                    "isFirstNode": true,
+                    "isLastNode": true,
+                    "isAjaxing": false,
+                    "isHover": false,
+                    "editNameFlag": false,
+                    "isOld": true
+                }],
+                "isOld": true
+            }
+        }
+    }
+
     //    控制多个编辑器对象
     window.editor = [];
 
-//    组件标志
-    window.newCount = 1;
+    //    组件标志
+    window.newCount = fromServer.storage.newCount || 1;
+
+    setTimeout(function () {
+        window.editor[0].setContent(fromServer.storage.storeHtml);
+    }, 2000)
 
 </script>
 

@@ -18,6 +18,7 @@ $(function () {
 
     window.editor[0] = UE.getEditor('container', config);
 
+
     //这样就不会自动插入节点,还没试过
     window.editor[0].addOutputRule(function(root){
         // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
@@ -218,11 +219,14 @@ $(function () {
 
         var html = '';
         var style = '';
+        var storeHtml = '';
         var result;
         window.editor.forEach(function(value){
             var editorResult = processHtml(value.getContent());
             html += editorResult.html;
             style += editorResult.style;
+
+            storeHtml += value.getContent();
         })
 
         var zTreeObj = domainStructure.zTreeObj;
@@ -239,12 +243,16 @@ $(function () {
             html: html,
             controlls: getDomain(),
             storage: {
+                //全局计数器
                 newCount: window.newCount,
-                nodes: JSON.stringify(zTreeObj.getNodes()[0])
+                //视图的html
+                storeHtml: storeHtml,
+                //初始化域结构的数据
+                nodes: zTreeObj.getNodes()[0]
             }
         }
 
-        console.log(result)
+        console.log(JSON.stringify(result))
     });
 
     function processHtml(html) {
@@ -252,12 +260,21 @@ $(function () {
         var input = html.find('.com-text');
         var style = '<style>';
 
+        //这个主要用于我后面解析的
+        var storeStyle = {};
+
         input.each(function(index, value){
             console.log($(value).find('input'))
             var cstyle = $(value).find('input').attr('style') || '';
             var width = $(value).find('td').attr('width');
             var height = $(value).find('td').attr('height');
             var id = $(value).attr('id');
+
+            storeStyle[id] = {
+                width: width,
+                height: height,
+                style: cstyle
+            }
 
             cstyle += 'width:' + width + 'px;height:' + height + 'px;';
             style += '#' + id + '{' + cstyle + '}';
@@ -270,6 +287,7 @@ $(function () {
 
         return {
             style: style,
+            storeStyle: storeStyle,
             html: html.html()
         }
     }
