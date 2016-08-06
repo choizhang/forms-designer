@@ -1,12 +1,11 @@
 $(function () {
 
-    //        因为iframe的初始化需要时间,所以要做一个延迟
-    setTimeout(function () {
+    //编辑器初始化完成后,就给iframe里绑定事件
+    window.editor[0].ready(function() {
         var iframeBody = $($('iframe')[0].contentWindow.document.body);
 
         bindIframe(iframeBody)
-
-    }, 2000)
+    });
 
 
     function bindIframe(iframeBody) {

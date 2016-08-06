@@ -19,27 +19,18 @@
             }
         </style>
     ',
-    html: '
-        <table>
-            <tbody>
-            <!--文本域-->
-            <tr>
-                <td width="80" height="20" data-minheight="20" valign="middle" style="word-break: break-all;" align="center">年龄
-                </td>
-                <td width="80" height="20" data-minheight="20" valign="top" style="word-break: break-all;">
-                    @field0005@
-                </td>
-            </tr>
-            <!--重复表-->
-            <tr>
-                <td width="80" height="20" data-minheight="20" valign="middle" style="word-break: break-all;" align="center">个人工资信息
-                </td>
-                <td width="80" height="20" data-minheight="20" valign="top">
-                    <table draggable="false" class="component com-repeat editorComp_2"><tbody><tr class="firstRow"><th>姓名<hr class="component-handle"></th><th>年龄</th><th>收入</th></tr><tr><td width="40" height="20" data-minheight="20" valign="top">@field0002@</td><td width="40" height="20" data-minheight="20" valign="top">@field0003@</td><td width="40" height="20" data-minheight="20" valign="top">@field0004@</td></tr></tbody></table>
-                </td>
-            </tr>
-            </tbody>
-        </table>',
+    html: [
+        {
+            id: '',
+            name: 'tab1',
+            html: '<div>bbb</div>'
+        },
+        {
+            id: '',
+            name: 'tab2',
+            html: '<div>222</div>'
+        }
+    ],
 
     "controlls": {
         "field0001": {
@@ -65,6 +56,5 @@
         }
     }
 }
-
 
 

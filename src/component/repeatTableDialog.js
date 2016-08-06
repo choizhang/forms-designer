@@ -75,7 +75,7 @@ UE.registerUI('repeattable',function(editor,uiName){
 
                     //br放在了table前面,不然会造成均分按钮不可用
                     for(i=0; i<column; i++){
-                        html += '<td width="40" height="20" data-minheight="20" valign="top"><br><table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="50" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" value="文本域'+ newCount + '" /></td></tr></tbody></table></td>';
+                        html += '<td width="40" height="20" data-minheight="20" valign="top"><br><table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="50" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" readonly="readonly" value="文本域'+ newCount + '" /></td></tr></tbody></table></td>';
 
                         editor.execCommand('repeattext', event);
                     }

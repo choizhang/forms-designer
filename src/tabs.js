@@ -18,25 +18,40 @@ $(function () {
 
     window.editor[0] = UE.getEditor('container', config);
 
+    window.editor[0].ready(function() {
+        fromServer.storage.storeHtml.forEach(function (value, index) {
+            if(index){
+                $('#viewAdd').trigger('click', value.name);
+                window.newCount++;
+            }
+            window.editor[index].ready(function() {
+                window.editor[index].setContent(value.html);
+            })
 
-    //这样就不会自动插入节点,还没试过
-    window.editor[0].addOutputRule(function(root){
-        // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
-        // 只处理第一个空的段落，后面的段落可能是人为添加
-        var firstPNode = root.getNodesByTagName("p")[0];
-        firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+        })
+
+        //window.editor[0].setContent(fromServer.storage.storeHtml);
+        window.zTreeObj = window.domainStructure.init(fromServer.storage.nodes)
     });
 
-    var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
-    var dd = '<li class="editorComp_$1"><span>视图$2</span> <i class="tab-del">&times;</i></li>';
+
+    //这样就不会自动插入节点,还没试过
+    //window.editor[0].addOutputRule(function(root){
+    //    // 这里是在解决一个ueditor的bug(对我来说是个bug), 每次编辑框获取焦点的时候都会自动插入<p><br/></p>
+    //    // 只处理第一个空的段落，后面的段落可能是人为添加
+    //    var firstPNode = root.getNodesByTagName("p")[0];
+    //    firstPNode && /^\s*(<br\/>\s*)?$/.test(firstPNode.innerHTML()) && firstPNode.parentNode.removeChild(firstPNode);
+    //});
 
     /**
      * 新增一个tab分页
      * 这里有2个值,一个是全局的标志,一个是tab单独的标志(因为要存到数组中)
      */
-    $('#viewAdd').on('click', function (e) {
+    $('#viewAdd').on('click', function (e, name) {
         var index = window.newCount;
         var num = $navigation.find('li').length;
+        var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
+        var dd = '<li id="tab$1" class="editorComp_$1" contenteditable="true"><span>' + (name ? name :'视图$2') + '</span> <i class="tab-del">&times;</i></li>';
 
         if(num > 6){
             alert('抱歉,已经不能更多了');
@@ -44,7 +59,7 @@ $(function () {
         }
 
         $('.content').append(ss.replace(/\$1/g, index));
-        $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, newCount));
+        $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, index));
         window.editor[num] = UE.getEditor('container' + index, config);
 
         //增加了视图,域结构也要增加
@@ -101,11 +116,6 @@ $(function () {
         $navigation.find('.current').removeClass('current')
         var num = $(this).addClass('current').index();
         $('.content').children('li').hide().eq(num).show();
-
-        var nodes = zTreeObj.getNodes();
-        if (nodes.length > 0) {
-            zTreeObj.selectNode(nodes[num]);
-        }
 
         e.stopPropagation();
     })
@@ -212,16 +222,25 @@ $(function () {
      * todo: 多视图中的html是以怎么样的方式导出
      */
     $('#output').on('click', function (e) {
-        var html = '';
+        var html = [];
         var style = '';
-        var storeHtml = '';
+        var storeHtml = [];
         var result;
-        window.editor.forEach(function(value){
+        window.editor.forEach(function(value, index){
             var editorResult = processHtml(value.getContent());
-            html += editorResult.html;
+            var $targetTab = $('.navigation').find('li').eq(index)
+            html.push({
+                id: $targetTab.attr('id'),
+                name: $targetTab.find('span').html(),
+                html: editorResult.html
+            });
             style += editorResult.style;
 
-            storeHtml += value.getContent();
+            storeHtml.push({
+                id: $targetTab.attr('id'),
+                name: $targetTab.find('span').html(),
+                html: value.getContent()
+            });
         })
 
         var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
