@@ -71,7 +71,7 @@ $(function () {
         //给新增的iframe绑定事件
         var iframeBody = $($('iframe')[num].contentWindow.document.body);
 
-        iframe.bindIframe(iframeBody)
+        iframe.bindIframe(iframeBody);
 
         e.stopPropagation();
     })
