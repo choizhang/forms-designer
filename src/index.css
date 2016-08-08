@@ -131,18 +131,36 @@ body{
     height: 31px;
 }
 
-.component-setting{
-    float: left;
-    width: 13%;
-    min-height: 300px;
-}
-.component-setting .components{
-    display: none;
-}
 .content {
     float: left;
-    width: 67%;
+    width: 77%;
     margin-right: 40px;
+}
+
+.other-msg{
+    float: left;
+}
+.other-msg-title{
+    overflow: hidden;
+    height: 30px;
+    border: 1px #000 solid;
+}
+.other-msg-title li{
+    float: left;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-bottom: 1px #000000 solid;
+}
+.other-msg-title .other-msg-current{
+    color: #fff;
+    border: 1px #000000 solid;
+    background-color: blue;
+}
+.other-content .components{
+    display: none;
+    line-height: 40px;
 }
 
 
@@ -176,8 +194,10 @@ body{
     overflow: hidden;
 }
 
-.domain-tree{
-    float: left;
+.other-content{
+    border: 1px solid #000;
+    padding: 10px;
+    border-top: none;
 }
 
 ul {

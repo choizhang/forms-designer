@@ -35,7 +35,7 @@ UE.registerUI('createtable',function(editor,uiName){
                     if(select == 1){
                         opt.tableWidth = $iframe.find('#tableWidth').val() + 'px';
                     } else {
-                        opt.tdWidth = $iframe.find('#tdWidth').val();;
+                        opt.tdWidth = $iframe.find('#tdWidth').val();
                     }
 
                     opt.tdHeight = $iframe.find('#tdHeight').val();

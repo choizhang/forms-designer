@@ -133,21 +133,29 @@ $(function () {
                     //这样设置会导致焦点出问题
                     //window.editor[current].setDisabled();
 
-                    $('.components').show();
+                    //$('#componentsSetting').trigger('click');
+
+                    //高亮组件设置tab
+                    if(!$('#componentsSetting').hasClass('other-msg-current')){
+                        $('.other-msg-current').removeClass('other-msg-current');
+                        $('#componentsSetting').addClass('other-msg-current');
+
+                        $('.other-content > div').hide().eq(1).show();
+                    }
 
                     var $this = $(this);
+                    var $bgColor = $('#bgColor');
+                    var $fontSize = $('#bgColor');
 
-                    $('#bgColor').val( rgb2hex($this.css('color') ));
-                    $('#fontSize').val( $this.css('fontSize') );
+                    $bgColor.val( rgb2hex($this.css('color') ));
+                    $fontSize.val( $this.css('fontSize') );
 
-                    $('#bgColor').change(function() {
-                        console.log($(this).val())
+                    $bgColor.change(function() {
                         $this.css('color', $(this).val())
 
                     })
 
-                    $('#fontSize').change(function() {
-                        console.log($(this).val())
+                    $fontSize.change(function() {
                         $this.css('fontSize', $(this).val())
 
                     })
@@ -178,7 +186,16 @@ $(function () {
                 var current = $('.current').index();
                 //window.editor[current].setEnabled();
 
-                $('.components').hide();
+                //$('#domainStrct').trigger('click');
+
+                //高亮域结构配置
+                if(!$('#domainStrct').hasClass('other-msg-current')){
+                    $('.other-msg-current').removeClass('other-msg-current');
+                    $('#domainStrct').addClass('other-msg-current');
+
+                    $('.other-content > div').hide().eq(0).show();
+                }
+
 
                 //input在focus后,失去焦点,再回来就会产生空格
                 iframeBody.find('.name').each(function(){

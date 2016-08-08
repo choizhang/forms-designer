@@ -158,6 +158,15 @@ $(function () {
         }
     };
 
+    //$('.other-msg-title').on('click', 'li', function() {
+    //    var num = $(this).index();
+    //
+    //    $('.other-msg-current').removeClass('other-msg-current');
+    //    $(this).addClass('other-msg-current');
+    //
+    //    $('.other-content > div').hide().eq(num).show();
+    //})
+
 
     function init(zNodes) {
         //        域结构初始化

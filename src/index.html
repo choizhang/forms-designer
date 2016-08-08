@@ -21,47 +21,6 @@
 </div>
 
 <div class="left-right">
-    <div class="component-setting">
-        <div class="components">
-            <div class="color">
-                <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
-                                  list="layerBackgroundColor_list"/></label>
-                <datalist id="layerBackgroundColor_list">
-                    <option>#FFFFFF</option>
-                    <option>#000000</option>
-                    <option>#ffe600</option>
-                    <option>#bff800</option>
-                    <option>#7ff201</option>
-                    <option>#40f200</option>
-                    <option>#18f218</option>
-                    <option>#03ce65</option>
-                    <option>#00a3a2</option>
-                    <option>#0469df</option>
-                    <option>#2540ff</option>
-                    <option>#4d25ff</option>
-                    <option>#7a14f3</option>
-                    <option>#be0dbf</option>
-                    <option>#f10d58</option>
-                    <option>#ff330e</option>
-                    <option>#ff6b01</option>
-                    <option>#ffb202</option>
-                    <option>#00c0ff</option>
-                    <option>#1ba1cd</option>
-                </datalist>
-            </div>
-
-            <div class="font-size">
-                <label>字体大小: </label>
-                <select id="fontSize">
-                    <option value="12px">12px</option>
-                    <option value="14px">14px</option>
-                    <option value="16px">16px</option>
-                    <option value="18px">18px</option>
-                </select>
-            </div>
-        </div>
-
-    </div>
     <ul class="content">
         <li class="view">
             <ul class="toolbar-tabs">
@@ -81,37 +40,70 @@
         </li>
     </ul>
 
-    <div class="domain-tree">
-        <h2>我是域结构 <a href="javascript:;" id="domainRefresh">刷新</a></h2>
-
-        <!--<a href="javascript:;">我是链接</a>-->
-
-        <!--<ul class="domain">-->
-        <!--<li>域1</li>-->
-        <!--<li>域2</li>-->
-        <!--<li class="li">-->
-        <!--<div style="position: relative;width: 71px;">-->
-        <!--<img src="text.png" draggable="true" alt="文本" title="文本" class="icon"-->
-        <!--ondragstart="event.dataTransfer.setData('text/plain', 'This text may be dragged'); console.log('ddd') ">-->
-        <!--<span style="position: absolute;right: 5px;top: 7px;">姓名</span>-->
-        <!--</div>-->
-        <!--</li>-->
-        <!--</ul>-->
-
-        <ul id="treeDemo" class="ztree"></ul>
-        <div id="rMenu">
-            <ul>
-                <li id="m_power">
+    <div class="other-msg">
+        <ul class="other-msg-title">
+            <li id="domainStrct" class="other-msg-current">域结构
+                <!--<a href="javascript:;" id="domainRefresh">刷新</a>-->
+            </li>
+            <li id="componentsSetting">组件设置</li>
+        </ul>
+        <div class="other-content">
+            <div class="domain-tree">
+                <ul id="treeDemo" class="ztree"></ul>
+                <div id="rMenu">
                     <ul>
-                        <li onclick="domainStructure.addPower(event, 1);">普通</li>
-                        <li onclick="domainStructure.addPower(event, 2);">经理</li>
-                        <li onclick="domainStructure.addPower(event, 3);">管理员</li>
+                        <li id="m_power">
+                            <ul>
+                                <li onclick="domainStructure.addPower(event, 1);">普通</li>
+                                <li onclick="domainStructure.addPower(event, 2);">经理</li>
+                                <li onclick="domainStructure.addPower(event, 3);">管理员</li>
+                            </ul>
+                        </li>
+                        <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
                     </ul>
-                </li>
-                <li id="m_add" onclick="domainStructure.addComponent();">插入</li>
-            </ul>
+                </div>
+            </div>
+            <div class="components">
+                <div class="color">
+                    <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
+                                      list="layerBackgroundColor_list"/></label>
+                    <datalist id="layerBackgroundColor_list">
+                        <option>#FFFFFF</option>
+                        <option>#000000</option>
+                        <option>#ffe600</option>
+                        <option>#bff800</option>
+                        <option>#7ff201</option>
+                        <option>#40f200</option>
+                        <option>#18f218</option>
+                        <option>#03ce65</option>
+                        <option>#00a3a2</option>
+                        <option>#0469df</option>
+                        <option>#2540ff</option>
+                        <option>#4d25ff</option>
+                        <option>#7a14f3</option>
+                        <option>#be0dbf</option>
+                        <option>#f10d58</option>
+                        <option>#ff330e</option>
+                        <option>#ff6b01</option>
+                        <option>#ffb202</option>
+                        <option>#00c0ff</option>
+                        <option>#1ba1cd</option>
+                    </datalist>
+                </div>
+
+                <div class="font-size">
+                    <label>字体大小: </label>
+                    <select id="fontSize">
+                        <option value="12px">12px</option>
+                        <option value="14px">14px</option>
+                        <option value="16px">16px</option>
+                        <option value="18px">18px</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
 
@@ -139,7 +131,7 @@
     window.fromServer = {
         "storage": {
             "newCount": 2,
-            "storeHtml": "",
+            "storeHtml": [{"id":"tab1","name":"视图1","html":""}],
             "nodes": [{
                 "id": 100,
                 "pId": 0,
@@ -159,7 +151,7 @@
         }
     }
 
-    window.fromServer = {"style":"<style></style><style></style>","html":[{"id":"tab1","name":"视图1","html":"<p>aa</p>"},{"id":"tab2","name":"视图2","html":"<p>bb</p>"}],"controlls":{},"storage":{"newCount":2,"storeHtml":[{"id":"tab1","name":"视图1","html":"<p>aa</p>"},{"id":"tab2","name":"视图2","html":"<p>bb</p>"}],"nodes":[{"id":100,"pId":0,"open":true,"isParent":true,"name":"域结构","level":0,"tId":"treeDemo_1","parentTId":null,"zAsync":false,"isFirstNode":true,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}]}}
+//    window.fromServer = {"style":"<style></style><style></style>","html":[{"id":"tab1","name":"视图1","html":"<p>aa</p>"},{"id":"tab2","name":"视图2","html":"<p>bb</p>"}],"controlls":{},"storage":{"newCount":2,"storeHtml":[{"id":"tab1","name":"视图1","html":"<p>aa</p>"},{"id":"tab2","name":"视图2","html":"<p>bb</p>"}],"nodes":[{"id":100,"pId":0,"open":true,"isParent":true,"name":"域结构","level":0,"tId":"treeDemo_1","parentTId":null,"zAsync":false,"isFirstNode":true,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}]}}
 
     //    控制多个编辑器对象
     window.editor = [];
