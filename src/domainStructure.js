@@ -167,6 +167,22 @@ $(function () {
     //    $('.other-content > div').hide().eq(num).show();
     //})
 
+    $('#bgColor').change(function() {
+        //获取到目标元素,然后进行设置
+        var $component = $('#componentsSetting').data('component');
+        $component.css('color', $(this).val())
+    })
+
+    $('#fontSize').change(function() {
+        var $component = $('#componentsSetting').data('component');
+        $component.css('fontSize', $(this).val())
+    })
+
+    $('#powerSet').change(function() {
+        var $component = $('#componentsSetting').data('component');
+        $component.attr('data-power', $(this).val())
+    })
+
 
     function init(zNodes) {
         //        域结构初始化
@@ -259,18 +275,18 @@ $(function () {
         hideRMenu();
     }
 
-    //        给视图添加权限
-    function addPower(event, num) {
-        var $target = $(event.target);
-        var treeNode = zTreeObj.getSelectedNodes();
-
-        $('.editorComp_' + (treeNode[0].id - 100)).attr('data-power', num);
-
-        $target.parent().find('.current').removeClass('current');
-        $target.addClass('current');
-
-        hideRMenu();
-    }
+    //        给视图添加权限,现在没有视图了
+    //function addPower(event, num) {
+    //    var $target = $(event.target);
+    //    var treeNode = zTreeObj.getSelectedNodes();
+    //
+    //    $('.editorComp_' + (treeNode[0].id - 100)).attr('data-power', num);
+    //
+    //    $target.parent().find('.current').removeClass('current');
+    //    $target.addClass('current');
+    //
+    //    hideRMenu();
+    //}
 
 //        默认增加视图1
 //    $treeDemo.trigger('addTag', {isParent: true, name: '域结构', open: true, nodes: undefined});
@@ -290,9 +306,9 @@ $(function () {
             // 这个应该是右键到了非文字图形的其他区域,目前无用
             $("#rMenu ul").hide();
         } else if(type == "view") {
-            $('#m_power').show();
+            //目前视图去掉了,权限设置没用了,这里保留实现方法供后面使用
+            $('#m_power').hide();
             $('#m_add').hide();
-
         } else {
             $('#m_power').hide();
             $('#m_add').show();
@@ -352,7 +368,7 @@ $(function () {
     //保留给外部使用
     window.domainStructure = {
         addComponent: addComponent,
-        addPower: addPower,
+        //addPower: addPower,
         init: init
     }
 });

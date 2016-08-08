@@ -14,7 +14,7 @@
 
 <div class="tabs">
     <ul class="navigation">
-        <li id="tab1" class="current editorComp_1" contenteditable="true"><span>视图1</span> <i class="tab-del" title="删除">&times;</i></li>
+        <li id="tab1" class="current editorComp_1" contenteditable="true" data-type="view"><span>视图1</span> <i class="tab-del" title="删除">&times;</i></li>
     </ul>
     <a id="viewAdd" class="view-add" title="添加视图">+</a>
     <a id="output" class="output">导出数据</a>
@@ -43,12 +43,12 @@
     <div class="other-msg">
         <ul class="other-msg-title">
             <li id="domainStrct" class="other-msg-current">域结构
-                <!--<a href="javascript:;" id="domainRefresh">刷新</a>-->
             </li>
             <li id="componentsSetting">组件设置</li>
         </ul>
         <div class="other-content">
             <div class="domain-tree">
+                <a href="javascript:;" id="domainRefresh">刷新</a>
                 <ul id="treeDemo" class="ztree"></ul>
                 <div id="rMenu">
                     <ul>
@@ -64,42 +64,56 @@
                 </div>
             </div>
             <div class="components">
-                <div class="color">
-                    <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
-                                      list="layerBackgroundColor_list"/></label>
-                    <datalist id="layerBackgroundColor_list">
-                        <option>#FFFFFF</option>
-                        <option>#000000</option>
-                        <option>#ffe600</option>
-                        <option>#bff800</option>
-                        <option>#7ff201</option>
-                        <option>#40f200</option>
-                        <option>#18f218</option>
-                        <option>#03ce65</option>
-                        <option>#00a3a2</option>
-                        <option>#0469df</option>
-                        <option>#2540ff</option>
-                        <option>#4d25ff</option>
-                        <option>#7a14f3</option>
-                        <option>#be0dbf</option>
-                        <option>#f10d58</option>
-                        <option>#ff330e</option>
-                        <option>#ff6b01</option>
-                        <option>#ffb202</option>
-                        <option>#00c0ff</option>
-                        <option>#1ba1cd</option>
-                    </datalist>
+                <div class="type-view">
+                    <label>
+                        权限设置:
+                        <select id="powerSet">
+                            <option value="1">普通</option>
+                            <option value="2">经理</option>
+                            <option value="3">管理员</option>
+                        </select>
+                    </label>
+
+                </div>
+                <div class="type-text">
+                    <div class="color">
+                        <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
+                                          list="layerBackgroundColor_list"/></label>
+                        <datalist id="layerBackgroundColor_list">
+                            <option>#FFFFFF</option>
+                            <option>#000000</option>
+                            <option>#ffe600</option>
+                            <option>#bff800</option>
+                            <option>#7ff201</option>
+                            <option>#40f200</option>
+                            <option>#18f218</option>
+                            <option>#03ce65</option>
+                            <option>#00a3a2</option>
+                            <option>#0469df</option>
+                            <option>#2540ff</option>
+                            <option>#4d25ff</option>
+                            <option>#7a14f3</option>
+                            <option>#be0dbf</option>
+                            <option>#f10d58</option>
+                            <option>#ff330e</option>
+                            <option>#ff6b01</option>
+                            <option>#ffb202</option>
+                            <option>#00c0ff</option>
+                            <option>#1ba1cd</option>
+                        </datalist>
+                    </div>
+
+                    <div class="font-size">
+                        <label>字体大小: </label>
+                        <select id="fontSize">
+                            <option value="12px">12px</option>
+                            <option value="14px">14px</option>
+                            <option value="16px">16px</option>
+                            <option value="18px">18px</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="font-size">
-                    <label>字体大小: </label>
-                    <select id="fontSize">
-                        <option value="12px">12px</option>
-                        <option value="14px">14px</option>
-                        <option value="16px">16px</option>
-                        <option value="18px">18px</option>
-                    </select>
-                </div>
             </div>
         </div>
     </div>

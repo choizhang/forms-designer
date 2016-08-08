@@ -96,6 +96,7 @@ $(function () {
                 //            单击拖拽句柄,相当于是单击域结构
                 click: function (e) {
                     var el = $(this).closest('.component');
+                    var $this = $(this);
 
                     //先将其他组件的状态全部去掉
                     iframeBody.trigger('click');
@@ -143,23 +144,20 @@ $(function () {
                         $('.other-content > div').hide().eq(1).show();
                     }
 
-                    var $this = $(this);
-                    var $bgColor = $('#bgColor');
-                    var $fontSize = $('#bgColor');
+                    var nowType = $this.data('type');
+                    if($('#componentsSetting').data('type') != nowType){
+                        //这次需要显示的组件类型和上一次不一样
+                        $('.components>div').hide().filter('.type-'+nowType).show();
+                    }
 
-                    $bgColor.val( rgb2hex($this.css('color') ));
-                    $fontSize.val( $this.css('fontSize') );
 
-                    $bgColor.change(function() {
-                        $this.css('color', $(this).val())
 
-                    })
+                    $('#bgColor').val( rgb2hex($this.css('color') ));
+                    $('#fontSize').val( $this.css('fontSize') );
 
-                    $fontSize.change(function() {
-                        $this.css('fontSize', $(this).val())
-
-                    })
-
+                    $('#componentsSetting')
+                        .data('component', $this)
+                        .data('type', nowType);
 
                     e.stopPropagation();
                 }

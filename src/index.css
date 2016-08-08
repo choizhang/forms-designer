@@ -80,6 +80,7 @@ body{
     border: 1px #000000 solid;
     text-align: center;
     line-height: 30px;
+    outline: none;
 }
 .navigation li:hover .tab-del{
     display: block;

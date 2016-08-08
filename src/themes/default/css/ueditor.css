@@ -201,6 +201,7 @@ div.edui-box {
 }
 
 .edui-default .edui-editor-bottomContainer {
+    display: none;
     overflow: hidden;
 }
 

@@ -51,7 +51,7 @@ $(function () {
         var index = window.newCount;
         var num = $navigation.find('li').length;
         var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
-        var dd = '<li id="tab$1" class="editorComp_$1" contenteditable="true"><span>' + (name ? name :'视图$2') + '</span> <i class="tab-del">&times;</i></li>';
+        var dd = '<li id="tab$1" class="editorComp_$1" contenteditable="true" data-type="view"><span>' + (name ? name :'视图$2') + '</span> <i class="tab-del">&times;</i></li>';
 
         if(num > 6){
             alert('抱歉,已经不能更多了');
@@ -116,6 +116,27 @@ $(function () {
         $navigation.find('.current').removeClass('current')
         var num = $(this).addClass('current').index();
         $('.content').children('li').hide().eq(num).show();
+
+
+        //高亮组件设置tab
+        if(!$('#componentsSetting').hasClass('other-msg-current')){
+            $('.other-msg-current').removeClass('other-msg-current');
+            $('#componentsSetting').addClass('other-msg-current');
+
+            $('.other-content > div').hide().eq(1).show();
+        }
+
+        var nowType = $(this).data('type');
+        if($('#componentsSetting').data('type') != nowType){
+            //这次需要显示的组件类型和上一次不一样
+            $('.components>div').hide().filter('.type-'+nowType).show();
+        }
+
+        $('#powerSet').val( $(this).data('power') || 1 );
+
+        $('#componentsSetting')
+            .data('component', $(this))
+            .data('type', nowType);
 
         e.stopPropagation();
     })
