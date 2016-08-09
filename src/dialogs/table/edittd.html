@@ -73,9 +73,11 @@
 //    即使选择了多个,这里的cell也只是第一个
     if(cell){
 //        设置初始值
+//        如果使用会把js和css的设置都用上,但是在选中单元格进行设置的时候背景回发生错误
         var color = domUtils.getComputedStyle(cell,'background-color');
+        var settringColor = rgb2hex(cell.style.backgroundColor);
         if(/^#/.test(color)){
-            tone.value = color
+            tone.value = settringColor
         }
 
 //        间距
@@ -86,6 +88,16 @@
         var powerNow = $(cell).attr('data-power');
         power.value = powerNow ? powerNow : 1;
 
+    }
+
+    function rgb2hex(rgb) {
+//        第一次没有设置的时候,rgb不存在
+        if(!rgb) return '';
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+        function hex(x) {
+            return ("0" + parseInt(x).toString(16)).slice(-2);
+        }
+        return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
 
 </script>
