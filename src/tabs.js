@@ -72,6 +72,7 @@ $(function () {
         var iframeBody = $($('iframe')[num].contentWindow.document.body);
 
         iframe.bindIframe(iframeBody);
+        window.newCount++;
 
         e.stopPropagation();
     })
