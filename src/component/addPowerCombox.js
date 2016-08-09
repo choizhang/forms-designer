@@ -10,24 +10,23 @@ UE.registerUI('powercombox', function (editor, uiName) {
             switch (value){
                 case 1:
                     // 普通
-
+                    showNoPower(1);
                     hideNoPower(2);
                     hideNoPower(3);
                     break;
                 case 2:
                     //经理
-                    showNoPower(2)
-                    hideNoPower(3)
+                    showNoPower(1);
+                    showNoPower(2);
+                    hideNoPower(3);
                     break;
                 case 3:
                     //管理员
-
-                    showNoPower(2)
-                    showNoPower(3)
+                    showNoPower(1);
+                    showNoPower(2);
+                    showNoPower(3);
                     break;
             }
-
-
         },
         queryCommandValue: function () {
             return nowPower;
@@ -39,7 +38,7 @@ UE.registerUI('powercombox', function (editor, uiName) {
     function hideNoPower(value) {
         var $ele = $(editor.body).find('[data-power="'+value+'"]');
         var html;
-        console.log($ele)
+
         $ele.each(function(index, value){
             if(value.tagName === 'TD'){
                 //现将内容存储起来
@@ -51,6 +50,9 @@ UE.registerUI('powercombox', function (editor, uiName) {
                 $(value).html('')
             } else if(value.tagName === 'TR'){
                 $(value).hide();
+            } else if(value.tagName === 'TABLE'){
+                //不在表格中的组件
+                $(value).hide();
             }
         })
     }
@@ -58,10 +60,14 @@ UE.registerUI('powercombox', function (editor, uiName) {
     function showNoPower(value) {
         var $ele = $(editor.body).find('[data-power="'+value+'"]');
         $ele.each(function(index, value){
+            console.log(value)
             if(value.tagName === 'TD'){
                 //现将内容存储起来
                 $(value).html($(value).data('save') || '');
             } else if(value.tagName === 'TR'){
+                $(value).show();
+            } else if(value.tagName === 'TABLE'){
+                //不在表格中的组件
                 $(value).show();
             }
             //$(value).css('visibility', 'visible');

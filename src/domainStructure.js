@@ -178,9 +178,20 @@ $(function () {
         $component.css('fontSize', $(this).val())
     })
 
-    $('#powerSet').change(function() {
+    $('#viewPowerSet').change(function() {
         var $component = $('#componentsSetting').data('component');
         $component.attr('data-power', $(this).val())
+    })
+
+    $('#comPowerSet').change(function() {
+        var $component = $('#componentsSetting').data('component');
+        $component.closest('.component').attr('data-power', $(this).val());
+
+        //设置完成后要根据目前的权限状态去设置
+        //获取当前页面的权限值
+        var me = window.editor[0];
+        var nowPower = me.queryCommandValue('powercombox');
+        me.execCommand('powercombox', nowPower);
     })
 
 

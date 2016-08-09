@@ -201,7 +201,6 @@ $(function () {
                     var html = $td.html();
                     if(/[\u200B]/.test(html)){
                         html = html.replace(/[\u200B]/g, '');
-                        console.log(html)
                         $td.html( html );
                     }
                 })
