@@ -2,7 +2,6 @@ UE.registerUI('repeattable',function(editor,uiName){
 
     editor.registerCommand(uiName, {
         execCommand: function () {
-            var num = $('.current').index();
             var nodes = zTreeObj.getNodes();
 
             //返回的是重复表的node,文本域是添加在重复表后面的,后面要使用event的返回值,所以封装了一下
@@ -37,7 +36,7 @@ UE.registerUI('repeattable',function(editor,uiName){
         //指定dialog的名字
         name:uiName,
         //dialog的标题
-        title:"这是个测试浮层",
+        title:"添加重复表",
 
         //指定dialog的外围样式
         cssRules:"width:600px;height:300px;",
@@ -64,9 +63,10 @@ UE.registerUI('repeattable',function(editor,uiName){
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
                     var html = '<table draggable="false" id="field' + newCount + '" class="component com-repeat editorComp_' + newCount + '"><tbody>' ;
 
-                    html += '<tr class="firstRow"><th>标题1<hr class="component-handle"></th>'
+                    //这里将th换成了td,因为有的表单会有2行标题
+                    html += '<tr class="firstRow"><td>标题1<hr class="component-handle"></td>'
                     for(var i=1; i<column; i++){
-                        html += '<th>标题' + (i+1) + '</th>'
+                        html += '<td>标题' + (i+1) + '</td>'
                     }
 
                     html += '</tr><tr>';

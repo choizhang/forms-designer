@@ -20855,6 +20855,7 @@ UE.version = "1.4.3";
 //                        return;
 //                    }
                         if (inTableSide(table, target, evt, true)) {
+                            if(!cellInfo)return;
                             var endTdCol = ut.getCell(ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].rowIndex, ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].cellIndex);
                             if (evt.shiftKey && ut.selectedTds.length) {
                                 if (ut.selectedTds[0] !== endTdCol) {

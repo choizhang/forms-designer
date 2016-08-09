@@ -10,7 +10,7 @@ $(function () {
         autoHeightEnabled: true,
         autoFloatEnabled: true,
         //initialFrameWidth : 1000,  //编辑器宽度，默认1000
-        //initialFrameHeight : 500  //编辑器高度，默认320
+        initialFrameHeight : 320,  //编辑器高度，默认320
 //            分隔线替代文字
 //        下面这个设置了可以在预览的时候看到效果
         pageBreakTag: '<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'

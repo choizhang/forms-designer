@@ -19,8 +19,8 @@ $(function () {
 //                    此次拖拽是失败的
 
                 } else {
-
-                    if($(e.currentTarget).parent()[0].tagName == 'td'){
+                    //tagName一定要大写
+                    if($(e.currentTarget).parent()[0].tagName == 'TD'){
                         //                    拖拽成功,不知道在哪里设置,只能手动删除原来的
                         $(e.currentTarget).remove();
                     } else {
