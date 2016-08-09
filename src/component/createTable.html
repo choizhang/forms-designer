@@ -14,7 +14,7 @@
 
     <div class="width-set">
         <p>表格最大可设置宽度是<span id="iframeWidth"></span>,如果设置大于这个会按照最大值来处理</p>
-        <label><input type="radio" name="width" value="1" checked>表格宽度: <input type="number" id="tableWidth" placeholder="500"></label>
+        <label><input type="radio" name="width" value="1" checked>表格宽度: <input type="number" id="tableWidth" value="500"></label>
 
         <label><input type="radio" name="width" value="2">单元格宽度: <input type="number" id="tdWidth" value="50"></label>
     </div>
@@ -27,6 +27,7 @@
 </div>
 <!--页面中一定要引入internal.js为了能直接使用当前打开dialog的实例变量-->
 <!--internal.js默认是放到dialogs目录下的-->
+<script src="../third-party/jquery-1.10.2.js"></script>
 <script src="../dialogs/internal.js"></script>
 <script>
     //可以直接使用以下全局变量
@@ -37,7 +38,45 @@
     console.log(utils);
     console.log(browser);
 
-    document.querySelector('#iframeWidth').innerHTML = editor.body.clientWidth;
+//    编辑器的宽度,也是可以设置的最大宽度
+//    document.querySelector('#iframeWidth').innerHTML = editor.body.clientWidth;
+
+    var clientWidth = editor.body.clientWidth;
+
+    $('#iframeWidth').html(clientWidth);
+
+    $('#tableWidth').change(function() {
+        var newValue = $(this).val();
+        if(newValue > clientWidth){
+            $(this).val(clientWidth);
+        }
+
+        if(newValue < 50){
+            $(this).val(50);
+        }
+    })
+
+    $('#tdWidth').change(function() {
+//        这个值是可以改变的
+        var clomns = $('#clomns').val();
+        var newValue = $(this).val();
+        if(clomns && (newValue*clomns > clientWidth)){
+            console.log('dd')
+            $(this).val(Math.floor(clientWidth/clomns));
+        }
+
+        if(newValue < 10){
+            $(this).val(10);
+        }
+    })
+
+    $('#tdHeight').change(function() {
+        var newValue = $(this).val();
+
+        if(newValue < 20){
+            $(this).val(20);
+        }
+    })
 </script>
 </body>
 </html>
