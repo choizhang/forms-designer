@@ -88,7 +88,7 @@ p{
     display: block;
     min-width: 40px;
     border: none;
-    padding: 5px;
+    padding: 0 5px 5px 0;
 }
 
 /*table .com-text td {*/

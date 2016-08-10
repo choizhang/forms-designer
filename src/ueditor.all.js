@@ -21904,7 +21904,8 @@ UE.version = "1.4.3";
         }
 
         function changeRowHeight(td, changeValue) {
-            if (Math.abs(changeValue) < 10) return;
+            //my 我将下面的注释了
+            //if (Math.abs(changeValue) < 10) return;
             var ut = getUETable(td);
             if (ut) {
                 var cells = ut.getSameEndPosCells(td, "y"),
