@@ -23,12 +23,16 @@ $(function () {
 
                 } else {
                     //tagName一定要大写
-                    if($(e.currentTarget).parent()[0].tagName == 'TD'){
-                        //                    拖拽成功,不知道在哪里设置,只能手动删除原来的
-                        $(e.currentTarget).remove();
-                    } else {
-                        //修复自动添加table的情况. 将组件从左单元格拖到单元格,再拖回去,会自动添加一个空的div,会导致以后不可拖进去了
+                    //if($(e.currentTarget).parent()[0].tagName == 'TD'){
+                    //    //                    拖拽成功,不知道在哪里设置,只能手动删除原来的
+                    //    $(e.currentTarget).remove();
+                    //} else
+                    if($(e.currentTarget).parent()[0].tagName == 'DIV'){
+                        //修复自动添加table的情况. 将组件从左单元格拖到右单元格,再拖回去,会自动添加一个空的div,会导致以后不可拖进去了
                         $(e.currentTarget).parent().remove();
+                    } else {
+                        //拖拽成功,不知道在哪里设置,只能手动删除原来的
+                        $(e.currentTarget).remove();
                     }
 
 
@@ -62,7 +66,7 @@ $(function () {
                     //获取当前是第几个tab
                     var current = $('.current').index( );
 
-                    var window = $('iframe')[current].contentWindow;
+                    var window = $('.edui-editor-iframeholder').find('iframe')[current].contentWindow;
                     var sel = window.getSelection();
                     sel.removeAllRanges();
                     sel.addRange(range);
