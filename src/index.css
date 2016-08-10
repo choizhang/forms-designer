@@ -168,6 +168,9 @@ body{
 .toolbar-tabs{
     overflow: hidden;
     background-color: #cccccc;
+    border: 1px solid #d4d4d4;
+    border-bottom: 0 none;
+    margin-bottom: -2px;
 }
 
 .toolbar-tabs li{

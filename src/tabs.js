@@ -69,7 +69,7 @@ $(function () {
         $navigation.find('li').last().trigger('click');
 
         //给新增的iframe绑定事件
-        var iframeBody = $($('iframe')[num].contentWindow.document.body);
+        var iframeBody = $($('.edui-editor-iframeholder').find('iframe')[num].contentWindow.document.body);
 
         iframe.bindIframe(iframeBody);
         window.newCount++;

@@ -2,7 +2,10 @@ $(function () {
 
     //编辑器初始化完成后,就给iframe里绑定事件
     window.editor[0].ready(function() {
-        var iframeBody = $($('iframe')[0].contentWindow.document.body);
+        //var iframeBody = $($('iframe')[0].contentWindow.document.body);
+
+        //在jsp环境下,上传图片功能ok,他会创建一系列iframe,所以要加一个范围限制
+        var iframeBody = $($('.edui-editor-iframeholder').find('iframe')[0].contentWindow.document.body);
 
         bindIframe(iframeBody)
     });
@@ -104,9 +107,11 @@ $(function () {
                     //在拖拽态,如果点击组件要取消拖拽态,不然这个时候也拖不动
                     el.removeClass('dragable');
                     //var id = el.attr('class').split('_')[1];
-                    var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
-                    $('#treeDemo_' + id + '_a').trigger('click');
+                    //var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
+                    //如果增加了视图,zTree的id不会增加,所以下面的方法行不通
+                    //$('#treeDemo_' + id + '_a').trigger('click');
 
+                    $this.closest('.component').addClass('focus');
 
                     //将组件在拖拽过程中自动生成的无长度空格,加粗等去除.组件的样式不是通过富文本编辑的
                     var $td = $(this).parent();
