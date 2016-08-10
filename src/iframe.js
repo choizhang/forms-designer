@@ -34,8 +34,6 @@ $(function () {
                         //拖拽成功,不知道在哪里设置,只能手动删除原来的
                         $(e.currentTarget).remove();
                     }
-
-
                 }
 
                 //修复自动添加table的情况. 将组件从左单元格拖到单元格,再拖回去,会自动包裹一个table
@@ -111,11 +109,12 @@ $(function () {
                     //在拖拽态,如果点击组件要取消拖拽态,不然这个时候也拖不动
                     el.removeClass('dragable');
                     //var id = el.attr('class').split('_')[1];
-                    //var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
-                    //如果增加了视图,zTree的id不会增加,所以下面的方法行不通
-                    //$('#treeDemo_' + id + '_a').trigger('click');
+                    var id = el.attr('class').replace(/.*editorComp_(\d).*/, '$1');
+                    //如果增加了视图,zTree的id不会增加,所以在增加视图的时候全局变量没有变化
+                    $('#treeDemo_' + id + '_a').trigger('click');
 
-                    $this.closest('.component').addClass('focus');
+                    //不仅仅是高亮组件,还有高亮域结构
+                    //$this.closest('.component').addClass('focus');
 
                     //将组件在拖拽过程中自动生成的无长度空格,加粗等去除.组件的样式不是通过富文本编辑的
                     var $td = $(this).parent();

@@ -27,7 +27,6 @@ $(function () {
             window.editor[index].ready(function() {
                 window.editor[index].setContent(value.html);
             })
-
         })
 
         //window.editor[0].setContent(fromServer.storage.storeHtml);
@@ -72,7 +71,8 @@ $(function () {
         var iframeBody = $($('.edui-editor-iframeholder').find('iframe')[num].contentWindow.document.body);
 
         iframe.bindIframe(iframeBody);
-        window.newCount++;
+        //取消了增加视图让标志发生变化,因为这会导致zTree的id跟组件里并不一致
+        //window.newCount++;
 
         e.stopPropagation();
     })
