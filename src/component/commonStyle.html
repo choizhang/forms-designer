@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <title></title>
     <style>
+        .content{
+            padding: 0 15px;
+        }
+        fieldset{
+            margin-top: 10px;
+        }
+        fieldset legend{
+            font-size: 18px;
+        }
         .global-setting{
             padding: 0 10px;
             line-height: 40px;
-        }
-        .global-setting legend{
-            font-size: 18px;
         }
         .global-setting-line{
             float: left;
@@ -19,23 +25,28 @@
 </head>
 <body>
 <div class="content">
-    <h1>全局设置</h1>
-    <label>间距(1px 2px 3px 4px对应上右下左): <input type="text" id="margin" value="10px 10px 10px 10px"></label>
+    <fieldset>
+        <legend>全局设置</legend>
+        <label>间距(1px 2px 3px 4px对应上右下左): <input type="text" id="margin" value="10px 10px 10px 10px"></label>
+    </fieldset>
 
-    <h2>页眉设置</h2>
-    <label><input type="radio" name="header" value="0">无页眉</label>
-    <label><input type="radio" name="header" value="1">页眉1</label>
-    <label><input type="radio" name="header" value="2">页眉2</label>
+    <fieldset>
+        <legend>页眉设置</legend>
+        <label><input type="radio" name="header" value="0">无页眉</label>
+        <label><input type="radio" name="header" value="1">页眉1</label>
+        <label><input type="radio" name="header" value="2">页眉2</label>
 
-    <!--<h2>页脚设置</h2>-->
-    <!--<label><input type="radio" name="footer" value="0">无页脚</label>-->
-    <!--<label><input type="radio" name="footer" value="1">页脚1</label>-->
-    <!--<label><input type="radio" name="footer" value="2">页脚2</label>-->
+        <!--<h2>页脚设置</h2>-->
+        <!--<label><input type="radio" name="footer" value="0">无页脚</label>-->
+        <!--<label><input type="radio" name="footer" value="1">页脚1</label>-->
+        <!--<label><input type="radio" name="footer" value="2">页脚2</label>-->
+
+    </fieldset>
 
 
     <!--公共的文本域设置-->
     <fieldset class="global-setting">
-        <legend>全局公共设置</legend>
+        <legend>文本域公共设置</legend>
 
         <div class="global-setting-line color">
             <label>文字颜色: <input type="color" id="bgColor" class="color"></label>

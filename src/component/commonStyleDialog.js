@@ -90,7 +90,6 @@ UE.registerUI('commonStyle',function(editor,uiName){
                         editor.fireEvent('contentchange');
                     }
 
-
                     editorBody.css({'margin': $margin});
 
 

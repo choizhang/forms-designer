@@ -7197,8 +7197,8 @@ UE.version = "1.4.3";
                         '.view{margin: 0;word-wrap:break-word;cursor:text;}\n' +
                             //设置默认字体和字号
                             //font-family不能呢随便改，在safari下fillchar会有解析问题
-                            //my 设置四周的留边,默认的字体和字号
-                        'body{font-family:sans-serif;font-size:16px;border: 1px dashed;}' +
+                            //my 设置四周的留边,默认的字体和字号,把虚线示意去掉了
+                        'body{font-family:sans-serif;font-size:16px;}' +
                             //设置段落间距
                         'p{margin:5px 0;}</style>' +
                         ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
@@ -20207,7 +20207,12 @@ UE.version = "1.4.3";
                 var start = me.selection.getStart(),
                     cell = start && domUtils.findParentByTagName(start, ["td", "th", "caption"], true);
                 if (cell) {
-                    cell.style.backgroundColor = bkColor;
+                    if(bkColor){
+                        cell.style.backgroundColor = bkColor;
+                    } else {
+                        $(cell).css('backgroundColor', '');
+                    }
+
                     cell.style.padding = padding;
 
                     setPower(power, cell);
@@ -20254,7 +20259,11 @@ UE.version = "1.4.3";
 
 
                 utils.each(ut.selectedTds, function (cell) {
-                    cell.style.backgroundColor = bkColor;
+                    if(bkColor){
+                        cell.style.backgroundColor = bkColor;
+                    } else {
+                        $(cell).css('backgroundColor', '');
+                    }
                     cell.style.padding = padding;
                 });
             }

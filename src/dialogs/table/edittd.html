@@ -11,16 +11,15 @@
         }
         .section input {
             margin-left: 5px;
-            width: 110px;
         }
     </style>
 </head>
 <body>
 <div class="section">
     <div>
-        <span><var id="lang_tdBkColor"></var></span>
-        <!--<input type="text" id="J_tone"/>-->
-        <input type="color" id="J_tone">
+        <input type="checkbox" id="colorCheck">
+        <label><var id="lang_tdBkColor"></var><input type="color" id="J_tone" disabled></label>
+
     </div>
 
     <div>
@@ -39,35 +38,17 @@
 </div>
 <script src="../../third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript">
-    var tone = $G("J_tone")
-//            ,
-//            colorPiker = new UE.ui.ColorPicker({
-//                editor:editor
-//            }),
-//            colorPop = new UE.ui.Popup({
-//                editor:editor,
-//                content:colorPiker
-//            });
+    var colorCheck = $G("colorCheck");
+    var tone = $G("J_tone");
     var padding = $G('padding');
     var power = $G('power');
 
-//    domUtils.on(tone, "click", function () {
-//        colorPop.showAnchor(tone);
-//    });
-//    domUtils.on(document, 'mousedown', function () {
-//        colorPop.hide();
-//    });
-//    colorPiker.addListener("pickcolor", function () {
-//        tone.value = arguments[1];
-//        colorPop.hide();
-//    });
-////    清空颜色
-//    colorPiker.addListener("picknocolor", function () {
-//        tone.value="";
-//        colorPop.hide();
-//    });
     dialog.onok=function(){
-        editor.execCommand("edittd",tone.value, padding.value, power.value);
+        var newValue = tone.value;
+        if(!colorCheck.checked){
+            newValue = '';
+        }
+        editor.execCommand("edittd",newValue, padding.value, power.value);
     };
 
     var start = editor.selection.getStart(),
@@ -80,6 +61,10 @@
         var settringColor = rgb2hex(cell.style.backgroundColor);
         if(/^#/.test(color)){
             tone.value = settringColor
+        }
+
+        if(settringColor){
+            colorCheck.checked = true;
         }
 
 //        间距
@@ -101,6 +86,17 @@
         }
         return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
+
+    //颜色控件
+    $('#colorCheck').change(function() {
+        var $input = $(this).next().find('input');
+
+        if( $(this).prop("checked") ){
+            $input.attr('disabled', false);
+        } else {
+            $input.attr('disabled', true);
+        }
+    })
 
 </script>
 </body>
