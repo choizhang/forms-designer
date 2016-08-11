@@ -93,6 +93,17 @@ UE.registerUI('commonStyle',function(editor,uiName){
 
                     editorBody.css({'margin': $margin});
 
+
+                    //修改组件全局设置
+                    var temp = '.component .name{color: $1;font-size:$2;text-align:$3;}';
+                    var gColor = $iframe.find('#bgColor').val();
+                    var gFontSize = $iframe.find('#fontSize').val();
+                    var gLayout = $iframe.find('#comLayout').val();
+
+                    temp = temp.replace(/\$1/g, gColor).replace(/\$2/g, gFontSize).replace(/\$3/g, gLayout);
+
+                    $(editor.document).find('#comStyle').text(temp)
+
                     dialog.close(true);
                 }
             },

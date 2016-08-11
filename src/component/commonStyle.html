@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .global-setting{
+            padding: 0 10px;
+            line-height: 40px;
+        }
+        .global-setting legend{
+            font-size: 18px;
+        }
+        .global-setting-line{
+            float: left;
+            margin-right: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="content">
@@ -18,6 +31,37 @@
     <!--<label><input type="radio" name="footer" value="0">无页脚</label>-->
     <!--<label><input type="radio" name="footer" value="1">页脚1</label>-->
     <!--<label><input type="radio" name="footer" value="2">页脚2</label>-->
+
+
+    <!--公共的文本域设置-->
+    <fieldset class="global-setting">
+        <legend>全局公共设置</legend>
+
+        <div class="global-setting-line color">
+            <label>文字颜色: <input type="color" id="bgColor" class="color"></label>
+        </div>
+
+        <div class="global-setting-line font-size">
+            <label>字体大小: </label>
+            <select id="fontSize">
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+            </select>
+        </div>
+
+        <div class="global-setting-line com-layout-area">
+            <label>
+                布局设置:
+                <select id="comLayout">
+                    <option value="left">居左</option>
+                    <option value="center">居中</option>
+                    <option value="right">居右</option>
+                </select>
+            </label>
+        </div>
+    </fieldset>
 
 
 </div>

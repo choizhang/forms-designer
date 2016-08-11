@@ -14175,6 +14175,8 @@ UE.version = "1.4.3";
 
         me.ready(function () {
             utils.cssRule('pagebreak', '.pagebreak{display:block;page-break-after:always;clear:both !important;cursor:default !important;width: 100% !important;margin:0;}', me.document);
+
+            utils.cssRule('comStyle', '.component .name{color: #000;font-size:12px;text-align:left;}', me.document);
         });
         function isHr(node) {
             return node && node.nodeType == 1 && node.tagName == 'HR' && node.className == 'pagebreak';
