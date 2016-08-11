@@ -220,6 +220,7 @@
 2. windows安装infopath,dreamwave等工具
 3. 组件设置添加布局
 4. 统一颜色组件,支持rgb
+5. 默认的间距设置为4个值
 
 todo:
 
