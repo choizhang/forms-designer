@@ -30,8 +30,9 @@ $(function () {
         edit: {
             enable: true,
             drag: {
-                isCopy: false,
-                isMove: false
+                //copy也是我需要的,只是这里只copy了域结构,视图没有变化,所以实现不了需求
+                isCopy: false
+                //isMove: false
             },
 
             removeTitle: '删除',
@@ -167,33 +168,67 @@ $(function () {
     //    $('.other-content > div').hide().eq(num).show();
     //})
 
-    $('#bgColor').change(function() {
-        //获取到目标元素,然后进行设置
-        var $component = $('#componentsSetting').data('component');
-        $component.css('color', $(this).val())
-    })
+    /**
+     * 对设置的控件执行初始化事件监听
+     */
+    function initSetting() {
+        var $component;
 
-    $('#fontSize').change(function() {
-        var $component = $('#componentsSetting').data('component');
-        $component.css('fontSize', $(this).val())
-    })
+        $('#bgColor').change(function() {
+            //获取到目标元素,然后进行设置
+            $component = $('#componentsSetting').data('component');
+            $component.css('color', $(this).val())
+        })
 
-    $('#viewPowerSet').change(function() {
-        var $component = $('#componentsSetting').data('component');
-        $component.attr('data-power', $(this).val())
-    })
+        $('#fontSize').change(function() {
+            $component = $('#componentsSetting').data('component');
+            $component.css('fontSize', $(this).val())
+        })
 
-    $('#comPowerSet').change(function() {
-        var num = $('.current').index();
-        var $component = $('#componentsSetting').data('component');
-        $component.closest('.component').attr('data-power', $(this).val());
+        $('#viewPowerSet').change(function() {
+            $component = $('#componentsSetting').data('component');
+            $component.attr('data-power', $(this).val())
+        })
 
-        //设置完成后要根据目前的权限状态去设置
-        //获取当前页面的权限值
-        var me = window.editor[num];
-        var nowPower = me.queryCommandValue('powercombox');
-        me.execCommand('powercombox', nowPower);
-    })
+        $('#comPowerSet').change(function() {
+            var num = $('.current').index();
+            $component = $('#componentsSetting').data('component');
+            $component.closest('.component').attr('data-power', $(this).val());
+
+            //设置完成后要根据目前的权限状态去设置
+            //获取当前页面的权限值
+            var me = window.editor[num];
+            var nowPower = me.queryCommandValue('powercombox');
+            me.execCommand('powercombox', nowPower);
+        })
+
+        $('#comLayout').change(function() {
+            $component = $('#componentsSetting').data('component');
+            $component.css('textAlign', $(this).val())
+        })
+
+        //$('.color-check').each(function() {
+        //
+        //})
+
+        //颜色控件
+        $('.color-check').change(function() {
+            var $input = $(this).next().find('input');
+
+            $component = $('#componentsSetting').data('component');
+
+            if( $(this).prop("checked") ){
+                console.log($input.val())
+                $input.attr('disabled', false);
+                $component.css('color', $input.val());
+            } else {
+                $input.attr('disabled', true);
+                $component.css('color', '');
+            }
+        })
+    }
+
+
 
     function init(zNodes) {
         //        域结构初始化
@@ -373,7 +408,9 @@ $(function () {
 
         })
 
-    })
+    });
+
+    initSetting();
 
 
     //保留给外部使用

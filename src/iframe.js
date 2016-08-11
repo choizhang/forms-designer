@@ -163,6 +163,8 @@ $(function () {
                     $('#bgColor').val( rgb2hex($this.css('color') ));
                     $('#fontSize').val( $this.css('fontSize') );
 
+                    $('#comLayout').val( $this.css('textAlign') );
+
                     $('#componentsSetting')
                         .data('component', $this)
                         .data('type', nowType);

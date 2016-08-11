@@ -19,7 +19,8 @@
 <div class="section">
     <div>
         <span><var id="lang_tdBkColor"></var></span>
-        <input type="text" id="J_tone"/>
+        <!--<input type="text" id="J_tone"/>-->
+        <input type="color" id="J_tone">
     </div>
 
     <div>
@@ -38,32 +39,33 @@
 </div>
 <script src="../../third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript">
-    var tone = $G("J_tone"),
-            colorPiker = new UE.ui.ColorPicker({
-                editor:editor
-            }),
-            colorPop = new UE.ui.Popup({
-                editor:editor,
-                content:colorPiker
-            });
+    var tone = $G("J_tone")
+//            ,
+//            colorPiker = new UE.ui.ColorPicker({
+//                editor:editor
+//            }),
+//            colorPop = new UE.ui.Popup({
+//                editor:editor,
+//                content:colorPiker
+//            });
     var padding = $G('padding');
     var power = $G('power');
 
-    domUtils.on(tone, "click", function () {
-        colorPop.showAnchor(tone);
-    });
-    domUtils.on(document, 'mousedown', function () {
-        colorPop.hide();
-    });
-    colorPiker.addListener("pickcolor", function () {
-        tone.value = arguments[1];
-        colorPop.hide();
-    });
-//    清空颜色
-    colorPiker.addListener("picknocolor", function () {
-        tone.value="";
-        colorPop.hide();
-    });
+//    domUtils.on(tone, "click", function () {
+//        colorPop.showAnchor(tone);
+//    });
+//    domUtils.on(document, 'mousedown', function () {
+//        colorPop.hide();
+//    });
+//    colorPiker.addListener("pickcolor", function () {
+//        tone.value = arguments[1];
+//        colorPop.hide();
+//    });
+////    清空颜色
+//    colorPiker.addListener("picknocolor", function () {
+//        tone.value="";
+//        colorPop.hide();
+//    });
     dialog.onok=function(){
         editor.execCommand("edittd",tone.value, padding.value, power.value);
     };

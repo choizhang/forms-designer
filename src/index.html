@@ -77,8 +77,9 @@
                 </div>
                 <div class="type-text">
                     <div class="color">
-                        <label>颜色: <input type="color" id="bgColor" value="#000000" class="color"
-                                          list="layerBackgroundColor_list"/></label>
+                        <!--<label>颜色: <input type="color" id="bgColor" value="#000000" class="color" list="layerBackgroundColor_list"></label>-->
+                        <input type="checkbox" class="color-check">
+                        <label>文字颜色: <input type="color" id="bgColor" class="color" disabled="disabled"></label>
                         <datalist id="layerBackgroundColor_list">
                             <option>#FFFFFF</option>
                             <option>#000000</option>
@@ -113,14 +114,27 @@
                         </select>
                     </div>
 
-                    <label>
-                        权限设置:
-                        <select id="comPowerSet">
-                            <option value="1">普通</option>
-                            <option value="2">经理</option>
-                            <option value="3">管理员</option>
-                        </select>
-                    </label>
+                    <div class="com-powerset-area">
+                        <label>
+                            权限设置:
+                            <select id="comPowerSet">
+                                <option value="1">普通</option>
+                                <option value="2">经理</option>
+                                <option value="3">管理员</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="com-layout-area">
+                        <label>
+                            布局设置:
+                            <select id="comLayout">
+                                <option value="left">居左</option>
+                                <option value="center">居中</option>
+                                <option value="right">居右</option>
+                            </select>
+                        </label>
+                    </div>
                 </div>
 
             </div>
