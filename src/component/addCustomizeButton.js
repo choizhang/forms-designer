@@ -56,6 +56,9 @@ UE.registerUI('button', function (editor, uiName) {
             //这里是执行的上面注册的命令
             editor.execCommand(uiName);
 
+            //执行粘贴命令
+            //editor.execCommand('paste');
+
         }
     });
 
