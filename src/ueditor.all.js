@@ -25939,9 +25939,13 @@ UE.version = "1.4.3";
             html += '</tr></table></div>';
 
             //my 添加自定义输入颜色
-            html += '<div><input id="##_color-input" type="text" placeholder="自定义颜色值" style="width: 95px; margin-right: 10px;" /><span id="##_submit" onclick="return $$._onUserDefineClick(event, this);"  style="padding: 4px 10px; border: 1px solid #000;" >确认</span></div>';
+            //html += '<div><input id="##_color-input" type="text" placeholder="自定义颜色值" style="width: 95px; margin-right: 10px;" /><span id="##_submit" onclick="return $$._onUserDefineClick(event, this);"  style="padding: 4px 10px; border: 1px solid #000;" >确认</span></div>';
 
-            html += '</div>';
+            //my 取消了颜色选择的默认弹窗效果,尽量用原生color实现
+            html = '<input type="color" id="##_color-input"><div id="##_submit" onclick="return $$._onUserDefineClick(event, this);" class="edui-colorpicker-nocolor">确认</div><div unselectable="on" class="edui-colorpicker-nocolor" onclick="$$._onPickNoColor(event, this);">清空</div>';
+
+
+            //html += '</div>';
 
             return html;
         }

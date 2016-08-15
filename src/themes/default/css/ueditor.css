@@ -1098,7 +1098,7 @@ div.edui-box {
 
 .edui-default .edui-anchor-topleft .edui-bordereraser {
     left: 1px;
-    top: -2px;
+    top: 2px;
 }
 
 .edui-default .edui-anchor-topright .edui-bordereraser {
@@ -1523,14 +1523,15 @@ div.edui-box {
 }
 
 .edui-default .edui-colorpicker-nocolor {
-    float: right;
-    margin-right: 1px;
+    /*float: right;*/
+    margin-top: 10px;
     font-size: 12px;
     line-height: 14px;
     height: 14px;
     border: 1px solid #333;
     padding: 3px 5px;
     cursor: pointer;
+    text-align: center;
 }
 
 .edui-default .edui-colorpicker-tablefirstrow {
