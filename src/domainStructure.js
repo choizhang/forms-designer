@@ -226,6 +226,30 @@ $(function () {
                 $component.css('color', '');
             }
         })
+
+        //页眉
+        $('#repeateHeader').change(function() {
+            var isChecked = $(this).prop('checked');
+            var $header = $('#componentsSetting').data('component').find('.table-header');
+
+            if( isChecked ){
+                $header.show();
+            } else {
+                $header.hide();
+            }
+        })
+
+        //页脚
+        $('#repeateFooter').change(function() {
+            var isChecked = $(this).prop('checked');
+            var $footer = $('#componentsSetting').data('component').find('.table-footer');
+
+            if( isChecked ){
+                $footer.show();
+            } else {
+                $footer.hide();
+            }
+        })
     }
 
 

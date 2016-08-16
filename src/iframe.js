@@ -173,6 +173,33 @@ $(function () {
                 }
             }, '.name')
 
+
+            .on('click', '.com-repeat', function (e) {
+                var $this = $(this);
+
+                if(!$('#componentsSetting').hasClass('other-msg-current')){
+                    $('.other-msg-current').removeClass('other-msg-current');
+                    $('#componentsSetting').addClass('other-msg-current');
+
+                    $('.other-content > div').hide().eq(1).show();
+                }
+
+                var nowType = $this.data('type');
+                if($('#componentsSetting').data('type') != nowType){
+                    //这次需要显示的组件类型和上一次不一样
+                    $('.components>div').hide().filter('.type-'+nowType).show();
+                }
+
+                $('#repeateHeader').prop('checked', $this.find('.table-header').length);
+                $('#repeateFooter').prop('checked', $this.find('.table-footer').length);
+
+                $('#componentsSetting')
+                    .data('component', $this)
+                    .data('type', nowType);
+
+                e.stopPropagation();
+            })
+
             /**
              * 点击body区域
              * 1. 将组件置为不可拖动
