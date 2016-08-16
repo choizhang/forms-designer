@@ -28053,7 +28053,7 @@ UE.version = "1.4.3";
             'blockquote', 'pasteplain', 'pagebreak',
             'selectall', 'print', 'horizontal', 'removeformat', 'time', 'date', 'unlink',
             'insertparagraphbeforetable', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext', 'mergeright', 'mergedown', 'deleterow',
-            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute'];
+            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute', 'tableleft', 'tablecenter', 'tableright'];
 
         //下面的代码就是对工具栏中的按钮进行事件绑定了
         for (var i = 0, ci; ci = btnCmds[i++];) {
@@ -28082,6 +28082,25 @@ UE.version = "1.4.3";
                             }
                         }
                     });
+
+                    editor.registerCommand('tableleft', {
+                        execCommand: function () {
+                            editor.execCommand('tablealignment','left');
+                        }
+                    });
+
+                    editor.registerCommand('tablecenter', {
+                        execCommand: function () {
+                            editor.execCommand('tablealignment','center');
+                        }
+                    });
+
+                    editor.registerCommand('tableright', {
+                        execCommand: function () {
+                            editor.execCommand('tablealignment','right');
+                        }
+                    });
+
                     return ui;
                 };
             }(ci);
@@ -29218,20 +29237,25 @@ UE.version = "1.4.3";
                                             var str = toolbarItemUi.getHtmlTpl();
 
                                             // 这使用了闭包来保存数据
-                                            toolbarItemUi.getHtmlTpl = (function(name) {
-                                                return function() {
-                                                    return '<div class="mod"><div class="mod-title">'+ name +'</div>' + str;
-                                                }
-                                            })(toolbarItem[0])
+                                            //要放到底部去了
+                                            //toolbarItemUi.getHtmlTpl = (function(name) {
+                                            //    return function() {
+                                            //        return '<div class="mod">' + str;
+                                            //    }
+                                            //})(toolbarItem[0])
+
+                                            toolbarItemUi.getHtmlTpl = function() {
+                                                return '<div class="mod">' + str;
+                                            }
 
                                         }
                                         //
                                         if(index === toolbarItem.length - 1){
                                             //如果是最后一个就添加html
                                             var str = toolbarItemUi.getHtmlTpl();
-                                            toolbarItemUi.getHtmlTpl = function() {
-                                                return str + '</div>';
-                                            }
+                                            toolbarItemUi.getHtmlTpl = (function(name){ return function() {
+                                                return str + '<div class="mod-title">' + name + '</div></div>';
+                                            }})(toolbarItem[0]);
                                         }
 
                                         toolbarUi.add(toolbarItemUi);

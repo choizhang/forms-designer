@@ -532,10 +532,10 @@ div.edui-box {
     margin-right: 15px;
 }
 .mod .mod-title{
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
     height: 24px;
     line-height: 24px;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
     text-align: center;
     font-size: 12px;
 }
@@ -968,6 +968,19 @@ div.edui-box {
 .edui-default  .edui-for-simpleupload  .edui-icon {
     background-position: -380px 0px;
 }
+
+/*my 自己增加的工具栏按钮*/
+.edui-default  .edui-for-tableleft  .edui-icon {
+    background-position: -460px 0px;
+}
+.edui-default  .edui-for-tablecenter  .edui-icon {
+    background-position: -420px 0px;
+}
+.edui-default  .edui-for-tableright  .edui-icon {
+    background-position: -480px 0px;
+}
+
+
 /*splitbutton*/
 .edui-default .edui-toolbar .edui-splitbutton-body .edui-arrow,
 .edui-default .edui-toolbar .edui-menubutton-body .edui-arrow {

@@ -46,7 +46,7 @@
 
             ['simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', 'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage'],
 
-            [['插入表格', 'inserttable', 'deletetable', 'insertparagraphbeforetable'], ['插入', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext'], ['删除', 'deleterow', 'deletecol'], ['合并', 'mergecells', 'mergeright', 'mergedown'], ['分割',  'splittocells', 'splittorows', 'splittocols'], ['均分',  'averagedistributerow', 'averagedistributecol', 'averagedistribute']],
+            [['插入表格', 'inserttable', 'deletetable', 'insertparagraphbeforetable'], ['插入', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext'], ['删除', 'deleterow', 'deletecol'], ['合并', 'mergecells', 'mergeright', 'mergedown'], ['分割',  'splittocells', 'splittorows', 'splittocols'], ['均分',  'averagedistributerow', 'averagedistributecol', 'averagedistribute'], ['对齐方式', 'tableleft', 'tablecenter', 'tableright']],
 
             ['print', 'preview', 'searchreplace', 'drafts', 'help'],
             []
