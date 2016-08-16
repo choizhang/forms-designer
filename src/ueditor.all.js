@@ -28052,7 +28052,7 @@ UE.version = "1.4.3";
             'strikethrough', 'subscript', 'superscript', 'source', 'indent', 'outdent',
             'blockquote', 'pasteplain', 'pagebreak',
             'selectall', 'print', 'horizontal', 'removeformat', 'time', 'date', 'unlink',
-            'insertparagraphbeforetable', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext', 'mergeright', 'mergedown', 'deleterow',
+            'insertparagraphbeforetable', 'edittd', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext', 'mergeright', 'mergedown', 'deleterow',
             'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute', 'tableleft', 'tablecenter', 'tableright', 'celltl', 'celltc', 'celltr', 'cellml', 'cellmc', 'cellmr', 'cellbl', 'cellbc', 'cellbr'];
 
         //下面的代码就是对工具栏中的按钮进行事件绑定了
