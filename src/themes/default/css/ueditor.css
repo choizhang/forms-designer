@@ -538,6 +538,7 @@ div.edui-box {
     /*margin-bottom: 5px;*/
     text-align: center;
     font-size: 12px;
+    clear: both;
 }
 
 /* toolbar icons */
@@ -980,6 +981,24 @@ div.edui-box {
     background-position: -480px 0px;
 }
 
+.edui-default  .edui-for-celltl  .edui-icon, .edui-default  .edui-for-cellml  .edui-icon, .edui-default  .edui-for-cellbl  .edui-icon {
+    background-image: url(../images/table-cell-align.png)!important;
+}
+.edui-default  .edui-for-celltc  .edui-icon, .edui-default  .edui-for-cellmc  .edui-icon, .edui-default  .edui-for-cellbc  .edui-icon {
+    background-image: url(../images/table-cell-align.png)!important;
+    background-position: -25px 0px;
+}
+.edui-default  .edui-for-celltr  .edui-icon, .edui-default  .edui-for-cellmr  .edui-icon, .edui-default  .edui-for-cellbr  .edui-icon {
+    background-image: url(../images/table-cell-align.png)!important;
+    background-position: -51px 0px;
+}
+/*实现3行3列布局*/
+.edui-default  .edui-for-celltl, .edui-default  .edui-for-cellml, .edui-default  .edui-for-cellbl, .edui-default  .edui-for-celltc, .edui-default  .edui-for-cellmc, .edui-default  .edui-for-cellbc {
+    float: left;
+}
+.edui-default  .edui-for-celltr, .edui-default  .edui-for-cellmr, .edui-default  .edui-for-cellbr {
+    display: block!important;
+}
 
 /*splitbutton*/
 .edui-default .edui-toolbar .edui-splitbutton-body .edui-arrow,

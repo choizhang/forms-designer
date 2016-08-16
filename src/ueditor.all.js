@@ -28053,7 +28053,7 @@ UE.version = "1.4.3";
             'blockquote', 'pasteplain', 'pagebreak',
             'selectall', 'print', 'horizontal', 'removeformat', 'time', 'date', 'unlink',
             'insertparagraphbeforetable', 'insertrow', 'insertrownext', 'insertcol', 'insertcolnext', 'mergeright', 'mergedown', 'deleterow',
-            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute', 'tableleft', 'tablecenter', 'tableright'];
+            'deletecol', 'splittorows', 'splittocols', 'splittocells', 'mergecells', 'deletetable', 'drafts', 'averagedistributerow', 'averagedistributecol', 'averagedistribute', 'tableleft', 'tablecenter', 'tableright', 'celltl', 'celltc', 'celltr', 'cellml', 'cellmc', 'cellmr', 'cellbl', 'cellbc', 'cellbr'];
 
         //下面的代码就是对工具栏中的按钮进行事件绑定了
         for (var i = 0, ci; ci = btnCmds[i++];) {
@@ -28098,6 +28098,52 @@ UE.version = "1.4.3";
                     editor.registerCommand('tableright', {
                         execCommand: function () {
                             editor.execCommand('tablealignment','right');
+                        }
+                    });
+
+                    editor.registerCommand('celltl', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'left', vAlign: 'top'});
+                        }
+                    });
+                    editor.registerCommand('celltc', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'center', vAlign: 'top'});
+                        }
+                    });
+                    editor.registerCommand('celltr', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'right', vAlign: 'top'});
+                        }
+                    });
+                    editor.registerCommand('cellml', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'left', vAlign: 'center'});
+                        }
+                    });
+                    editor.registerCommand('cellmc', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'center', vAlign: 'center'});
+                        }
+                    });
+                    editor.registerCommand('cellmr', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'right', vAlign: 'center'});
+                        }
+                    });
+                    editor.registerCommand('cellbl', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'left', vAlign: 'bottom'});
+                        }
+                    });
+                    editor.registerCommand('cellbc', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'center', vAlign: 'bottom'});
+                        }
+                    });
+                    editor.registerCommand('cellbr', {
+                        execCommand: function () {
+                            editor.execCommand('cellalignment', {align: 'right', vAlign: 'bottom'});
                         }
                     });
 
