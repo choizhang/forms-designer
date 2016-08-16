@@ -47,14 +47,10 @@ UE.registerUI('repeattable',function(editor,uiName){
                 className:'edui-okbutton',
                 label:'确定',
                 onclick:function () {
-                    var $input = $('#' + dialog.id).find('iframe').contents().find('input')
-                    var column = $input.val();
-                    //var html = '<div>';
-                    //for(var i=0; i<num; i++){
-                    //    html += '<img src="" title="title" alt="文本域" style="width: 55px;height: 30px;text-align: center;line-height: 30px;font-size: 17px;">';
-                    //}
-                    //html += '</div>';
-
+                    var $dialog = $('#' + dialog.id).find('iframe').contents();
+                    var column = $dialog.find('#cloumn').val();
+                    var header = $dialog.find('#header').prop('checked');
+                    var footer = $dialog.find('#footer').prop('checked');
 
                     var event = editor.execCommand(uiName)[1];
 
@@ -63,23 +59,35 @@ UE.registerUI('repeattable',function(editor,uiName){
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
                     var html = '<table draggable="false" id="field' + newCount + '" class="component com-repeat editorComp_' + newCount + '"><tbody>' ;
 
-                    //这里将th换成了td,因为有的表单会有2行标题
-                    html += '<tr class="firstRow"><td>标题1<hr class="component-handle"></td>'
-                    for(var i=1; i<column; i++){
-                        html += '<td>标题' + (i+1) + '</td>'
-                    }
+                    if(header){
+                        //这里将th换成了td,因为有的表单会有2行标题
+                        html += '<tr class="firstRow">'
+                        for(var i=0; i<column; i++){
+                            html += '<td>页眉' + (i+1) + '</td>'
+                        }
 
-                    html += '</tr><tr>';
+                        html += '</tr>';
+                    }
 
                     window.newCount++;
 
+                    html += '<tr>';
                     //br放在了table前面,不然会造成均分按钮不可用
                     for(i=0; i<column; i++){
-                        html += '<td width="40" height="20" data-minheight="20" valign="top"><br><table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="50" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" readonly="readonly" data-type="text" value="文本域'+ newCount + '" /></td></tr></tbody></table></td>';
+                        html += '<td width="40" height="20" data-minheight="20" valign="top">'+ (i===0? '<hr class="component-handle">': '') +'<br><table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="50" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" readonly="readonly" data-type="text" value="文本域'+ newCount + '" /></td></tr></tbody></table></td>';
 
                         editor.execCommand('repeattext', event);
                     }
-                    html += '</tr></tbody></table>';
+                    html += '</tr>';
+
+                    if(footer){
+                        for(i=0; i<column; i++){
+                            html += '<td>页脚' + (i+1) + '</td>'
+                        }
+                    }
+
+
+                    html += '</tbody></table>';
 
                     dialog.editor.execCommand( 'inserthtml', html, true);
 

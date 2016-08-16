@@ -4,6 +4,9 @@
     <title></title>
     <script type="text/javascript" src="../internal.js"></script>
     <style type="text/css">
+        body{
+            height: 200px;
+        }
         .section {
             margin-top: 10px;
             text-align: left;
@@ -23,7 +26,7 @@
     </div>
 
     <div>
-        <label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" value="1px 2px 3px 4px"></label>
+        <label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" placeholder="1px 2px 3px 4px"></label>
     </div>
 
     <div>
@@ -35,20 +38,40 @@
             </select>
         </label>
     </div>
+
+    <div>
+        <label>行高(必须要选择整行): <br><input type="number" id="height"></label>
+    </div>
+
+    <div>
+        <label>列宽(必须要选择整列): <br><input type="number" id="width"></label>
+    </div>
+
 </div>
 <script src="../../third-party/jquery-1.10.2.js"></script>
 <script type="text/javascript">
     var colorCheck = $G("colorCheck");
     var tone = $G("J_tone");
     var padding = $G('padding');
+    var height = $G('height');
+    var width = $G('width');
     var power = $G('power');
+
+//    如果不是选择的整行整列就要禁用掉
+    var ut = UE.UETable.getUETableBySelected(editor);
+    if(!ut.isFullRow()){
+        height.disabled = 'false';
+    }
+    if(!ut.isFullCol()){
+        width.disabled = 'false';
+    }
 
     dialog.onok=function(){
         var newValue = tone.value;
         if(!colorCheck.checked){
             newValue = '';
         }
-        editor.execCommand("edittd",newValue, padding.value, power.value);
+        editor.execCommand("edittd",newValue, padding.value, power.value, height.value, width.value);
     };
 
     var start = editor.selection.getStart(),
@@ -70,6 +93,15 @@
 //        间距
         var paddingNow = domUtils.getComputedStyle(cell,'padding');
         padding.value = paddingNow;
+
+//        高宽的设置会导致整个表格的变化,跟拖动边线处理方式不一样
+        // 高度
+        var heightNow = cell.height;
+        height.value = heightNow;
+
+        // 宽度
+        var widthNow = cell.width;
+        width.value = widthNow;
 
 //        权限
         var powerNow = $(cell).attr('data-power');

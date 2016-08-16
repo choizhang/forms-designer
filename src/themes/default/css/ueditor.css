@@ -1436,10 +1436,11 @@ div.edui-box {
     height: 60px;
 }
 
+/*my 修改弹窗的高宽*/
 /*edittd-dialog*/
 .edui-default .edui-for-edittd .edui-dialog-content {
     width: 500px;
-    height: 150px;
+    height: 220px;
 }
 /*snapscreen-dialog*/
 .edui-default .edui-for-snapscreen .edui-dialog-content {

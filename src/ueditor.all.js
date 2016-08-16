@@ -20199,7 +20199,7 @@ UE.version = "1.4.3";
         queryCommandState: function () {
             return getTableItemsByRange(this).table ? 0 : -1
         },
-        execCommand: function (cmd, bkColor, padding, power) {
+        execCommand: function (cmd, bkColor, padding, power, height, width) {
             var me = this,
                 ut = getUETableBySelected(me),
                 i;
@@ -20215,6 +20215,8 @@ UE.version = "1.4.3";
                     }
 
                     cell.style.padding = padding;
+                    cell.height = height;
+                    cell.width = width;
 
                     setPower(power, cell);
                 }
@@ -20266,6 +20268,8 @@ UE.version = "1.4.3";
                         $(cell).css('backgroundColor', '');
                     }
                     cell.style.padding = padding;
+                    cell.height = height;
+                    cell.width = width;
                 });
             }
 
