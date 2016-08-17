@@ -25,13 +25,16 @@ $(function () {
 //        }
     ];
 
+    var dragId;
+
 // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
     var setting = {
         edit: {
             enable: true,
             drag: {
                 //copy也是我需要的,只是这里只copy了域结构,视图没有变化,所以实现不了需求
-                isCopy: false
+                isCopy: false,
+                prev: true, next: true,inner: false
                 //isMove: false
             },
 
@@ -86,7 +89,27 @@ $(function () {
             },
 
             onDragMove: function (event, treeId, treeNode) {
-                console.log(event.target);
+                //console.log(event.target);
+            },
+
+            //只能平级拖动,只是改变顺序不改变结构
+            beforeDrag: function (treeId, treeNodes) {
+                for (var i=0,l=treeNodes.length; i<l; i++) {
+                    dragId = treeNodes[i].pId;
+                    if (treeNodes[i].drag === false) {
+                        return false;
+                    }
+                }
+                return true;
+            },
+
+            //只能平级拖动,只是改变顺序不改变结构
+            beforeDrop: function (treeId, treeNodes, targetNode, moveType) {
+                if(targetNode.pId == dragId){
+                    return true;
+                }else{
+                    return false;
+                }
             },
 
 //            右键菜单
@@ -213,12 +236,11 @@ $(function () {
 
         //颜色控件
         $('.color-check').change(function() {
-            var $input = $(this).next().find('input');
+            var $input = $(this).parent().next();
 
             $component = $('#componentsSetting').data('component');
 
             if( $(this).prop("checked") ){
-                console.log($input.val())
                 $input.attr('disabled', false);
                 $component.css('color', $input.val());
             } else {
@@ -262,7 +284,6 @@ $(function () {
 
         //将之前删除过的隐藏起来,初始化操作
         nodes.forEach(function(value) {
-            console.log(value)
             if(value.isHide){
                 //需要被隐藏
                 $('#'+value.tId).hide();
@@ -332,8 +353,6 @@ $(function () {
         var treeNode = zTreeObj.getSelectedNodes()[0];
         var num = $('.current').index();
 
-        console.log(treeNode)
-
         //如果视图中已经没有这个组件了,这种方法就行不通了
         //var html = $('iframe').contents().find('.editorComp_' + (treeNode[0].id - 100))[0].outerHTML;
 
@@ -371,7 +390,6 @@ $(function () {
 
     function showRMenu(type, x, y) {
         $("#rMenu ul").show();
-        console.log(type)
         if (type == "root") {
             // 这个应该是右键到了非文字图形的其他区域,目前无用
             $("#rMenu ul").hide();

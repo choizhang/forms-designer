@@ -38,7 +38,7 @@ UE.registerUI('button', function (editor, uiName) {
         //提示
         title: '文本域',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
-        cssRules: 'background-position: -500px 0;',
+        cssRules: 'background-position: -755px -74px;',
         //点击时执行的命令
         onclick: function () {
             //editor.execCommand( 'inserthtml', '<table draggable="false" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td><div class="component-handle">v</div>文本域</td></tr></table>');

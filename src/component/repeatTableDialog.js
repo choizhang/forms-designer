@@ -122,7 +122,7 @@ UE.registerUI('repeattable',function(editor,uiName){
         name:'重复表',
         title:'重复表',
         //需要添加的额外样式，指定icon图标，这里默认使用一个重复的icon
-        cssRules :'background-position: -500px 0;',
+        cssRules :'background-position: -755px -95px;',
         onclick:function () {
             //渲染dialog
             dialog.render();

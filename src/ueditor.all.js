@@ -20870,8 +20870,11 @@ UE.version = "1.4.3";
 //
 //                        return;
 //                    }
+
+                        //my 在点击句柄的时候经常会报错
+                        if (typeof cellInfo == 'undefined')return;
+
                         if (inTableSide(table, target, evt, true)) {
-                            if (typeof cellInfo == 'undefined')return;
                             var endTdCol = ut.getCell(ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].rowIndex, ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].cellIndex);
                             if (evt.shiftKey && ut.selectedTds.length) {
                                 if (ut.selectedTds[0] !== endTdCol) {
