@@ -144,7 +144,7 @@ $(function () {
 
                     //$('#componentsSetting').trigger('click');
 
-                    //高亮组件设置tab
+                    //高亮组件设置tab和内容
                     if(!$('#componentsSetting').hasClass('other-msg-current')){
                         $('.other-msg-current').removeClass('other-msg-current');
                         $('#componentsSetting').addClass('other-msg-current');
@@ -159,6 +159,7 @@ $(function () {
                     }
 
 
+                    $('#colorCheck').prop('checked', $this[0].style.color);
 
                     $('#bgColor').val( rgb2hex($this.css('color') ));
                     $('#fontSize').val( $this.css('fontSize') );
