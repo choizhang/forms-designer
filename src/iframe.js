@@ -190,8 +190,8 @@ $(function () {
                     $('.components>div').hide().filter('.type-'+nowType).show();
                 }
 
-                $('#repeateHeader').prop('checked', $this.find('.table-header').length);
-                $('#repeateFooter').prop('checked', $this.find('.table-footer').length);
+                $('#repeateHeader').prop('checked', $this.find('.table-header').is(":visible"));
+                $('#repeateFooter').prop('checked', $this.find('.table-footer').is(":visible"));
 
                 $('#componentsSetting')
                     .data('component', $this)

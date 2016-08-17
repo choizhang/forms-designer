@@ -59,16 +59,23 @@ UE.registerUI('repeattable',function(editor,uiName){
                     //var html = '<table class="component" draggable="true" ondragstart="event.dataTransfer.setData(\'text/plain\', \'This text may be dragged\'); ">' ;
                     var html = '<table draggable="false" id="field' + newCount + '" class="component com-repeat editorComp_' + newCount + '" data-type="repeatetable"><tbody>' ;
 
-                    if(header){
-                        //这里将th换成了td,因为有的表单会有2行标题
-                        //html += '<tr class="firstRow">'
-                        html += '<tr class="table-header">'
-                        for(var i=0; i<column; i++){
-                            html += '<td>页眉' + (i+1) + '</td>'
-                        }
 
-                        html += '</tr>';
+                    if(!header){
+                        header = ' style="display: none;"'
+                    } else {
+                        header = '';
                     }
+
+                    //这里将th换成了td,因为有的表单会有2行标题
+                    //html += '<tr class="firstRow">'
+                    html += '<tr class="table-header"'+header+'>'
+                    for(var i=0; i<column; i++){
+                        html += '<td>页眉' + (i+1) + '</td>'
+                    }
+
+                    html += '</tr>';
+
+
 
                     window.newCount++;
 
@@ -81,13 +88,17 @@ UE.registerUI('repeattable',function(editor,uiName){
                     }
                     html += '</tr>';
 
-                    if(footer){
-                        html += '<tr class="table-footer">';
-                        for(i=0; i<column; i++){
-                            html += '<td>页脚' + (i+1) + '</td>'
-                        }
-                        html += '</tr>';
+                    if(!footer){
+                        footer = ' style="display: none;"'
+                    } else {
+                        footer = '';
                     }
+
+                    html += '<tr class="table-footer"'+footer+'>';
+                    for(i=0; i<column; i++){
+                        html += '<td>页脚' + (i+1) + '</td>'
+                    }
+                    html += '</tr>';
 
 
                     html += '</tbody></table>';
