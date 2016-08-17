@@ -28,6 +28,23 @@ UE.registerUI('button', function (editor, uiName) {
             //editor.execCommand( 'tablealignment', 'center');
 
             return newCount;
+        },
+
+        queryCommandState: function () {
+            var start = editor.selection.getStart();
+
+            //if(start.tagName === 'INPUT'){
+            //    return -1;
+            //} else {
+            //    return 0;
+            //}
+
+            //如果光标在组件里面,则此组件不可用
+            if($(start).closest('.component').length){
+                return -1;
+            } else {
+                return 0;
+            }
         }
     });
 

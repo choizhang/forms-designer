@@ -18,6 +18,16 @@ UE.registerUI('repeattable',function(editor,uiName){
 
             return [newCount, event];
 
+        },
+        queryCommandState: function () {
+            var start = editor.selection.getStart();
+
+            //如果光标在组件里面,则此组件不可用
+            if($(start).closest('.component').length){
+                return -1;
+            } else {
+                return 0;
+            }
         }
     });
 

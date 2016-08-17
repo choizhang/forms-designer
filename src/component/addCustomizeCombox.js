@@ -8,6 +8,16 @@ UE.registerUI('combox', function (editor, uiName) {
         queryCommandValue: function () {
             //这里借用fontsize的查询命令
             return this.queryCommandValue('fontsize')
+        },
+        queryCommandState: function () {
+            var start = editor.selection.getStart();
+
+            //如果光标在组件里面,则此组件不可用
+            if($(start).closest('.component').length){
+                return -1;
+            } else {
+                return 0;
+            }
         }
     });
 

@@ -159,13 +159,18 @@ $(function () {
                     }
 
 
+                    //颜色勾选
                     $('#colorCheck').prop('checked', $this[0].style.color);
 
+                    //颜色值
                     $('#bgColor').val( rgb2hex($this.css('color') ));
+                    //字体大小
                     $('#fontSize').val( $this.css('fontSize') );
 
+                    //布局
                     $('#comLayout').val( $this.css('textAlign') );
 
+                    //将数据绑定到dom上,方便后面做判断
                     $('#componentsSetting')
                         .data('component', $this)
                         .data('type', nowType);
