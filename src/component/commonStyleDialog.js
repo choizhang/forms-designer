@@ -21,7 +21,7 @@ UE.registerUI('commonStyle',function(editor,uiName){
                 label:'确定',
                 onclick:function () {
                     var $iframe = $('#' + dialog.id).find('iframe').contents();
-                    var $margin = $iframe.find('#margin').val();
+                    var margin = $iframe.find('#marginTop').val()+'px '+$iframe.find('#marginRight').val()+'px '+$iframe.find('#marginBottom').val()+'px '+$iframe.find('#marginLeft').val()+'px';
                     var $header = $iframe.find('input[name="header"]:checked').val();
                     var $footer = $iframe.find('input[name="footer"]:checked').val();
 
@@ -29,7 +29,7 @@ UE.registerUI('commonStyle',function(editor,uiName){
                     var $pagebreak = editorBody.find('.pagebreak');
                     var tpl;
 
-                    $iframe.find('#margin').attr('value', $margin);
+                    $iframe.find('#margin').attr('value', margin);
 
                     switch ($header){
                         case '0':
@@ -90,7 +90,7 @@ UE.registerUI('commonStyle',function(editor,uiName){
                         editor.fireEvent('contentchange');
                     }
 
-                    editorBody.css({'margin': $margin});
+                    editorBody.css({'margin': margin});
 
 
                     //修改组件全局设置

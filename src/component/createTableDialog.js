@@ -54,6 +54,26 @@ UE.registerUI('createtable',function(editor,uiName){
             }
         ]});
 
+
+    editor.registerCommand(uiName, {
+        queryCommandState: function () {
+            var start = editor.selection.getStart();
+
+            //if(start.tagName === 'INPUT'){
+            //    return -1;
+            //} else {
+            //    return 0;
+            //}
+
+            //如果光标在组件里面,则此组件不可用
+            if($(start).closest('table').length){
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    });
+
     //参考addCustomizeButton.js
     var btn = new UE.ui.Button({
         //css的类要用,所以必须是英文.但是英文会导致dialog的宽度有问题,用中文反而还可以

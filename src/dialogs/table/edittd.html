@@ -12,8 +12,41 @@
             text-align: left;
             margin-left: 50px;
         }
-        .section input {
+        .section input[type="number"] {
+            width: 30px;
             margin-left: 5px;
+        }
+
+        .padding-setting{
+            position: relative;
+            height: 115px;
+            margin-top: 15px;
+        }
+        .padding-setting label{
+            width: 80px;
+            text-align: center;
+        }
+        .padding-setting .left{
+            position: absolute;
+            left: 27px;
+            top: 58px;
+            width: 120px;
+        }
+        .padding-setting .right{
+            position: absolute;
+            left: 133px;
+            top: 58px;
+            width: 120px;
+        }
+        .padding-setting .top{
+            position: absolute;
+            left: 100px;
+            top: 20px;
+        }
+        .padding-setting .bottom{
+            position: absolute;
+            left: 100px;
+            top: 78px;
         }
     </style>
 </head>
@@ -25,9 +58,15 @@
 
     </div>
 
-    <div>
-        <label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" placeholder="1px 2px 3px 4px"></label>
-    </div>
+    <fieldset class="padding-setting">
+        <!--<label>间距(1px 2px 3px 4px对应上右下左): <br><input type="text" id="padding" placeholder="1px 2px 3px 4px"></label>-->
+
+        <legend>间距设置(像素)</legend>
+        <label class="left">左间距<input type="number" id="paddingLeft" min="0"></label>
+        <label class="top">上间距<br><input type="number" id="paddingTop" min="0"></label>
+        <label class="right"><input type="number" id="paddingRight" min="0">右间距</label>
+        <label class="bottom"><input type="number" id="paddingBottom" min="0"><br>下间距</label>
+    </fieldset>
 
     <div>
         <label>权限设置: <br>
@@ -40,11 +79,11 @@
     </div>
 
     <div>
-        <label>行高(必须要选择整行): <br><input type="number" id="height"></label>
+        <label>行高(必须要选择整行): <br><input type="number" id="height"></label>(像素)
     </div>
 
     <div>
-        <label>列宽(必须要选择整列): <br><input type="number" id="width"></label>
+        <label>列宽(必须要选择整列): <br><input type="number" id="width"></label>(像素)
     </div>
 
 </div>
@@ -52,17 +91,20 @@
 <script type="text/javascript">
     var colorCheck = $G("colorCheck");
     var tone = $G("J_tone");
-    var padding = $G('padding');
+    var paddingLeft = $G('paddingLeft');
+    var paddingRight = $G('paddingRight');
+    var paddingTop = $G('paddingTop');
+    var paddingBottom = $G('paddingBottom');
     var height = $G('height');
     var width = $G('width');
     var power = $G('power');
 
 //    如果不是选择的整行整列就要禁用掉
     var ut = UE.UETable.getUETableBySelected(editor);
-    if(!ut.isFullRow()){
+    if(!ut || !ut.isFullRow()){
         height.disabled = 'false';
     }
-    if(!ut.isFullCol()){
+    if(!ut || !ut.isFullCol()){
         width.disabled = 'false';
     }
 
@@ -71,7 +113,10 @@
         if(!colorCheck.checked){
             newValue = '';
         }
-        editor.execCommand("edittd",newValue, padding.value, power.value, height.value, width.value);
+//        将间距拼装起来
+        var padding = paddingTop.value + 'px '+paddingRight.value + 'px '+paddingBottom.value + 'px '+paddingLeft.value + 'px';
+
+        editor.execCommand("edittd",newValue, padding, power.value, height.value, width.value);
     };
 
     var start = editor.selection.getStart(),
@@ -90,9 +135,11 @@
             colorCheck.checked = true;
         }
 
-//        间距
-        var paddingNow = domUtils.getComputedStyle(cell,'padding');
-        padding.value = paddingNow;
+//        获取各个间距的值
+        paddingLeft.value = parseInt(domUtils.getComputedStyle(cell,'padding-left'));
+        paddingRight.value = parseInt(domUtils.getComputedStyle(cell,'padding-right'));
+        paddingTop.value = parseInt(domUtils.getComputedStyle(cell,'padding-top'));
+        paddingBottom.value = parseInt(domUtils.getComputedStyle(cell,'padding-bottom'));
 
 //        高宽的设置会导致整个表格的变化,跟拖动边线处理方式不一样
         // 高度
