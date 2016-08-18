@@ -15360,10 +15360,14 @@ UE.version = "1.4.3";
             //如果不给宽度会在自定应样式里出现滚动条
             utils.cssRule('list', 'ol,ul{margin:0;pading:0;' + (browser.ie ? '' : 'width:95%') + '}li{clear:both;}' + customCss.join('\n'), me.document);
         });
+
         //单独处理剪切的问题
         me.ready(function () {
+            console.log(me.body)
             domUtils.on(me.body, 'cut', function () {
+                console.log('rrr')
                 setTimeout(function () {
+                    console.log('dd')
                     var rng = me.selection.getRange(), li;
                     //trace:3416
                     if (!rng.collapsed) {
@@ -15390,7 +15394,7 @@ UE.version = "1.4.3";
                         }
                     }
 
-                })
+                }, 0)
             })
         });
 
@@ -28054,7 +28058,7 @@ UE.version = "1.4.3";
             'charts': '~/dialogs/charts/charts.html'
         };
         //为工具栏添加按钮，以下都是统一的按钮触发命令，所以写在一起
-        var btnCmds = ['undo', 'redo', 'formatmatch',
+        var btnCmds = ['copy', 'cut', 'paste', 'undo', 'redo', 'formatmatch',
             'bold', 'italic', 'underline', 'fontborder', 'touppercase', 'tolowercase',
             'strikethrough', 'subscript', 'superscript', 'source', 'indent', 'outdent',
             'blockquote', 'pasteplain', 'pagebreak',
@@ -28090,10 +28094,28 @@ UE.version = "1.4.3";
                         }
                     });
 
+
+                    editor.registerCommand('cut', {
+                        execCommand: function () {
+                            var me = editor;
+                            console.log(editor.body);
+
+                            $(editor.body).trigger('cut')
+
+
+                            var rng = me.selection.getRange();
+                            console.log(rng)
+                            //me.selection.empty();
+                            //me.getSelection().removeAllRanges();
+
+                            editor.execCommand('copy');
+                        }
+                    });
+
                     editor.registerCommand('tableleft', {
                         execCommand: function () {
                             editor.execCommand('tablealignment','left');
-                        }
+                         }
                     });
 
                     editor.registerCommand('tablecenter', {

@@ -361,6 +361,8 @@ $(function () {
 
         window.editor[num].execCommand('inserthtml', html);
 
+        $('#domainRefresh').trigger('click');
+
         hideRMenu();
     }
 
