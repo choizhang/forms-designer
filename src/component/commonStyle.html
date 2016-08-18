@@ -62,6 +62,48 @@
 </head>
 <body>
 <div class="content">
+    <fieldset class="style-setting">
+        <legend>样式设置</legend>
+
+        <div class="global-setting-line">
+            <label>文字颜色: <input type="color" id="bColor" class="color"></label>
+        </div>
+
+        <div class="global-setting-line">
+            <label>字体大小: </label>
+            <select id="bFontSize">
+                <option value="12px">12px</option>
+                <option value="14px">14px</option>
+                <option value="16px">16px</option>
+                <option value="18px">18px</option>
+            </select>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="global-setting-line">
+            <label>中文字体: </label>
+            <select id="bFontFamilyC">
+                <option value="\u5b8b\u4f53">宋体</option>
+                <option value="\u4eff\u5b8b">仿宋</option>
+                <option value="\u5fae\u8f6f\u96c5\u9ed1">微软雅黑</option>
+                <option value="\u6977\u4f53">楷体</option>
+                <option value="\u9ed1\u4f53">黑体</option>
+            </select>
+        </div>
+
+        <div class="global-setting-line">
+            <label>英文字体: </label>
+            <select id="bFontFamilyE">
+                <option value="arial">arial</option>
+                <option value="tahoma">tahoma</option>
+                <option value="sans-serif">sans-serif</option>
+                <option value="times new roman">times new roman</option>
+            </select>
+        </div>
+    </fieldset>
+
     <fieldset class="margin-setting">
         <legend>间距设置(像素)</legend>
         <!--<label>间距(1px 2px 3px 4px对应上右下左): <input type="text" id="margin" value="10px 10px 10px 10px"></label>-->
@@ -125,6 +167,15 @@
 <script>
     var $body = $(editor.body);
     //当前打开dialog的实例变量
+    var fontFamily = $body.css('fontFamily').split(',');
+    $('#bColor').val($body.css('color'));
+    $('#bFontSize').val($body.css('fontSize'));
+    console.log(fontFamily)
+    console.log(fontFamily[0])
+    console.log(fontFamily[1])
+    $('#bFontFamilyE').val(fontFamily[0]);
+    $('#bFontFamilyC').val(fontFamily[1]);
+
     $('#marginLeft').val(parseInt($body.css('marginLeft')));
     $('#marginRight').val(parseInt($body.css('marginRight')));
     $('#marginTop').val(parseInt($body.css('marginTop')));

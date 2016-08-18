@@ -94,12 +94,20 @@ UE.registerUI('commonStyle',function(editor,uiName){
 
 
                     //修改组件全局设置
-                    var temp = '.component .name{color: $1;font-size:$2;text-align:$3;}';
+                    var temp = '.view{color: $4;font-size:$5;font-family:"$6","$7"}.component .name{color: $1;font-size:$2;text-align:$3;}';
+
+                    //全局样式设置
+                    var bColor = $iframe.find('#bColor').val();
+                    var bFontSize = $iframe.find('#bFontSize').val();
+                    var bFontFamilyC = $iframe.find('#bFontFamilyC').val();
+                    var bFontFamilyE = $iframe.find('#bFontFamilyE').val();
+
+                    //文本域设置
                     var gColor = $iframe.find('#bgColor').val();
                     var gFontSize = $iframe.find('#fontSize').val();
                     var gLayout = $iframe.find('#comLayout').val();
 
-                    temp = temp.replace(/\$1/g, gColor).replace(/\$2/g, gFontSize).replace(/\$3/g, gLayout);
+                    temp = temp.replace(/\$1/g, gColor).replace(/\$2/g, gFontSize).replace(/\$3/g, gLayout).replace(/\$4/g, bColor).replace(/\$5/g, bFontSize).replace(/\$6/g, bFontFamilyE).replace(/\$7/g, bFontFamilyC);
 
                     $(editor.document).find('#comStyle').text(temp)
 
