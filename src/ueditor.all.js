@@ -15130,6 +15130,7 @@ UE.version = "1.4.3";
                 } else {
                     //chrome不支持'paste'命令,Event.clipboardData.getData('text/plain'); 只能通过键盘去粘贴
                     alert(me.getLang('pastemsg'));
+
                 }
             }
         }
@@ -15363,11 +15364,8 @@ UE.version = "1.4.3";
 
         //单独处理剪切的问题
         me.ready(function () {
-            console.log(me.body)
             domUtils.on(me.body, 'cut', function () {
-                console.log('rrr')
                 setTimeout(function () {
-                    console.log('dd')
                     var rng = me.selection.getRange(), li;
                     //trace:3416
                     if (!rng.collapsed) {
@@ -28097,18 +28095,7 @@ UE.version = "1.4.3";
 
                     editor.registerCommand('cut', {
                         execCommand: function () {
-                            var me = editor;
-                            console.log(editor.body);
-
-                            $(editor.body).trigger('cut')
-
-
-                            var rng = me.selection.getRange();
-                            console.log(rng)
-                            //me.selection.empty();
-                            //me.getSelection().removeAllRanges();
-
-                            editor.execCommand('copy');
+                            editor.document.execCommand('cut', false, null);
                         }
                     });
 
