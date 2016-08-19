@@ -85,11 +85,11 @@
         <div class="global-setting-line">
             <label>中文字体: </label>
             <select id="bFontFamilyC">
-                <option value="\u5b8b\u4f53">宋体</option>
-                <option value="\u4eff\u5b8b">仿宋</option>
-                <option value="\u5fae\u8f6f\u96c5\u9ed1">微软雅黑</option>
-                <option value="\u6977\u4f53">楷体</option>
-                <option value="\u9ed1\u4f53">黑体</option>
+                <option value="宋体">宋体</option>
+                <option value="仿宋">仿宋</option>
+                <option value="微软雅黑">微软雅黑</option>
+                <option value="楷体">楷体</option>
+                <option value="黑体">黑体</option>
             </select>
         </div>
 
@@ -174,7 +174,8 @@
     console.log(fontFamily[0])
     console.log(fontFamily[1])
     $('#bFontFamilyE').val(fontFamily[0]);
-    $('#bFontFamilyC').val(fontFamily[1]);
+//    中文前会出现一个空格
+    $('#bFontFamilyC').val(fontFamily[1].trim());
 
     $('#marginLeft').val(parseInt($body.css('marginLeft')));
     $('#marginRight').val(parseInt($body.css('marginRight')));

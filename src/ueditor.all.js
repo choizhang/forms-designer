@@ -7198,7 +7198,7 @@ UE.version = "1.4.3";
                             //设置默认字体和字号
                             //font-family不能呢随便改，在safari下fillchar会有解析问题
                             //my 设置四周的留边,默认的字体和字号,把虚线示意去掉了
-                        'body{font-family:\'arial\',\'\u5b8b\u4f53\';font-size:16px;}' +
+                        'body{font-family:\'arial\',\'宋体\';font-size:16px;}' +
                             //设置段落间距
                         'p{margin:5px 0;}</style>' +
                         ( options.iframeCssUrl ? '<link rel=\'stylesheet\' type=\'text/css\' href=\'' + utils.unhtml(options.iframeCssUrl) + '\'/>' : '' ) +
