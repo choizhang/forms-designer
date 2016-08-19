@@ -220,7 +220,7 @@ $(function () {
 
             //设置完成后要根据目前的权限状态去设置
             //获取当前页面的权限值
-            var me = window.editor[num];
+            var me = window.editorArr[num];
             var nowPower = me.queryCommandValue('powercombox');
             me.execCommand('powercombox', nowPower);
         })
@@ -359,7 +359,7 @@ $(function () {
 
         var html = '<table draggable="false" id="field' + newCount++ + '" class="component com-text editorComp_' + (treeNode.id-100) + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" data-type="text" value="'+ treeNode.name + '" readonly="readonly"></td></tr></table>';
 
-        window.editor[num].execCommand('inserthtml', html);
+        window.editorArr[num].execCommand('inserthtml', html);
 
         $('#domainRefresh').trigger('click');
 

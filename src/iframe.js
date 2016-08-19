@@ -1,7 +1,7 @@
 $(function () {
 
     //编辑器初始化完成后,就给iframe里绑定事件
-    window.editor[0].ready(function() {
+    window.editorArr[0].ready(function() {
         //var iframeBody = $($('iframe')[0].contentWindow.document.body);
 
         //在jsp环境下,上传图片功能ok,他会创建一系列iframe,所以要加一个范围限制

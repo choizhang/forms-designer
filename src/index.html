@@ -14,7 +14,10 @@
 
 <div class="tabs">
     <ul class="navigation">
-        <li id="tab1" class="current editorComp_1" contenteditable="true" data-type="view"><span>视图1</span> <i class="tab-del" title="删除">&times;</i></li>
+        <li id="tab1" class="current editorComp_1" contenteditable="true" data-type="view"><span>视图1</span>
+            <!--第一个视图不允许删除-->
+            <!--<i class="tab-del" title="删除">&times;</i>-->
+        </li>
     </ul>
     <a id="viewAdd" class="view-add" title="添加视图">+</a>
     <a id="output" class="output">导出数据</a>
@@ -213,7 +216,7 @@
 //    window.fromServer = {"style":"<style>#field2{width:50px;height:20px;}#field3{width:50px;height:20px;}</style>","html":[{"id":"tab1","name":"视图1","html":"<div>@field2@</div><div>@field3@</div><p><br></p>"}],"controlls":{"field3":{"fieldTitle":"文本域3"},"field2":{"fieldTitle":"文本域2"}},"storage":{"newCount":4,"storeHtml":[{"id":"tab1","name":"视图1","html":"<table draggable=\"false\" id=\"field2\" class=\"component com-text editorComp_2\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" data-type=\"text\" value=\"文本域2\" readonly=\"readonly\"/></td></tr></tbody></table><table draggable=\"false\" id=\"field3\" class=\"component com-text editorComp_3\"><tbody><tr class=\"firstRow\"><td width=\"50\" height=\"20\"><hr class=\"component-handle\"/><input type=\"text\" class=\"name\" data-type=\"text\" value=\"文本域3\" readonly=\"readonly\"/></td></tr></tbody></table><p><br/></p>"}],"nodes":[{"id":100,"pId":0,"open":true,"isParent":true,"name":"域结构","level":0,"tId":"treeDemo_1","parentTId":null,"zAsync":true,"isFirstNode":true,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true,"children":[{"id":103,"pId":100,"isParent":false,"name":"文本域3","level":1,"tId":"treeDemo_3","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":true,"isLastNode":false,"isAjaxing":false,"isHover":true,"editNameFlag":false,"isOld":true},{"id":102,"pId":100,"isParent":false,"name":"文本域2","level":1,"tId":"treeDemo_2","parentTId":"treeDemo_1","open":false,"zAsync":true,"isFirstNode":false,"isLastNode":true,"isAjaxing":false,"isHover":false,"editNameFlag":false,"isOld":true}]}]}}
 
     //    控制多个编辑器对象
-    window.editor = [];
+    window.editorArr = [];
 
     //    组件标志
     window.newCount = fromServer.storage.newCount - 1;

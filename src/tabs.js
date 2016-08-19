@@ -16,16 +16,16 @@ $(function () {
         pageBreakTag: '<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">'
     };
 
-    window.editor[0] = UE.getEditor('container', config);
+    window.editorArr[0] = UE.getEditor('container', config);
 
-    window.editor[0].ready(function() {
+    window.editorArr[0].ready(function() {
         fromServer.storage.storeHtml.forEach(function (value, index) {
             if(index){
                 $('#viewAdd').trigger('click', value.name);
                 window.newCount++;
             }
-            window.editor[index].ready(function() {
-                window.editor[index].setContent(value.html);
+            window.editorArr[index].ready(function() {
+                window.editorArr[index].setContent(value.html);
             })
         })
 
@@ -47,19 +47,25 @@ $(function () {
      * 这里有2个值,一个是全局的标志,一个是tab单独的标志(因为要存到数组中)
      */
     $('#viewAdd').on('click', function (e, name) {
-        var index = window.newCount;
-        var num = $navigation.find('li').length;
+
+        var num = parseInt($navigation.find('li').last().attr('id').replace('tab', '')) + 1;
+
         var ss = '<li class="view"><ul class="toolbar-tabs"><li class="current">编辑</li><li>插入</li><li>表格</li><li>工具</li><li>组件</li></ul><ul class="toolbar-content"><li><script id="container$1" name="content$1" type="text/plain"></script></li></ul></li>';
         var dd = '<li id="tab$1" class="editorComp_$1" contenteditable="true" data-type="view"><span>' + (name ? name :'视图$2') + '</span> <i class="tab-del">&times;</i></li>';
 
-        if(num > 6){
+        //未增加前导航的总数
+        var navigationBefore = $navigation.find('li').length;
+
+        if(navigationBefore > 6){
             alert('抱歉,已经不能更多了');
             return;
         }
 
-        $('.content').append(ss.replace(/\$1/g, index));
-        $navigation.append(dd.replace(/\$1/g, index).replace(/\$2/g, index));
-        window.editor[num] = UE.getEditor('container' + index, config);
+        $('.content').append(ss.replace(/\$1/g, num));
+        $navigation.append(dd.replace(/\$1/g, num).replace(/\$2/g, num));
+
+        var newIframe = UE.getEditor('container' + num, config);
+        window.editorArr.push(newIframe);
 
         //增加了视图,域结构也要增加
         //$("#treeDemo").trigger('addTag', {isParent: true, name: '视图', open: true, nodes: undefined});
@@ -67,12 +73,15 @@ $(function () {
 //            先增加在选中
         $navigation.find('li').last().trigger('click');
 
-        //给新增的iframe绑定事件
-        var iframeBody = $($('.edui-editor-iframeholder').find('iframe')[num].contentWindow.document.body);
-
-        iframe.bindIframe(iframeBody);
         //取消了增加视图让标志发生变化,因为这会导致zTree的id跟组件里并不一致
         //window.newCount++;
+
+        //给新增的iframe绑定事件
+        //var iframeBody = $($('#ueditor_'+(num-1))[0].contentWindow.document.body);
+        //通过上面的方法,不准确ueditor后面的id在删除一次后就跟之前不一样了
+        var iframeBody = $($('.edui-editor-iframeholder').find('iframe')[navigationBefore].contentWindow.document.body);
+
+        iframe.bindIframe(iframeBody);
 
         e.stopPropagation();
     })
@@ -93,10 +102,14 @@ $(function () {
 
         var relateLi = $(this).closest('li');
         var index = relateLi.index();
+        //导航删除掉
         relateLi.remove();
-        $('.content').eq(index).remove();
 
-        window.editor.splice(index, 1);
+        //必须要用下面的方法销毁,不然再次创建会失败,不会解析了
+        window.editorArr[index].destroy();
+        $('.content').children().eq(index).remove();
+
+        window.editorArr.splice(index, 1);
 
         var nodes = zTreeObj.getNodes();
 
@@ -104,7 +117,7 @@ $(function () {
 
         //设置当前状态
         if(!$navigation.find('.current').length){
-            $navigation.find('li').eq(index).trigger('click');
+            $navigation.find('li').eq(index-1).trigger('click');
         }
 
         e.stopPropagation();
@@ -248,7 +261,7 @@ $(function () {
         var style = '';
         var storeHtml = [];
         var result;
-        window.editor.forEach(function(value, index){
+        window.editorArr.forEach(function(value, index){
             var editorResult = processHtml(value.getContent());
             var $targetTab = $('.navigation').find('li').eq(index)
             html.push({

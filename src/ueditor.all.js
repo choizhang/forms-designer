@@ -29777,7 +29777,7 @@ UE.version = "1.4.3";
             };
 
             //my 多视图
-            window.editor.push(editor);
+            //window.editor.push(editor);
             return editor;
         };
 
