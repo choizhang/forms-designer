@@ -1,43 +1,10 @@
 UE.registerUI('button', function (editor, uiName) {
     //注册按钮执行时的command命令，使用命令默认就会带有回退操作
     editor.registerCommand(uiName, {
-        execCommand: function () {
-            //uiName就是'button'
-
-            //var num = $('.current').index();
-            //var nodes = domainStructure.zTreeObj.getNodes();
-            //if (nodes.length>0) {
-            //    $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[num]});
-            //}
-
-
-            //域结构不分视图了
-            var nodes = zTreeObj.getNodes();
-            if (nodes.length>0) {
-                $("#treeDemo").trigger('addTag', {isParent:false, name: '文本域', nodes: nodes[0]});
-            }
-
-
-            //editor.execCommand('insertimage', {
-            //    src: '',
-            //    width: '100',
-            //    height: '100'
-            //});
-
-            //点击表格前或内部都可以实现表格居中
-            //editor.execCommand( 'tablealignment', 'center');
-
-            return newCount;
-        },
+        execCommand: addTag,
 
         queryCommandState: function () {
             var start = editor.selection.getStart();
-
-            //if(start.tagName === 'INPUT'){
-            //    return -1;
-            //} else {
-            //    return 0;
-            //}
 
             //如果光标在组件里面,则此组件不可用
             if($(start).closest('.component').length){
@@ -47,6 +14,21 @@ UE.registerUI('button', function (editor, uiName) {
             }
         }
     });
+
+    /**
+     * 把这个提取出来是后面更新的时候,可以动态生成域结构
+     * @returns {*}
+     */
+    function addTag() {
+
+        //域结构不分视图了
+        var nodes = zTreeObj.getNodes();
+        if (nodes.length>0) {
+            $("#treeDemo").trigger('addTag', {isParent:false, name: '域', nodes: nodes[0]});
+        }
+
+        return newCount;
+    }
 
     //创建一个button
     var btn = new UE.ui.Button({
@@ -64,18 +46,17 @@ UE.registerUI('button', function (editor, uiName) {
             //将数字标识符去掉了,因为在模板添加的时候很容易实现冲突
             //最后一个参数要设置成true,不然会将input给过滤了
             //component-handle如果使用双标签,要么被变成span,而且将contenteditable属性在拖拽后去掉了,于是使用单标签算了
-            editor.execCommand( 'inserthtml', '<table draggable="false" id="field' + newCount + '" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" data-type="text" value="文本域'+ newCount + '" readonly="readonly"></td></tr></table>');
+            editor.execCommand( 'inserthtml', '<table draggable="false" id="field' + newCount + '" class="component com-text editorComp_' + newCount + '"><tr class="firstRow"><td width="50" height="20"><hr class="component-handle"><input type="text" class="name" data-type="text" value="域'+ newCount + '" readonly="readonly"></td></tr></table>');
 
 
             //这种html结构死活不能整个模块拖动
             //editor.execCommand( 'inserthtml', '<div draggable="false" class="component com-text editorComp_' + newCount + '"><div class="component-handle">v</div><input type="text" class="name" value="文本域' + newCount + '"></div>');
 
             //这里是执行的上面注册的命令
-            editor.execCommand(uiName);
+            //editor.execCommand(uiName);
 
-            //执行粘贴命令
-            //editor.execCommand('paste');
-
+            //不用上面的方法是因为,加了状态反射后,就不能执行了,所以就换成了自定义函数
+            addTag();
         }
     });
 
@@ -84,6 +65,7 @@ UE.registerUI('button', function (editor, uiName) {
         var state = editor.queryCommandState(uiName);
         if (state == -1) {
             btn.setDisabled(true);
+            //设置状态的类,用户替换图标的图案,禁用是将透明度降低到0.3
             btn.setChecked(false);
         } else {
             btn.setDisabled(false);
