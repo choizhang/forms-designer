@@ -139,18 +139,26 @@ $(function () {
             beforeRename: function (treeId, treeNode, newName, isCancel) {
                 var nodes = zTreeObj.transformToArray(zTreeObj.getNodes());
 
-                return nodes.every(function(value){
-                    //非自己的其他组件名有一样的
-                    if(treeNode.id != value.id && value.name == newName){
-                        //组件的名称已经存在了
-                        alert('组件的名称('+newName+')已经存在了');
-                        //让焦点聚焦在input输入框里面
-                        zTreeObj.editName(treeNode);
-                        return false;
-                    } else {
-                        return true;
-                    }
-                })
+                if (newName.length == 0) {
+                    alert("节点名称不能为空.");
+                    setTimeout(function(){zTreeObj.editName(treeNode)}, 10);
+                    return false;
+                }else{
+                    return nodes.every(function(value){
+                        //非自己的其他组件名有一样的
+                        if(treeNode.id != value.id && value.name == newName){
+                            //组件的名称已经存在了
+                            alert('组件的名称('+newName+')已经存在了');
+                            //让焦点聚焦在input输入框里面
+                            //要设置延迟,不然会死循环
+                            setTimeout(function(){zTreeObj.editName(treeNode)}, 10);
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    })
+                }
+
             },
 
 //            重命名,让视图中的组件提示文字改变
