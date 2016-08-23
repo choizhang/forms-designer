@@ -257,15 +257,52 @@ $(function () {
             }
         })
 
+        //上边框
+        $('.border').change(function() {
+            $component = $('#componentsSetting').data('component');
+
+            var $setting = $(this).parent().next();
+            var $width = $setting.find('.border-width');
+            var $style = $setting.find('.border-style');
+            var $color = $setting.find('.border-color');
+            var type = $(this).data('type');
+
+            if( $(this).prop("checked") ){
+                $setting.show();
+                $component.css(type, $width.val() + ' ' + $style.val() + ' ' + $color.val());
+            } else {
+                $setting.hide();
+                $component.css(type, 'none');
+            }
+        })
+        $('.border-width').change(function() {
+            var type = $(this).data('type');
+            $component = $('#componentsSetting').data('component');
+
+            $component.css(type, $(this).val())
+        })
+        $('.border-style').change(function() {
+            var type = $(this).data('type');
+            $component = $('#componentsSetting').data('component');
+
+            $component.css(type, $(this).val())
+        })
+        $('.border-color').change(function() {
+            var type = $(this).data('type');
+            $component = $('#componentsSetting').data('component');
+
+            $component.css(type, $(this).val())
+        })
+
         //页眉
         $('#repeateHeader').change(function() {
             var isChecked = $(this).prop('checked');
             var $header = $('#componentsSetting').data('component').find('.table-header');
 
             if( isChecked ){
-                $header.show();
+                $header.removeClass('hidden');
             } else {
-                $header.hide();
+                $header.addClass('hidden');
             }
         })
 
@@ -275,9 +312,9 @@ $(function () {
             var $footer = $('#componentsSetting').data('component').find('.table-footer');
 
             if( isChecked ){
-                $footer.show();
+                $footer.removeClass('hidden');
             } else {
-                $footer.hide();
+                $footer.addClass('hidden');
             }
         })
     }

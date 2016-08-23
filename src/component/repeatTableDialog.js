@@ -63,6 +63,7 @@ UE.registerUI('repeattable',function(editor,uiName){
                     var footer = $dialog.find('#footer').prop('checked');
 
                     var event = editor.execCommand(uiName)[1];
+                    var headerWidth, footerWidth;
 
                     window.newCount--;
 
@@ -71,16 +72,20 @@ UE.registerUI('repeattable',function(editor,uiName){
 
 
                     if(!header){
-                        header = ' style="display: none;"'
+                        header = ' hidden';
+                        headerWidth = '100';
                     } else {
                         header = '';
+                        headerWidth = '';
                     }
 
                     //这里将th换成了td,因为有的表单会有2行标题
                     //html += '<tr class="firstRow">'
-                    html += '<tr class="table-header"'+header+'>'
+                    html += '<tr class="table-header'+header+'">'
                     for(var i=0; i<column; i++){
-                        html += '<td>页眉' + (i+1) + '</td>'
+                        //html += '<td>页眉' + (i+1) + '</td>'
+                        //防止密集恐惧症,所以去掉了文字
+                        html += '<td width="'+headerWidth+'"><br></td>';
                     }
 
                     html += '</tr>';
@@ -91,22 +96,28 @@ UE.registerUI('repeattable',function(editor,uiName){
 
                     html += '<tr>';
                     //br放在了table前面,不然会造成均分按钮不可用
+                    //由于重复表内部基本稳定了,所以把br去掉了
+                    //重复表内的文本域是不能拖拽的,所以去掉了拖拽标志
                     for(i=0; i<column; i++){
-                        html += '<td width="40" height="20" data-minheight="20" valign="top">'+ (i===0? '<hr class="component-handle">': '') +'<br><table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td width="50" height="20" data-minheight="20" valign="top"><hr class="component-handle"><input type="text" class="name" readonly="readonly" data-type="text" value="文本域'+ newCount + '" /></td></tr></tbody></table></td>';
+                        html += '<td height="20" data-minheight="20" valign="top">'+ (i===0? '<hr class="component-handle">': '') +'<table draggable="false" id="field' + newCount + '" class="component com-text com-inner-text editorComp_' + newCount + '"><tbody><tr><td  height="20" data-minheight="20" valign="top"><input type="text" class="name" readonly="readonly" data-type="text" value="域'+ newCount + '" /></td></tr></tbody></table></td>';
 
                         editor.execCommand('repeattext', event);
                     }
                     html += '</tr>';
 
                     if(!footer){
-                        footer = ' style="display: none;"'
+                        footer = ' hidden';
+                        footerWidth = '100';
                     } else {
                         footer = '';
+                        footerWidth = '';
                     }
 
-                    html += '<tr class="table-footer"'+footer+'>';
+                    html += '<tr class="table-footer'+footer+'">';
                     for(i=0; i<column; i++){
-                        html += '<td>页脚' + (i+1) + '</td>'
+                        //html += '<td>页脚' + (i+1) + '</td>'
+                        //防止密集恐惧症,所以去掉了文字
+                        html += '<td width="'+footerWidth+'"><br></td>';
                     }
                     html += '</tr>';
 

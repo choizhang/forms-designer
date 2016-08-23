@@ -21,6 +21,12 @@ p{
     -webkit-margin-after: 0;
 }
 
+/*这种隐藏方式可以计算元素的高宽但视图中也不会显示*/
+.hidden{
+    position: absolute;
+    left: -999px;
+}
+
 /*可以在这里添加你自己的css*/
 .component {
     position: relative;
@@ -87,7 +93,7 @@ p{
 
 .com-text td {
     display: block;
-    min-width: 40px;
+    /*min-width: 40px;*/
     border: none;
     padding: 0 5px 5px 0;
 }

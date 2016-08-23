@@ -19934,7 +19934,9 @@ UE.version = "1.4.3";
             queryCommandState: function () {
                 var ut = getUETableBySelected(this);
                 if (!ut) return -1;
-                return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
+                //return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
+                //my 选择整一行以上或者非整行但所有列才能均分
+                return ut.isFullRow() ? 0 : -1;
             },
             execCommand: function (cmd) {
                 var me = this,
@@ -19945,6 +19947,7 @@ UE.version = "1.4.3";
                         averageWidth, sumWidth = 0, colsNum = 0,
                         tbAttr = getDefaultValue(me, tb);
 
+                    //my 看起来没选择整行也是可以均分的
                     if (ut.isFullRow()) {
                         sumWidth = tb.offsetWidth;
                         colsNum = ut.colsNum;
@@ -19969,11 +19972,19 @@ UE.version = "1.4.3";
                     utils.each(domUtils.getElementsByTagName(ut.table, "th"), function (node) {
                         node.setAttribute("width", "");
                     });
-                    var cells = ut.isFullRow() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
+                    //var cells = ut.isFullRow() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
+                    var cells = ut.isFullRow() ? $(ut.table).children().children().children() : ut.selectedTds;
 
+                    //表格的某一行里面有重复表
+                    //1. 选择整行要将重复表的td去除
+                    //2. 选择重复表中的整行同样能实现均分
                     utils.each(cells, function (node) {
                         //my 要对重复表这种表格嵌套表格的情况做排除
-                        if (node.colSpan == 1 && node.className == 'selectTdClass') {
+                        //if (node[0].colSpan == 1 && node.closest('.com-repeat').length == 0) {
+                        //    node[0].setAttribute("width", averageWidth);
+                        //}
+
+                        if (node.colSpan == 1) {
                             node.setAttribute("width", averageWidth);
                         }
                     });
@@ -19992,7 +20003,8 @@ UE.version = "1.4.3";
                 if (ut.selectedTds && /th/ig.test(ut.selectedTds[0].tagName)) return -1;
                 //my 这里其实是只要行或者列是整的,就可以设置区域了
 
-                return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
+                //return ut.isFullRow() || ut.isFullCol() ? 0 : -1;
+                return ut.isFullCol() ? 0 : -1;
             },
             execCommand: function (cmd) {
                 var me = this,
@@ -20040,6 +20052,7 @@ UE.version = "1.4.3";
 
                 function setAverageHeight(averageHeight) {
                     var cells = ut.isFullCol() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
+                    console.log(cells)
                     utils.each(cells, function (node) {
                         if (node.rowSpan == 1) {
                             node.setAttribute("height", averageHeight);

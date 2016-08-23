@@ -170,6 +170,14 @@ $(function () {
                     //布局
                     $('#comLayout').val( $this.css('textAlign') );
 
+                    //上边框
+                    $('#borderTop').prop('checked', $this.css('border-top-style')!=='none');
+                    $('#borderBottom').prop('checked', $this.css('border-bottom-style')!=='none');
+                    setTimeout(function(){
+                        $('.border').trigger('change');
+                    }, 0)
+
+
                     //将数据绑定到dom上,方便后面做判断
                     $('#componentsSetting')
                         .data('component', $this)
@@ -179,7 +187,7 @@ $(function () {
                 }
             }, '.name')
 
-
+            //重复表属性设置激动
             .on('click', '.com-repeat', function (e) {
                 var $this = $(this);
 
@@ -196,8 +204,8 @@ $(function () {
                     $('.components>div').hide().filter('.type-'+nowType).show();
                 }
 
-                $('#repeateHeader').prop('checked', $this.find('.table-header').is(":visible"));
-                $('#repeateFooter').prop('checked', $this.find('.table-footer').is(":visible"));
+                $('#repeateHeader').prop('checked', $this.find('.table-header').hasClass("hidden"));
+                $('#repeateFooter').prop('checked', !$this.find('.table-footer').hasClass("hidden"));
 
                 $('#componentsSetting')
                     .data('component', $this)
