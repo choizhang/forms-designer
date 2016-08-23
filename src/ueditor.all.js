@@ -18733,7 +18733,8 @@ UE.version = "1.4.3";
              */
             getCells: function (range) {
                 //每次获取cells之前必须先清除上次的选择，否则会对后续获取操作造成影响
-                this.clearSelected();
+                //my 因为可以多选了,所以去掉了,尚不知有何影响
+                //this.clearSelected();
                 var beginRowIndex = range.beginRowIndex,
                     beginColIndex = range.beginColIndex,
                     endRowIndex = range.endRowIndex,
@@ -18770,7 +18771,9 @@ UE.version = "1.4.3";
             setSelected: function (range) {
                 var cells = this.getCells(range);
                 UETable.addSelectedClass(cells);
-                this.selectedTds = cells;
+                //my 允许多选的情况,所以要追加
+                //this.selectedTds = cells;
+                this.selectedTds = this.selectedTds.concat( cells );
                 this.cellsRange = range;
             },
             isFullRow: function () {
@@ -20052,7 +20055,6 @@ UE.version = "1.4.3";
 
                 function setAverageHeight(averageHeight) {
                     var cells = ut.isFullCol() ? domUtils.getElementsByTagName(ut.table, "td") : ut.selectedTds;
-                    console.log(cells)
                     utils.each(cells, function (node) {
                         if (node.rowSpan == 1) {
                             node.setAttribute("height", averageHeight);
@@ -20867,6 +20869,7 @@ UE.version = "1.4.3";
                         toggleDraggableState(me, false, "", null);
                         hideDragLine(me);
                     };
+                    //点击表格第一行第一列实现选中整行整列
                     table.onclick = function (evt) {
                         evt = me.window.event || evt;
                         var target = getParentTdOrTh(evt.target || evt.srcElement);
@@ -21026,6 +21029,7 @@ UE.version = "1.4.3";
                 var me = this;
                 //处理在表格的最后一个输入tab产生新的表格
                 var keyCode = evt.keyCode || evt.which;
+                //backspace delete
                 if (keyCode == 8 || keyCode == 46) {
                     return;
                 }
@@ -21617,17 +21621,30 @@ UE.version = "1.4.3";
 
         function tableClickHander(evt) {
 
-            removeSelectedClass(domUtils.getElementsByTagName(me.body, "td th"));
-            //trace:3113
-            //选中单元格，点击table外部，不会清掉table上挂的ueTable,会引起getUETableBySelected方法返回值
-            utils.each(me.document.getElementsByTagName('table'), function (t) {
-                t.ueTable = null;
-            });
-            startTd = getTargetTd(me, evt);
-            if (!startTd) return;
-            var table = domUtils.findParentByTagName(startTd, "table", true);
-            ut = getUETable(table);
-            ut && ut.clearSelected();
+            //if(evt.ctrlKey){
+            if(evt.altKey){
+                //my 按住了alt键点击
+                startTd = getTargetTd(me, evt);
+                if (!startTd) return;
+                $(startTd).addClass('selectTdClass')
+                var table = domUtils.findParentByTagName(startTd, "table", true);
+                ut = getUETable(table);
+                ut && ut.selectedTds.push(startTd);
+
+            } else {
+                //普通的点击
+                removeSelectedClass(domUtils.getElementsByTagName(me.body, "td th"));
+                //trace:3113
+                //选中单元格，点击table外部，不会清掉table上挂的ueTable,会引起getUETableBySelected方法返回值
+                utils.each(me.document.getElementsByTagName('table'), function (t) {
+                    t.ueTable = null;
+                });
+                startTd = getTargetTd(me, evt);
+                if (!startTd) return;
+                var table = domUtils.findParentByTagName(startTd, "table", true);
+                ut = getUETable(table);
+                ut && ut.clearSelected();
+            }
 
             //判断当前鼠标状态
             if (!onBorder) {
