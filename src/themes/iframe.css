@@ -58,7 +58,9 @@ p{
     height: 100%!important;
     border: none;
     outline: none;
-    background-color: transparent;
+    /*background-color: transparent;*/
+    /*这种颜色在解析的时候要去掉*/
+    background-color: rgb(252, 221, 139);
 }
 
 .component .icon {
@@ -68,7 +70,7 @@ p{
 }
 
 .com-text {
-    background-color: rgb(252, 221, 139);
+    /*background-color: rgb(252, 221, 139);*/
 }
 
 .component-handle {
@@ -76,11 +78,12 @@ p{
     position: absolute;
     left: 0;
     top: 0;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background-color: #999999;
     text-align: center;
     cursor: pointer;
+    border: none;
 }
 .component-handle.active {
     background-color: #8385BD;

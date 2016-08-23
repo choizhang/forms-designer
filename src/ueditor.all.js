@@ -20873,7 +20873,7 @@ UE.version = "1.4.3";
                         if (!target)return;
                         var ut = getUETable(target),
                             table = ut.table,
-                            cellInffo = ut.getCellInfo(target),
+                            cellInfo = ut.getCellInfo(target),
                             cellsRange,
                             rng = me.selection.getRange();
 //                    if ("topLeft" == inPosition(table, mouseCoords(evt))) {
@@ -20887,7 +20887,7 @@ UE.version = "1.4.3";
 //                    }
 
                         //my 在点击句柄的时候经常会报错
-                        if (typeof cellInfo == 'undefined')return;
+                        //我之前是无意把变量换名了,所以出错了一定要正确解决不然就是个坑
 
                         if (inTableSide(table, target, evt, true)) {
                             var endTdCol = ut.getCell(ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].rowIndex, ut.indexTable[ut.rowsNum - 1][cellInfo.colIndex].cellIndex);
