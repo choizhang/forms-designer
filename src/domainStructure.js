@@ -292,7 +292,14 @@ $(function () {
             $component = $('#componentsSetting').data('component');
 
             $component.css(type, $(this).val())
-        })
+        });
+
+        $('.padding').change(function() {
+            var type = $(this).data('type');
+            $component = $('#componentsSetting').data('component');
+
+            $component.css(type, parseInt($(this).val()))
+        });
 
         //页眉
         $('#repeateHeader').change(function() {

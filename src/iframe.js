@@ -170,9 +170,16 @@ $(function () {
                     //布局
                     $('#comLayout').val( $this.css('textAlign') );
 
-                    //上边框
+                    //边框
                     $('#borderTop').prop('checked', $this.css('border-top-style')!=='none');
                     $('#borderBottom').prop('checked', $this.css('border-bottom-style')!=='none');
+                    $('#borderLeft').prop('checked', $this.css('border-left-style')!=='none');
+                    $('#borderRight').prop('checked', $this.css('border-right-style')!=='none');
+
+                    //间距
+                    $('#paddingLeft').val(parseInt($this.css('padding-left')));
+                    $('#paddingRight').val(parseInt($this.css('padding-right')));
+
                     setTimeout(function(){
                         $('.border').trigger('change');
                     }, 0)

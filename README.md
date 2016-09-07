@@ -2,24 +2,23 @@
 
 ## Intro:
 
-主要是基于[UEditor](https://github.com/fex-team/ueditor)来做二次开发,目前是启用了一个[node static server](https://github.com/avevlad/gulp-connect)来做,所以对文件图片的上传效果是不支持的,后期是会放到jsp的server上面去(公司的后台就是jsp),[如何跟jsp整合](https://github.com/choizhang/forms-designer/wiki/%E8%B7%9F%E5%90%8E%E7%AB%AFjsp%E6%95%B4%E5%90%88)
+主要是基于[UEditor](https://github.com/fex-team/ueditor)来做二次开发,目前是启用了一个[node static server](https://github.com/avevlad/gulp-connect)来做,所以对文件图片的上传效果是不支持的,可以放到jsp的server上面(公司的后台就是jsp,也可以放到其他后端环境,具体参考ueditor官网),[如何跟jsp整合](https://github.com/choizhang/forms-designer/wiki/%E8%B7%9F%E5%90%8E%E7%AB%AFjsp%E6%95%B4%E5%90%88)
 
-Infopath目前的问题:
+#### Infopath目前的问题
 
 1. 生成出来的html不符合标准模式且修复兼容性无法解决(致命)
 2. 微软官方已经不再维护(致命)
 3. 基于CS架构,且性能较差
 
-跟[Formtalk](http://www.formtalk.net/form/form.do?method=design4New&formType=form)的区别
-2种都是表单设计器,目前市面上组要是以Formtalk这种生成器比较多
+#### 跟[Formtalk](http://www.formtalk.net/form/form.do?method=design4New&formType=form)的区别
+2种都是表单设计器,目前市面上主要是以Formtalk这种生成器比较多,formtalk是移动端单列的,所以复杂度要低很多
 
-我们的优势
+## 我们的优势
 1. 基于B/S架构对浏览器的兼容性更好,也更符合未来发展的趋势
 2. 能根据需求自定义的开发迭代
-
-1. 布局随心所欲
-2. 轻组件概念但组件架构仍然需要
-3. 组件支持域结构查看
+3. 布局随心所欲(基于光标定位,非绝对定位)
+4. 轻组件概念但组件架构仍然需要
+5. 组件支持域结构查看
 
 ## 风险:
 1. 第一期不考虑移动端(目前的布局采用的table,在移动端也很难适配)
@@ -27,14 +26,8 @@ Infopath目前的问题:
 3. 竞品参考少,而且相关技术实现原理介绍也非常少
 4. 交互方式的差异性(c/s : b/s), 比如表格的居中
 
-## 期望:
-
 ## 总结:
 这件事就跟唐僧取经一样,意义重大,路途艰险
-
-新功能:
-
-权限
 
 ## Tips:
 

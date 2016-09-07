@@ -19231,6 +19231,33 @@ UE.version = "1.4.3";
                 }
                 this.update();
                 return results;
+
+                //my 情况太复杂了,table本身有修复的功能
+                //var backWidth = (cell.offsetWidth / 2).toFixed(0),
+                //    cellInfo = this.getCellInfo(cell),
+                //    rowIndex = cellInfo.rowIndex,
+                //    colIndex = cellInfo.colIndex;
+                //
+                //$(this.table).find('tr').each(function(index, value){
+                //    if(rowIndex != index){
+                //        var tds = $(this).find('td');
+                //
+                //        var i=0;
+                //
+                //        tds.each(function(index, value){
+                //            if(colIndex > index && $(this).attr('colspan')>1){
+                //                i += ($(this).attr('colspan') -1);
+                //            }
+                //        });
+                //
+                //        var td = tds.eq(colIndex-i);
+                //        var num = parseInt(td.attr('colspan')) || 1;
+                //
+                //        td.attr('colspan', num+1)
+                //    }
+                //})
+                //cell.setAttribute("width", backWidth);
+                //$(cell).after($(cell).clone()[0].outerHTML)
             },
             isLastCell: function (cell, rowsNum, colsNum) {
                 rowsNum = rowsNum || this.rowsNum;
@@ -19897,7 +19924,8 @@ UE.version = "1.4.3";
                 if (!cell) return -1;
                 var ut = getUETable(tableItems.table);
                 if (ut.selectedTds.length > 0) return -1;
-                return cell && cell.colSpan > 1 ? 0 : -1;
+                //return cell && cell.colSpan > 1 ? 0 : -1;
+                return 0;
             },
             execCommand: function () {
                 var rng = this.selection.getRange(),
@@ -20203,12 +20231,14 @@ UE.version = "1.4.3";
          * @param cell
          */
     function setPower(power, cell) {
-        if(power == 1){
-            //要变为普通
-            $(cell).removeAttr('data-power');
-        } else {
+        //if(power == 1){
+        //    //要变为普通,remove了就不能再显示了
+        //    $(cell).removeAttr('data-power');
+        //} else {
+        //    $(cell).attr('data-power', power);
+        //}
+
             $(cell).attr('data-power', power);
-        }
     };
 
     //单元格属性

@@ -6,6 +6,7 @@ UE.registerUI('powercombox', function (editor, uiName) {
             //这里借用fontsize的命令
             //this.execCommand('fontsize', value + 'px')
 
+            console.log(value);
             //我这里只做显示隐藏,不做删除,后面的系统可以做删除
             switch (value){
                 case 1:
